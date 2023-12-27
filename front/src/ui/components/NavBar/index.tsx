@@ -31,10 +31,10 @@ export default function NavBar() {
                             <Link href="/home" className="block py-2 px-3 hover:text-blue-gray-200 transition-all" aria-current="page">Home</Link>
                         </li>
                         <li>
-                            <Link href="/home#about" className="block py-2 px-3 hover:text-blue-gray-200 transition-all">About</Link>
+                            <Link href="#about" className="block py-2 px-3 hover:text-blue-gray-200 transition-all">About</Link>
                         </li>
                         <li>
-                            <Link href="#solutions" className="block py-2 px-3 hover:text-blue-gray-200 transition-all">Services</Link>
+                            <Link href="#solutions" className="block py-2 px-3 hover:text-blue-gray-200 transition-all">Solutions</Link>
                         </li>
                         <li className="sm:hidden">
                             <Link href="/sign-up" className="block py-2 px-3 hover:text-blue-gray-200 transition-all">Sign Up</Link>
