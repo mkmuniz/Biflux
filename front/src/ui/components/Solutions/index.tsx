@@ -1,14 +1,20 @@
+"use client"
+
+import { useIsVisible } from "@/hooks/useIsVisible";
 import { ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
 import { ArrowUpOnSquareIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useRef } from "react";
 
 export default function Solutions() {
+    const refSolutions: any = useRef();
+    const isVisible = useIsVisible(refSolutions);
+
     return <>
         <div id="solutions" className="h-screen grid bg-standard">
             <div className="grid sm:grid-cols-3 items-center justify-items-center h-screen font-outfit">
                 <div className="flex flex-col items-center text-center">
-                    <div>
-                        <ArrowUpOnSquareIcon className="w-20 text-white" />
+                    <div ref={refSolutions}>
+                        <ArrowUpOnSquareIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                     </div>
                     <span className="text-yellow-standard font-bold">
                         UPLOAD
@@ -18,8 +24,8 @@ export default function Solutions() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center text-center">
-                    <div>
-                        <CircleStackIcon className="w-20 text-white" />
+                    <div ref={refSolutions}>
+                        <CircleStackIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                     </div>
                     <span className="text-yellow-standard font-bold">
                         EXTRACTION
@@ -29,8 +35,8 @@ export default function Solutions() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center text-center">
-                    <div>
-                        <ChartBarSquareIcon className="w-20 text-white" />
+                    <div ref={refSolutions}>
+                        <ChartBarSquareIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                     </div>
                     <span className="text-yellow-standard font-bold">
                         DASHBOARD
