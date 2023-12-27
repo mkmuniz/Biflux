@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/auth";
+import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import SideBar from "@/ui/components/SideBar";
 
 interface PrivateLayoutProps {

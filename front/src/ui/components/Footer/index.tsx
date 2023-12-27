@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -5,9 +6,9 @@ export default function Footer() {
         <footer className="bg-standard w-full text-white">
             <div className="w-full mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                        <img src="https://uploads-ssl.webflow.com/62f9249c43126cafce10bc33/62fd12497ffcb83b28ea3309_logo-lumi-white.svg" className="h-8" alt="Flowbite Logo" />
-                    </a>
+                    <Link href="/home" className="flex items-center mb-4 sm:mb-0 space-x-3 text-3xl font-bold">
+                        Biflux
+                    </Link>
                     <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
                         <li>
                             <Link href="/home" className="block py-2 px-3 hover:text-blue-gray-200 transition-all" aria-current="page">Home</Link>

@@ -30,7 +30,7 @@ const TABLE_ROWS = [
     },
 ];
 
-export function SortableTable() {
+export function BilletsTable() {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(!open);

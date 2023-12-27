@@ -1,4 +1,4 @@
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/auth";
+import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import React from "react";
 
@@ -6,7 +6,7 @@ export default async function Profile() {
     const session: any = await getServerSession(nextAuthOptions);
 
     return <>
-        <div className="p-4 sm:ml-64">
+        <div className="p-4 sm:ml-64 bg-standard-dark">
             <div className="h-screen rounded shadow-xl">
                 <form className="rounded h-screen sm:mt-0 mt-16">
                     <div className="mb-4">

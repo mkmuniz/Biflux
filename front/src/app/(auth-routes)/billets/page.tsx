@@ -1,10 +1,10 @@
-import { SortableTable } from '@/ui/components/Table';
+import { BilletsTable } from '@/ui/components/Table';
 import React from 'react';
 
 export default function BilletsLibrary() {
     return <>
-        <div className="p-4 sm:ml-64 h-screen">
-            <SortableTable />
+        <div className="sm:p-4 sm:ml-64 bg-standard-dark h-screen">
+            <BilletsTable />
         </div>
     </>
 };

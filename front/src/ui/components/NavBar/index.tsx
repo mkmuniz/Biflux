@@ -10,8 +10,8 @@ export default function NavBar() {
     return <>
         <nav className="bg-standard fixed w-full z-20 top-0 start-0 border-b border-gray-200 font-bold">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
-                <Link href="/home">
-                    <Image src="https://uploads-ssl.webflow.com/62f9249c43126cafce10bc33/62fd12497ffcb83b28ea3309_logo-lumi-white.svg" width={100} height={100} alt="Logo" />
+                <Link href="/home" className="text-xl font-bold text-white">
+                    <Image src="/logo.png" width={50} height={50} alt="logo" />
                 </Link>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <Link href="/sign-up" className="sm:block hidden py-2 px-3 text-white hover:text-blue-gray-200 transition-all">Sign Up</Link>

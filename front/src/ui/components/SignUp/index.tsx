@@ -30,7 +30,7 @@ export default function SignUpForm() {
     };
 
     function handleSignUp(data: any) {
-        if (!errors.email.message && !errors.name.message) {
+        if (!errors.email?.message && !errors.name?.message) {
             mutate(data);
         }
     };
