@@ -9,7 +9,7 @@ export default function NavBar() {
 
     return <>
         <nav className="bg-standard fixed w-full z-20 top-0 start-0 border-b border-gray-200 font-bold">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
                 <Link href="/home">
                     <Image src="https://uploads-ssl.webflow.com/62f9249c43126cafce10bc33/62fd12497ffcb83b28ea3309_logo-lumi-white.svg" width={100} height={100} alt="Logo" />
                 </Link>
@@ -25,7 +25,7 @@ export default function NavBar() {
                         </svg>
                     </button>
                 </div>
-                <div className={`items-center justify-between transition-all ${isOpen ? 'visible' : 'hidden'} w-full md:flex md:w-auto md:order-1 text-white`} id="navbar-sticky">
+                <div className={`items-center justify-between transition-all duration-500 ${isOpen ? 'visible' : 'hidden'} w-full md:flex md:w-auto md:order-1 text-white`} id="navbar-sticky">
                     <ul className={`flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0`}>
                         <li>
                             <Link href="/home" className="block py-2 px-3 hover:text-blue-gray-200 transition-all" aria-current="page">Home</Link>
