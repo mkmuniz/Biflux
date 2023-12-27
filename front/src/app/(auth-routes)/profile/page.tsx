@@ -1,4 +1,4 @@
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { nextAuthOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import React from "react";
 
