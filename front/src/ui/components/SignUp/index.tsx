@@ -37,11 +37,13 @@ export default function SignUpForm() {
 
     return <>
         <div className="h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white">
-            <div className="flex w-3/7 h-4/5 bg-white rounded shadow-sm items-center justify-center">
+            <div className="flex bg-white rounded shadow-sm items-center justify-center">
                 <form className="px-8" onSubmit={handleSubmit(handleSignUp)}>
-                    <span className="text-black font-bold text-center text-2xl w-full">
-                        Not signed up yet?
-                    </span>
+                    <div className="flex items-center justify-center h-32">
+                        <span className="text-black font-bold text-center text-2xl w-full">
+                            Not signed up yet?
+                        </span>
+                    </div>
                     <div className="mb-4">
                         <label className="block text-sm mb-2 text-black" htmlFor="email">
                             Name
@@ -91,7 +93,7 @@ export default function SignUpForm() {
                                 <span className="relative z-10">SIGN UP</span>
                             </button>
                         </div>
-                        <div className="mt-6">
+                        <div className="m-2">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/login">
                                 Have account already?
                             </Link>

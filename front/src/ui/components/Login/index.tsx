@@ -35,11 +35,13 @@ export default function LoginForm() {
 
     return <>
         <div className="h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white w-full">
-            <div className="h-4/5 w-3/7 bg-white grid items-center justify-center rounded shadow-md">
+            <div className=" bg-white grid items-center justify-center rounded shadow-md">
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
-                    <span className="text-black font-bold text-center text-3xl w-full">
-                        Sign in to your account
-                    </span>
+                    <div className="flex items-center justify-center h-32">
+                        <span className="text-black font-bold text-center text-2xl">
+                            Sign in to your account
+                        </span>
+                    </div>
                     <div className="mb-4 w-full">
                         <label className="block text-sm mb-2 text-black" htmlFor="email">
                             E-mail
@@ -78,7 +80,7 @@ export default function LoginForm() {
                                 <span className="relative z-10">LOGIN</span>
                             </button>
                         </div>
-                        <div className="mt-6">
+                        <div className="m-2">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
                                 Dont have account?
                             </Link>
