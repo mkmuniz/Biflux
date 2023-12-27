@@ -14,7 +14,7 @@ export default function Header() {
             <span ref={refHeaderTitle} className={`text-4xl transition-all duration-500 ${isVisibleHeaderTitle ? 'translate-y-0 opacity-100' :  'translate-y-20 opacity-0'}`}>
                 ElectronFlow
             </span>
-            <span ref={refHeaderSubtext} className={`text-white transition-all duration-700 ${isVisibleHeaderSubtext ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+            <span ref={refHeaderSubtext} className={`text-white transition-all duration-700 ${isVisibleHeaderSubtext ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
                 Unlocking Billet Data - Your Comprehensive Dashboard for Informed Decisions
             </span>
         </div>

@@ -52,7 +52,7 @@ export default function SignUpForm() {
                                 message: 'Just use a-z/A-Z characters'
                             },
                             required: true
-                        })} className={`${errors.name?.message ? 'border border-red-400' : ''} rounded w-full py-2 px-3`} id="name" type="text" placeholder="Full Name" />
+                        })} className={`${errors.name?.message ? 'border border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="name" type="text" placeholder="Full Name" />
                         <p className="text-red-500 text-[12px]">{errors.name?.message}</p>
                     </div>
                     <div className="mb-4">
@@ -65,7 +65,7 @@ export default function SignUpForm() {
                                 message: 'Invalid email format'
                             },
                             required: true
-                        })} className={`${errors.email?.message ? 'border border-red-400' : ''} rounded w-full py-2 px-3`} id="email" type="text" placeholder="example@mail.com" />
+                        })} className={`${errors.email?.message ? 'border border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
                         <p className="text-red-500 text-[12px]">{errors.email?.message}</p>
                     </div>
                     <div className="mb-6 relative container mx-auto">
