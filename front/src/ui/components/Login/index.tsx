@@ -80,7 +80,7 @@ export default function LoginForm() {
                         </div>
                         <div className="mt-6">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
-                                Don't have account?
+                                Dont have account?
                             </Link>
                         </div>
                     </div>
