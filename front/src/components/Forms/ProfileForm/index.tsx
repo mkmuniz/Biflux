@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-export default function ProfileForm() {
+export default function ProfileForm({ session }: any) {
     const { mutate } = useMutation({
         mutationFn: updateUser,
     });
