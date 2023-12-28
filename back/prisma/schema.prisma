@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  name          String?
+  password      String
+  refreshTokens RefreshToken[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  Billet        Billet[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id          String @id @unique @default(uuid())
+  hashedToken String
+  expiresIn   Int
+  user        User   @relation(fields: [userId], references: [id])
+  userId      Int    @unique
+
+  @@map("refresh_token")
+}
+
+model Billet {
+  id             Int       @id @unique @default(autoincrement())
+  referenceMonth String
+  user           User      @relation(fields: [userId], references: [id])
+  userId         Int
+  Consume        Consume[]
+
+  @@map("billets")
+}
+
+model Consume {
+  id       Int     @id @unique @default(autoincrement())
+  type     String
+  value    Float
+  quantity Float
+  Billet   Billet @relation(fields: [billetId], references: [id])
+  billetId Int
+
+  @@map("consume")
+}

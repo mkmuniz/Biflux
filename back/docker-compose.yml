@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: binsight_db
+      POSTGRES_PASSWORD: 512834
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
