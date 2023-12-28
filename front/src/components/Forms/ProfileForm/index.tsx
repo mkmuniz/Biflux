@@ -1,16 +1,6 @@
-"use client"
-
-import { updateUser } from "@/requests/user.requests";
-import { useMutation } from "@tanstack/react-query";
 import React from "react";
-import { useForm } from "react-hook-form";
 
 export default function ProfileForm({ session }: any) {
-    const { mutate } = useMutation({
-        mutationFn: updateUser,
-    });
-    const { register, handleSubmit, formState } = useForm();
-
     return <>
         <form className="rounded h-screen sm:mt-0 mt-16">
             <div className="mb-4">

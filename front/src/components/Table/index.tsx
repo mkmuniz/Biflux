@@ -38,7 +38,6 @@ let TABLE_ROWS = [
 export function BilletsTable() {
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState('');
-    const [file, setFile] = useState();
 
     const handleSearch = (e: any) => {
         setSearch(e.target.value);
@@ -49,15 +48,11 @@ export function BilletsTable() {
         item.month.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleUpload = (e: any) => {
-
-    };
-
     const handleOpen = () => setOpen(!open);
 
     return <>
         <ModalUpload open={open} handleOpen={handleOpen} />
-        <Card className="h-full w-full" placeholder={""}>
+        <Card className="h-full w-full rounded-none" placeholder={""}>
             <CardHeader floated={false} shadow={false} className="rounded-none sm:mt-0 mt-16" placeholder={""}>
                 <div className="mb-8 flex items-center justify-between">
                     <TableSearchInput handleSearch={handleSearch} />

@@ -1,4 +1,4 @@
-const baseUrl = "https://biflux-api.onrender.com";
+const baseUrl = "http://localhost:4000";
 
 export async function get(url: string) {
     const resp = await fetch(baseUrl + url,

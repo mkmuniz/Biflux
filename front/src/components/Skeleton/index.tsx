@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DashboardSkeleton() {
+export default function DashboardSkeleton({ id }: any) {    
     return <>
         <div className="p-4 sm:ml-64 bg-standard-dark">
             <div className="p-4">
