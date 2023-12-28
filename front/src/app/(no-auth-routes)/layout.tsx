@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import { nextAuthOptions } from "@/lib/authOptions";
-import NavBar from "@/ui/components/NavBar";
-import Footer from "@/ui/components/Footer";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 interface PrivateLayoutProps {
     children: ReactNode

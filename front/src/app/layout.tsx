@@ -7,8 +7,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Binsight',
-  description: 'Extract your data like',
+  title: 'Biflux',
+  description: 'Your personal billets dashboard',
 }
 
 export default function RootLayout({

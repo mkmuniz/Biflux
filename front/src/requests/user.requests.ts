@@ -1,30 +1,31 @@
-import { get } from "http";
-import { post } from "./request.config";
+import { patch, post } from "./request.config";
 
 export async function login(body: any) {
-    try {
-        const data = await post('/login', body); 
+    const data = await post('/login', body);
 
-        return data;
-    } catch (err: any) {
-        console.error(err);
-    };
+    return data;
 };
 
 export async function signUp(body: any) {
-    try {
-        const data: any = await post('/user', body);
+    const data: any = await post('/user', body);
 
-        return { ...data };
-    } catch (err: any) {
-        console.error(err);
-    };
+    return { ...data };
 };
 
 export async function getUserByEmail(email: string) {
-    try {
-        const data = await get('/user', )
-    } catch (err) {
-        console.error(err);
-    }
+    const data = await post('/user', { email })
+
+    return data;
+};
+
+export async function updateUser(body: any) {
+    const data = await patch('/user', body);
+
+    return data;
+};
+
+export async function getRefreshToken(body: any) {
+    const data = await post('/refreshtoken', body);
+
+    return data;
 };

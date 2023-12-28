@@ -1,6 +1,15 @@
-import Charts from "@/ui/components/charts";
-import DashboardSkeleton from "@/ui/components/Skeleton/index"
-export default async function Dashboard() {
+"use client"
+
+import DashboardSkeleton from "@/components/Skeleton/index"
+import { useRouter } from "next/navigation";
+export default function Dashboard() {
+    const router: any = useRouter();
+    const dataPreviousPage = router.query;
+
+    if (!router.query?.id) {
+        router.push('/billets');
+    };
+
     return <>
         <DashboardSkeleton />
     </>

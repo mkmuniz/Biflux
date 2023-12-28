@@ -1,6 +1,6 @@
-import About from "@/ui/components/About";
-import Header from "@/ui/components/HeaderHome";
-import Solutions from "@/ui/components/Solutions";
+import About from "@/components/About";
+import Header from "@/components/HeaderHome";
+import Solutions from "@/components/Solutions";
 
 export default function Home() {
   return <>

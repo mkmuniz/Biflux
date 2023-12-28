@@ -7,8 +7,6 @@ import React, { useState } from 'react';
 export default function SideBar() {
     const [isOpen, setOpen] = useState(false);
 
-    console.log(isOpen);
-
     return <>
         <nav className="fixed w-screen bg-standard z-50">
             <button data-drawer-target="default-sidebar" onClick={(e: any) => setOpen(!isOpen)} data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="m-2 inline-flex items-center p-2 mt-2 ms-3 text-sm text-white rounded-lg sm:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 hover:bg-gray-700 dark:focus:ring-gray-600">

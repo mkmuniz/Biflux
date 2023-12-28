@@ -1,6 +1,8 @@
+"use client"
+
+import React from "react";
 import { nextAuthOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
-import React from "react";
 
 export default async function Profile() {
     const session: any = await getServerSession(nextAuthOptions);
