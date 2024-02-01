@@ -8,9 +8,13 @@
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-# 📜 About
+## Table of Contents
+- [Introduction](#introduction)
+- [Config](#config)
 
-A dashboard to store and display energy bills analytics.
+# 📜 Introduction
+
+Biflux, your comprehensive solution for managing energy bills with ease. Biflux is a project open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization.
 
 # ⚙️ Config
 
