@@ -39,7 +39,7 @@ export default function LoginForm() {
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl">
-                            Sign in to your account
+                            Sign In
                         </span>
                     </div>
                     <div className="mb-4 w-full">
@@ -52,7 +52,7 @@ export default function LoginForm() {
                                 message: 'Invalid email format'
                             },
                             required: true
-                        })} className={`shadow appearance-none ${errors.email?.message ? 'border-red-400' : ''} border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
+                        })} className={`shadow border-gray-500 border appearance-none ${errors.email?.message ? 'border-red-400' : ''} border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
                         <p className="text-red-500 text-[12px]">{errors.email?.message}</p>
                     </div>
                     <div className="mb-6 relative container mx-auto">
@@ -61,7 +61,7 @@ export default function LoginForm() {
                         </label>
                         <input {...register("password", {
                             required: true
-                        })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
+                        })} className="shadow border-gray-500 border appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
                         <button
                             className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
                             onClick={(e: any) => togglePasswordVisibility(e)}
@@ -80,9 +80,9 @@ export default function LoginForm() {
                                 <span className="relative z-10">LOGIN</span>
                             </button>
                         </div>
-                        <div className="m-2">
+                        <div className="p-6">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
-                                Dont have account?
+                                Don't have account?
                             </Link>
                         </div>
                     </div>
