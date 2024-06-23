@@ -1,39 +1,46 @@
 "use client"
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { signIn } from 'next-auth/react';
+import { signIn, SignInResponse } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState, FormEvent } from 'react';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+
+interface FormData {
+    email: string;
+    password: string;
+}
 
 export default function LoginForm() {
     const [showPassword, setStatusPassword] = useState(true);
-    const { register, handleSubmit, formState } = useForm();
+    
+    const { register, handleSubmit, formState } = useForm<FormData>();
+
     const [error, setError] = useState('');
-    const { errors }: any = formState;
+    const { errors } = formState;
 
     const router = useRouter();
 
-    async function handleSignIn(data: any) {
-        const result = await signIn('credentials', {
+    const handleSignIn: SubmitHandler<FormData> = async (data) => {
+        const result: SignInResponse | undefined = await signIn('credentials', {
             ...data,
             redirect: false
         });
 
         if (result?.error) {
-            return setError(result?.error);
+            return setError(result.error);
         };
 
         router.replace('/dashboard');
     };
 
-    function togglePasswordVisibility(e: any) {
+    function togglePasswordVisibility(e: FormEvent) {
         e.preventDefault();
         setStatusPassword((showPassword) => !showPassword);
     };
 
-    return <>
+    return (
         <div className="h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white w-full">
             <div className=" bg-white grid items-center justify-center rounded shadow-md">
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
@@ -51,8 +58,8 @@ export default function LoginForm() {
                                 value: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/,
                                 message: 'Invalid email format'
                             },
-                            required: true
-                        })} className={`shadow border-gray-500 border appearance-none ${errors.email?.message ? 'border-red-400' : ''} border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
+                            required: 'Email is required'
+                        })} className={`shadow border-gray-500 border appearance-none ${errors.email ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
                         <p className="text-red-500 text-[12px]">{errors.email?.message}</p>
                     </div>
                     <div className="mb-6 relative container mx-auto">
@@ -60,11 +67,11 @@ export default function LoginForm() {
                             Password
                         </label>
                         <input {...register("password", {
-                            required: true
+                            required: 'Password is required'
                         })} className="shadow border-gray-500 border appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
                         <button
                             className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
-                            onClick={(e: any) => togglePasswordVisibility(e)}
+                            onClick={(e) => togglePasswordVisibility(e)}
                         >
                             {showPassword ? (
                                 <EyeSlashIcon className="w-6" />
@@ -82,12 +89,12 @@ export default function LoginForm() {
                         </div>
                         <div className="p-6">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
-                                Don't have account?
+                                Don't have an account?
                             </Link>
                         </div>
                     </div>
                 </form >
             </div>
         </div >
-    </>
+    )
 };

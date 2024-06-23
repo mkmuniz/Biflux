@@ -1,19 +1,24 @@
 'use server'
 
 import { PutObjectCommand, S3 } from "@aws-sdk/client-s3";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
 
-export async function handleUpload(_: any,formData: any) {
+export async function handleUpload(_: APIGatewayProxyEventV2 | null, formData: FormData) {
     try {
-        const file = formData.get('fileUploader');
+        const file = formData.get('fileUploader') as File;
 
-        const fileName = file?.name;
-        const fileType = file?.type;
+        if (!file) {
+            throw new Error("File not found in form data");
+        }
+
+        const fileName = file.name;
+        const fileType = file.type;
 
         const binaryFile = await file.arrayBuffer();
         const fileBuffer = Buffer.from(binaryFile);
 
-        const accessKey: any = process.env.AWS_IAM_USER_ACCESS_KEY;
-        const secretKey: any = process.env.AWS_IAM_USER_SECRET_KEY;
+        const accessKey = process.env.AWS_IAM_USER_ACCESS_KEY || '';
+        const secretKey = process.env.AWS_IAM_USER_SECRET_KEY || '';
 
         const s3Client = new S3({
             region: 'sa-east-1',
@@ -38,5 +43,8 @@ export async function handleUpload(_: any,formData: any) {
 
     } catch (err: any) {
         console.error(err.message);
+        return {
+            status: 'error', message: err.message
+        };
     }
 }

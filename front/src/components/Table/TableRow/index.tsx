@@ -1,13 +1,21 @@
-import { Typography } from "@material-tailwind/react";
-import Link from "next/link";
 import React from "react";
 
+import { Typography } from "@material-tailwind/react";
+import Link from "next/link";
 
-export default function TableRow({ data }: any) {
+interface Billet {
+    clientNumber: string;
+    month: string;
+}
 
-    return <>
-        {data.map(
-            (billet: any, index: number) => {
+interface TableRowProps {
+    data: Billet[];
+}
+
+export default function TableRow({ data }: TableRowProps) {
+    return (
+        <>
+            {data.map((billet, index) => {
                 const isLast = index === data.length - 1;
 
                 return (
@@ -49,7 +57,7 @@ export default function TableRow({ data }: any) {
                         </td>
                     </tr>
                 );
-            },
-        )}
-    </>;
-};
+            })}
+        </>
+    );
+}

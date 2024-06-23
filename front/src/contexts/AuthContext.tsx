@@ -1,14 +1,18 @@
 "use client"
 
-import { createContext } from "react";
+import React, { createContext, ReactNode } from "react";
 
 type AuthContextType = {
     isAuthenticated: boolean;
 };
 
-export const AuthContext = createContext({} as AuthContextType);
+type AuthProviderProps = {
+    children: ReactNode;
+};
 
-export default function AuthProvider({ children }: any) {
+export const AuthContext = createContext<AuthContextType>({ isAuthenticated: false });
+
+export default function AuthProvider({ children }: AuthProviderProps) {
     const isAuthenticated = false;
 
     return (
@@ -16,4 +20,4 @@ export default function AuthProvider({ children }: any) {
             {children}
         </AuthContext.Provider>
     );
-};
+}
