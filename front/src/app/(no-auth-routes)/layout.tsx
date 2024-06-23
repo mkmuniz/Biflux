@@ -9,6 +9,30 @@ interface PrivateLayoutProps {
     children: ReactNode
 }
 
+interface MenuItem {
+    href: string;
+    description: string;
+}
+
+const menuItems: MenuItem[] = [
+    {
+        href: "/home",
+        description: "Home"
+    },
+    {
+        href: "/home#about",
+        description: "About"
+    },
+    {
+        href: "/home#solutions",
+        description: "Solutions"
+    },
+    {
+        href: "/sign-up",
+        description: "Sign Up"
+    }
+];
+
 export default async function PrivateLayout({ children }: PrivateLayoutProps) {
     const session = await getServerSession(nextAuthOptions);
 
@@ -17,7 +41,7 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
     }
 
     return <>
-        <NavBar />
+        <NavBar navLinks={menuItems} />
         {children}
         <Footer />
     </>

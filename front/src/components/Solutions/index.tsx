@@ -1,15 +1,17 @@
 "use client"
 
-import { useIsVisible } from "@/hooks/useIsVisible";
-import { ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
-import { ArrowUpOnSquareIcon } from "@heroicons/react/24/outline";
 import React, { useRef } from "react";
 
-export default function Solutions() {
-    const refSolutions: any = useRef();
-    const isVisible = useIsVisible(refSolutions);
+import { useIsVisible } from "@/hooks/useIsVisible";
 
-    return <>
+import { ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
+import { ArrowUpOnSquareIcon } from "@heroicons/react/24/outline";
+
+export default function Solutions() {
+    const refSolutions = useRef<HTMLDivElement>(null);
+    const isVisible: boolean = useIsVisible(refSolutions);
+
+    return (
         <div id="solutions" className="h-screen grid bg-standard">
             <div className="grid sm:grid-cols-3 items-center justify-items-center h-screen font-outfit">
                 <div className="flex flex-col items-center text-center">
@@ -47,5 +49,5 @@ export default function Solutions() {
                 </div>
             </div>
         </div>
-    </>;
-};
+    );
+}

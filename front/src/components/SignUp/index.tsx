@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { signUp } from '@/requests/user.requests';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
@@ -6,14 +6,21 @@ import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+interface SignUpData {
+    name: string;
+    email: string;
+    password: string;
+}
+
 
 export default function SignUpForm() {
-    const [showPassword, setStatusPassword] = useState(true);
-    const [errorSignUp, setError] = useState('');
-    const { register, handleSubmit, formState } = useForm();
+    const [showPassword, setStatusPassword] = useState<boolean>(true);
+    const [errorSignUp, setError] = useState<string>();
+    const { register, handleSubmit, formState } = useForm<SignUpData>();
     const router = useRouter();
-    const { errors }: any = formState;
+    const { errors } = formState;
 
     const { mutate } = useMutation({
         mutationFn: signUp,
@@ -24,12 +31,12 @@ export default function SignUpForm() {
         }
     });
 
-    function togglePasswordVisibility(e: any) {
+    function togglePasswordVisibility(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         setStatusPassword((showPassword) => !showPassword);
     };
 
-    function handleSignUp(data: any) {
+    const handleSignUp: SubmitHandler<SignUpData> = (data) => {
         if (!errors.email?.message && !errors.name?.message) {
             mutate(data);
         }
@@ -45,7 +52,7 @@ export default function SignUpForm() {
                         </span>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm mb-2 text-black" htmlFor="email">
+                        <label className="block text-sm mb-2 text-black" htmlFor="name">
                             Name
                         </label>
                         <input {...register("name", {
@@ -77,7 +84,7 @@ export default function SignUpForm() {
                         <input {...register("password", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
                         <button
                             className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
-                            onClick={(e: any) => togglePasswordVisibility(e)}
+                            onClick={togglePasswordVisibility}
                         >
                             {showPassword ? (
                                 <EyeSlashIcon className="w-6" />
@@ -103,4 +110,4 @@ export default function SignUpForm() {
             </div>
         </div >
     </>
-};
+}
