@@ -11,20 +11,20 @@
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Usage](#usage)
-- [Pré-requisitos](#pré-requisitos)
+- [Introduction](#📜-Introduction)
+- [Usage](#💻-Usage)
+- [Pre Requesites](#Pre-requesites)
+
+## Pre Requesites
+
+- **Node.js**: >= 18.x
+- **NPM**: >= 6.x
 
 ## 📜 Introduction
 
 Biflux, your comprehensive solution for managing energy bills with ease. Biflux is an open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization.
 
-## Pre requisites
-
-- **Node.js**: >= 18.x
-- **NPM**: >= 6.x
   
 ## 💻 Usage
 
 You can access it in production via this [link](https://biflux.vercel.app/home). It's necessary to sign up and log in to access the bills page and upload all your bills to process the data and display it in an analytic dashboard.
-
