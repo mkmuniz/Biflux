@@ -1,8 +1,10 @@
 "use client"
 
-import { useIsVisible } from "@/hooks/useIsVisible";
-import Image from "next/image";
 import React, { useRef, MutableRefObject } from "react";
+
+import Image from "next/image";
+
+import { useIsVisible } from "@/hooks/useIsVisible";
 
 export default function Header() {
     const refHeaderTitle = useRef<HTMLSpanElement>(null);

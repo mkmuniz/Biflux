@@ -1,7 +1,7 @@
 "use client"
 
-import { useIsVisible } from "@/hooks/useIsVisible";
 import { useRef, RefObject } from "react";
+import { useIsVisible } from "@/hooks/useIsVisible";
 
 export default function About() {
     const refTextDiv: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);

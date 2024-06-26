@@ -1,6 +1,6 @@
 "use client"
 
-import DashboardSkeleton from "@/components/Skeleton/index"
+import DashboardSkeleton from "@/components/Skeleton/Dashboard"
 import { useSearchParams } from 'next/navigation'
 
 export default function Dashboard() {

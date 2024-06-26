@@ -1,15 +1,17 @@
 "use client"
 
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { signIn, SignInResponse } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import React from 'react';
 import { useState, FormEvent } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { signIn, SignInResponse } from 'next-auth/react';
+
 import ReCAPTCHA from "react-google-recaptcha";
-import React from 'react';
+
 import ButtonSubmit from '../Buttons/Submit';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 interface FormData {
     email: string;
@@ -54,7 +56,7 @@ export default function LoginForm() {
 
     return (
         <div className="w-full h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white">
-            <div className="sm:min-w-[400px] bg-white grid items-center justify-center rounded">
+            <div className="sm:min-w-[400px] sm:min-h-[500px] bg-white grid items-center justify-center rounded">
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl">
