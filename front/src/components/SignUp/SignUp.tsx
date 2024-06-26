@@ -45,8 +45,8 @@ export default function SignUpForm() {
     };
 
     return (
-        <div className="h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white">
-            <div className="sm:min-w-[400px] flex bg-white rounded items-center justify-center">
+        <div className="h-screen flex items-center justify-center sm:mt-12 bg-white">
+            <div className="sm:min-w-[400px] flex bg-white rounded items-center justify-center sm:shadow-md">
                 <form className="px-8" onSubmit={handleSubmit(handleSignUp)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl w-full">
@@ -65,10 +65,10 @@ export default function SignUpForm() {
                                 },
                                 required: 'Name is required'
                             })}
-                            className={`shadow appearance-none sm:min-w-[300px] ${errors.name ? 'border-red-400' : ''} border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+                            className={`shadow appearance-none min-w-[300px] ${errors.name ? 'border-red-400' : ''} border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
                             id="name"
                             type="text"
-                            placeholder="Full Name"
+                            placeholder="Your Name"
                         />
                         {errors.name && <p className="text-red-500 text-[12px]">{errors.name.message}</p>}
                     </div>
@@ -97,7 +97,7 @@ export default function SignUpForm() {
                         </label>
                         <input
                             {...register("password", { required: 'Password is required' })}
-                            className="shadow sm:min-w-[300px] appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow min-w-[300px] appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="password"
                             type={showPassword ? "password" : "text"}
                             placeholder="*********"
@@ -115,10 +115,10 @@ export default function SignUpForm() {
                     </div>
                     {errorSignUp && <p className="text-xl font-bold text-red-500 mb-10">{errorSignUp}</p>}
                     <div className="flex flex-col items-center justify-between">
-                        <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-black rounded px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-yellow-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full">
+                        <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-white relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full">
                             <span className="relative z-10">SIGN UP</span>
                         </ButtonSubmit>
-                        <Link className="m-2 inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/login">
+                        <Link className="m-2 inline-block align-baseline font-bold hover:text-blue-gray-100 transition-all text-sm text-black hover:text-blue-hover" href="/login">
                             Have an account already?
                         </Link>
                     </div>

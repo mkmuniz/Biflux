@@ -1,4 +1,4 @@
-import { BilletsTable } from '@/components/Table';
+import { BilletsTable } from '@/components/Table/Billets';
 import React from 'react';
 
 export default function BilletsLibrary() {

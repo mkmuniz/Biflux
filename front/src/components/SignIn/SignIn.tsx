@@ -55,8 +55,8 @@ export default function LoginForm() {
     }
 
     return (
-        <div className="w-full h-screen flex items-center justify-center sm:mt-12 sm:bg-standard-dark bg-white">
-            <div className="sm:min-w-[400px] sm:min-h-[500px] bg-white grid items-center justify-center rounded">
+        <div className="w-full h-screen flex items-center justify-center sm:mt-12 bg-white">
+            <div className="sm:min-w-[400px] sm:min-h-[500px] bg-white grid items-center justify-center rounded sm:shadow-md">
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl">
@@ -101,12 +101,12 @@ export default function LoginForm() {
                     <p className="sm:text-xl font-bold text-red-500 mt-3 mb-3">{error}</p>
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full">
-                            <ButtonSubmit styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-black rounded px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-yellow-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full" method="submit">
+                            <ButtonSubmit styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full hover:text-white" method="submit">
                                 <span className="relative z-10">LOGIN</span>
                             </ButtonSubmit>
                         </div>
                         <div className="p-6">
-                            <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
+                            <Link className="inline-block align-baseline font-bold hover:text-blue-gray-100 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
                                 Don't have an account?
                             </Link>
                         </div>

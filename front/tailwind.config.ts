@@ -14,7 +14,7 @@ const config: Config = withMT({
         outfit: ['Outfit', 'cursive'],
       },
       colors: {
-        'standard': '#171c31',
+        'standard': '#4E66FF',
         'standard-dark': '#111526',
         'yellow-standard': '#FFE03D',
         'yellow-hover': '#F2D338'
