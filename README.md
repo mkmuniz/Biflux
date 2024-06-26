@@ -15,9 +15,9 @@
 - [Usage](#💻-Usage)
 - [Pre Requesites](#Pre-requesites)
 
-## Pre Requesites
+## Pre Requisites
 
-- **Node.js**: >= 18.x
+- **NodeJS**: >= 18.x
 - **NPM**: >= 6.x
 
 ## 📜 Introduction
