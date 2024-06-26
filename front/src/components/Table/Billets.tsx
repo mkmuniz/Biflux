@@ -13,10 +13,10 @@ import {
     CardBody,
 } from "@material-tailwind/react";
 
-import TableRow from "./TableRow";
-import TableSearchInput from "./TableSearchInput";
+import TableRow from "./Row";
+import TableSearchInput from "./SearchInput";
 
-import ModalUpload from "../Modal/upload";
+import ModalUpload from "../Modal/Upload";
 
 interface Billet {
     img: string;

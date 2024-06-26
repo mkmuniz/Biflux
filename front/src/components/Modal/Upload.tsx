@@ -17,7 +17,9 @@ export default function ModalUpload({ open, handleOpen }: ModalUploadProps) {
 
         try {
             setFormState({ status: 'loading', message: 'Uploading file...' });
+            
             const response = await handleUpload(null, formData);
+
             setFormState({ status: 'success', message: response.message });
         } catch (error: any) {
             setFormState({ status: 'error', message: error.message });

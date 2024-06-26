@@ -1,7 +1,7 @@
 import React from "react";
 import { nextAuthOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
-import ProfileForm from "@/components/Forms/ProfileForm";
+import ProfileForm from "@/components/Forms/Profile";
 
 export default async function Profile() {
     const session: any = await getServerSession(nextAuthOptions);

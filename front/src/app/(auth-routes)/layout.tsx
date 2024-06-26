@@ -1,8 +1,10 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { ReactNode } from "react";
+
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "@/lib/authOptions";
-import SideBar from "@/components/SideBar";
+
+import SideBar from "@/components/SideBar/SideBar";
 
 interface PrivateLayoutProps {
     children: ReactNode

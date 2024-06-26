@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import { nextAuthOptions } from "@/lib/authOptions";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar/NavBar";
+import Footer from "@/components/Footer/Footer";
 
 interface PrivateLayoutProps {
     children: ReactNode
@@ -16,15 +16,15 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     {
-        href: "/home",
+        href: "/",
         description: "Home"
     },
     {
-        href: "/home#about",
+        href: "#about",
         description: "About"
     },
     {
-        href: "/home#solutions",
+        href: "#solutions",
         description: "Solutions"
     },
     {
