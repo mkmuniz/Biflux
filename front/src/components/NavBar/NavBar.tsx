@@ -55,7 +55,7 @@ export default function NavBar({ navLinks }: NavBar) {
                         )}
                     </button>
                 </div>
-                <div className={`items-center justify-between transition-all duration-500 ${isOpen ? 'h-screen' : 'h-0'} w-full md:flex md:w-auto md:order-1 text-white`} id="navbar-sticky">
+                <div className={`items-center justify-between transition-all duration-500 ${isOpen ? 'mobile:h-screen' : 'mobile:h-0'} w-full md:flex md:w-auto md:order-1 text-white`} id="navbar-sticky">
                     {<NavBarLinks list={navLinks} isOpen={isOpen} />}
                 </div>
             </div>
@@ -66,7 +66,7 @@ export default function NavBar({ navLinks }: NavBar) {
 const NavBarLinks = ({ list, isOpen }: NavLinks) => {
     return <ul className={`flex flex-col text-center items-center justify-center p-4 md:p-0 mt-4 font-medium md:space-x-8 md:flex-row h-full`}>
         {list.map((link: Link, index: Key) => {
-            return <NavLink key={index} href={link.href} description={link.description} styles={`block py-2 px-3 hover:text-gray-100 transition-all ${isOpen ? 'text-xl' : 'text-[0px]'}`} />
+            return <NavLink key={index} href={link.href} description={link.description} styles={`block py-2 px-3 hover:text-gray-100 transition-all duration-500 ${isOpen ? 'mobile:text-xl' : 'mobile:text-[0px] mobile:hidden'}`} />
         })}
     </ul>
 };
