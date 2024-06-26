@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Key, useState } from "react";
 import NavLink from "./NavLink";
 
 interface Link {
@@ -49,8 +49,8 @@ export default function NavBar({ navLinks }: NavBar) {
 
 const NavBarLinks = ({ list }: NavLinks) => {
     return <ul className={`flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0`}>
-        {list.map((link: Link) => {
-            return <NavLink href={link.href} description={link.description} styles={"block py-2 px-3 hover:text-blue-gray-200 transition-all"} />
+        {list.map((link: Link, index: Key) => {
+            return <NavLink key={index} href={link.href} description={link.description} styles={"block py-2 px-3 hover:text-blue-gray-200 transition-all"} />
         })}
     </ul>
 };

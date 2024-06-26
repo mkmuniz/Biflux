@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import ButtonSubmit from '../Buttons/Submit';
 
 interface SignUpData {
     name: string;
@@ -96,9 +97,9 @@ export default function SignUpForm() {
                     <p className="text-xl font-bold text-red-500 mb-10">{errorSignUp}</p>
                     <div className="flex flex-col items-center justify-between">
                         <div className="w-full">
-                            <button className="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-black rounded px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-yellow-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full" formMethod="submit">
+                            <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-black rounded px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-yellow-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full">
                                 <span className="relative z-10">SIGN UP</span>
-                            </button>
+                            </ButtonSubmit>
                         </div>
                         <div className="m-2">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-300 transition-all text-sm text-black hover:text-blue-hover" href="/login">
