@@ -1,7 +1,9 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { ReactNode } from "react";
+
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "@/lib/authOptions";
+
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";
 
@@ -26,10 +28,6 @@ const menuItems: MenuItem[] = [
     {
         href: "#solutions",
         description: "Solutions"
-    },
-    {
-        href: "/sign-up",
-        description: "Sign Up"
     }
 ];
 

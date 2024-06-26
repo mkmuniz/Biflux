@@ -107,7 +107,7 @@ export default function LoginForm() {
                         </div>
                         <div className="p-6">
                             <Link className="inline-block align-baseline font-bold hover:text-blue-gray-100 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
-                                Don't have an account?
+                                Dont have an account?
                             </Link>
                         </div>
                     </div>

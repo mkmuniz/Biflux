@@ -50,7 +50,7 @@ export default function SignUpForm() {
                 <form className="px-8" onSubmit={handleSubmit(handleSignUp)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl w-full">
-                            Not signed up yet?
+                            Sign Up
                         </span>
                     </div>
                     <div className="mb-4">
@@ -115,10 +115,10 @@ export default function SignUpForm() {
                     </div>
                     {errorSignUp && <p className="text-xl font-bold text-red-500 mb-10">{errorSignUp}</p>}
                     <div className="flex flex-col items-center justify-between">
-                        <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-white relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full">
+                        <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full">
                             <span className="relative z-10">SIGN UP</span>
                         </ButtonSubmit>
-                        <Link className="m-2 inline-block align-baseline font-bold hover:text-blue-gray-100 transition-all text-sm text-black hover:text-blue-hover" href="/login">
+                        <Link className="m-6 inline-block align-baseline font-bold hover:text-blue-gray-700 transition-all text-sm text-black" href="/login">
                             Have an account already?
                         </Link>
                     </div>
