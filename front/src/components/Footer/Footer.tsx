@@ -17,7 +17,7 @@ export default function Footer() {
                                     <Link href="/" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">Home</Link>
                                 </li>
                                 <li>
-                                    <Link href="#about" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">About</Link>
+                                    <Link href="/#about" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">About</Link>
                                 </li>
                                 <li>
                                     <Link href="https://www.linkedin.com/in/mikael-muniz-ribeiro-5764961a3/" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">Contact</Link>
