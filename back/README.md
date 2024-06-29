@@ -1,11 +1,3 @@
-# Biflux
-
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-![NodeJS](https://img.shields.io/badge/node.js-%3E=18.x-green?style=for-the-badge&logo=node.js&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-3.x-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-
 ## Table of Contents
 - [Pre Requisites](#pre-requisites)
 - [Introduction](#-introduction)
@@ -19,7 +11,7 @@
 
 ## 📜 Introduction
 
-Biflux is your comprehensive solution for managing energy bills with ease. It is an open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization.
+Biflux is your comprehensive solution for managing energy bills with ease. It is an open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization. Biflux provides an API for the registration, authentication, and storage of data from bills sent to an S3 bucket.
 
 ## 💻 Usage
 
@@ -64,5 +56,3 @@ Biflux is your comprehensive solution for managing energy bills with ease. It is
       ```
 
 ---
-
-This README provides clear instructions on setting up and running the Biflux project. If you need any further modifications, feel free to let me know!
