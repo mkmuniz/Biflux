@@ -11,9 +11,9 @@
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 ## Table of Contents
+- [Pre Requisites](#Pre-requisites)
 - [Introduction](#📜-Introduction)
 - [Usage](#💻-Usage)
-- [Pre Requesites](#Pre-requesites)
 
 ## Pre Requisites
 
