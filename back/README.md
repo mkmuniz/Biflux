@@ -24,4 +24,21 @@ Biflux, your comprehensive solution for managing energy bills with ease. Biflux 
   
 ## 💻 Usage
 
-- 
+- Access `back` folder and run `npm i`
+- This project has a docker-compose to build a container to up our database (PostgreSQL), access `docker-compose.yml` and you will see this
+
+
+- Fill out `POSTGRES_DB`, `POSTGRES_USER` and `POSTGRES_PASSWORD` fields
+- Run `sudo docker compose up -d`
+- Verify if your container its up with `sudo docker ps`
+- Access `.env` file and fill out these informations
+
+```env
+DATABASE_URL="postgres://your-username:your-password@localhost:5432/your-database?schema_public"
+JWT_ACCESS_SECRET=""
+JWT_REFRESH_SECRET=""
+ENVIRONMENT=""
+PORT='4000'
+```
+
+- Now, you can run API with `npm run dev` and access it in `http://localhost:4000` by default
