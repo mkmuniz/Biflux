@@ -23,7 +23,7 @@ export default function Solutions() {
                             <div ref={refSolutions}>
                                 <ArrowUpOnSquareIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                             </div>
-                            <span className="text-yellow-standard font-bold">
+                            <span className="text-yellow-standard font-bold text-2xl">
                                 UPLOAD
                             </span>
                             <p className="text-white">
@@ -34,7 +34,7 @@ export default function Solutions() {
                             <div ref={refSolutions}>
                                 <CircleStackIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                             </div>
-                            <span className="text-yellow-standard font-bold">
+                            <span className="text-yellow-standard font-bold text-2xl">
                                 EXTRACTION
                             </span>
                             <p className="text-white">
@@ -45,7 +45,7 @@ export default function Solutions() {
                             <div ref={refSolutions}>
                                 <ChartBarSquareIcon className={`w-20 text-white transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} />
                             </div>
-                            <span className="text-yellow-standard font-bold">
+                            <span className="text-yellow-standard font-bold text-2xl">
                                 DASHBOARD
                             </span>
                             <p className="text-white">

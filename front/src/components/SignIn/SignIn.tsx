@@ -19,14 +19,17 @@ interface FormData {
 }
 
 export default function LoginForm() {
-    const [showPassword, setStatusPassword] = useState(true);
-    const { register, handleSubmit, formState } = useForm<FormData>();
-    const [error, setError] = useState('');
     const router = useRouter();
+    const [error, setError] = useState('');
+    const [showPassword, setStatusPassword] = useState(true);
+
     const recaptchaRef = React.createRef<ReCAPTCHA>();
+    const { register, handleSubmit, formState } = useForm<FormData>();
 
     const { errors } = formState;
 
+    const googleRecaptchaKey: string = String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY);
+    
     const handleSignIn: SubmitHandler<FormData> = async (data) => {
         const recaptchaValue = recaptchaRef.current?.getValue();
 
@@ -96,7 +99,7 @@ export default function LoginForm() {
                     </div>
                     <ReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey="6LdteAEqAAAAAIkIDGrBcU1q3Pz40mTwch-1x50I"
+                        sitekey={googleRecaptchaKey}
                     />
                     <p className="sm:text-xl font-bold text-red-500 mt-3 mb-3">{error}</p>
                     <div className="flex items-center justify-between flex-col">

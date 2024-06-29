@@ -16,6 +16,8 @@ NEXTAUTH_SECRET=
 
 AWS_IAM_USER_SECRET_KEY=
 AWS_IAM_USER_ACCESS_KEY=
+
+NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY=
 ```
 
 # How To Run
@@ -25,7 +27,7 @@ AWS_IAM_USER_ACCESS_KEY=
 - `npm install`
 - `npm run dev`
 
-### Dev environment
+### Production environment
 
 - `npm run build`
 - `npm start`

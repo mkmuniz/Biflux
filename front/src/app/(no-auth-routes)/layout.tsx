@@ -22,11 +22,11 @@ const menuItems: MenuItem[] = [
         description: "Home"
     },
     {
-        href: "#about",
+        href: "/#about",
         description: "About"
     },
     {
-        href: "#solutions",
+        href: "/#solutions",
         description: "Solutions"
     }
 ];
