@@ -13,7 +13,7 @@ export default function LogoutButton() {
             redirect: false
         });
 
-        router.replace('/home');
+        router.replace('/');
     };
 
     return <>

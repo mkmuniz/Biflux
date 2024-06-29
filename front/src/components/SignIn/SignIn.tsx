@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
-import React from 'react';
-import { useState, FormEvent } from 'react';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-
+import React, { useState, FormEvent } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn, SignInResponse } from 'next-auth/react';
-
 import ReCAPTCHA from "react-google-recaptcha";
 
 import ButtonSubmit from '../Buttons/Submit';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
+import PopUpError from '../PopUps/Error';
+import PopUpSuccess from '../PopUps/Success';
 
 interface FormData {
     email: string;
@@ -21,6 +21,7 @@ interface FormData {
 export default function LoginForm() {
     const router = useRouter();
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [showPassword, setStatusPassword] = useState(true);
 
     const recaptchaRef = React.createRef<ReCAPTCHA>();
@@ -29,7 +30,7 @@ export default function LoginForm() {
     const { errors } = formState;
 
     const googleRecaptchaKey: string = String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY);
-    
+
     const handleSignIn: SubmitHandler<FormData> = async (data) => {
         const recaptchaValue = recaptchaRef.current?.getValue();
 
@@ -49,7 +50,10 @@ export default function LoginForm() {
             return setError(result.error);
         }
 
-        router.replace('/dashboard');
+        setSuccess("Successfully logged in!");
+        setTimeout(() => {
+            router.replace('/dashboard');
+        }, 5000);
     };
 
     function togglePasswordVisibility(e: FormEvent) {
@@ -85,7 +89,8 @@ export default function LoginForm() {
                         </label>
                         <input {...register("password", {
                             required: 'Password is required'
-                        })} className="shadow border-gray-500 border appearance-none rounded sm:min-w-[300px] w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
+                        })} className={`shadow border-gray-500 border appearance-none rounded sm:min-w-[300px] w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-400' : ''}`} id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
+                        <p className="text-red-500 text-[12px]">{errors.password?.message}</p>
                         <button
                             className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
                             onClick={(e) => togglePasswordVisibility(e)}
@@ -101,9 +106,8 @@ export default function LoginForm() {
                         ref={recaptchaRef}
                         sitekey={googleRecaptchaKey}
                     />
-                    <p className="sm:text-xl font-bold text-red-500 mt-3 mb-3">{error}</p>
                     <div className="flex items-center justify-between flex-col">
-                        <div className="w-full">
+                        <div className="w-full pt-6">
                             <ButtonSubmit styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full hover:text-white" method="submit">
                                 <span className="relative z-10">LOGIN</span>
                             </ButtonSubmit>
@@ -115,7 +119,9 @@ export default function LoginForm() {
                         </div>
                     </div>
                 </form>
+                {error && <PopUpError message={error} onClose={() => setError('')} />}
+                {success && <PopUpSuccess message={success} onClose={() => setSuccess('')} />}
             </div>
         </div>
-    )
+    );
 }

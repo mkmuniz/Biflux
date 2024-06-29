@@ -2,16 +2,15 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
 import { useMutation } from '@tanstack/react-query';
-
 import { signUp } from '@/requests/user.requests';
 
 import ButtonSubmit from '../Buttons/Submit';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import PopUpError from '../PopUps/Error';
+import PopUpSuccess from '../PopUps/Success';
 
 interface SignUpData {
     name: string;
@@ -21,7 +20,8 @@ interface SignUpData {
 
 export default function SignUpForm() {
     const [showPassword, setStatusPassword] = useState(true);
-    const [errorSignUp, setError] = useState<string>();
+    const [errorSignUp, setError] = useState<string>('');
+    const [successSignUp, setSuccess] = useState<string>('');
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
 
@@ -29,7 +29,13 @@ export default function SignUpForm() {
         mutationFn: signUp,
         onSuccess: (data) => {
             if (data.status === 409) return setError('Email already exists');
-            router.replace('/login');
+            setSuccess('Successfully signed up! Redirecting to login...');
+            setTimeout(() => {
+                router.replace('/login');
+            }, 5000);
+        },
+        onError: (error: any) => {
+            setError('Failed to sign up. Please try again.');
         }
     });
 
@@ -39,7 +45,7 @@ export default function SignUpForm() {
     };
 
     const handleSignUp: SubmitHandler<SignUpData> = (data) => {
-        if (!errors.email && !errors.name) {
+        if (!errors.email && !errors.name && !errors.password) {
             mutate(data);
         }
     };
@@ -97,11 +103,12 @@ export default function SignUpForm() {
                         </label>
                         <input
                             {...register("password", { required: 'Password is required' })}
-                            className="shadow min-w-[300px] appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className={`shadow min-w-[300px] appearance-none border ${errors.password ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
                             id="password"
                             type={showPassword ? "password" : "text"}
                             placeholder="*********"
                         />
+                        {errors.password && <p className="text-red-500 text-[12px]">{errors.password.message}</p>}
                         <button
                             className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
                             onClick={togglePasswordVisibility}
@@ -113,7 +120,6 @@ export default function SignUpForm() {
                             )}
                         </button>
                     </div>
-                    {errorSignUp && <p className="text-xl font-bold text-red-500 mb-10">{errorSignUp}</p>}
                     <div className="flex flex-col items-center justify-between">
                         <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full">
                             <span className="relative z-10">SIGN UP</span>
@@ -124,6 +130,8 @@ export default function SignUpForm() {
                     </div>
                 </form>
             </div>
+            {errorSignUp && <PopUpError message={errorSignUp} onClose={() => setError('')} />}
+            {successSignUp && <PopUpSuccess message={successSignUp} onClose={() => setSuccess('')} />}
         </div>
     );
 }
