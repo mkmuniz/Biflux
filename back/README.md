@@ -56,3 +56,19 @@ Biflux is your comprehensive solution for managing energy bills with ease. It is
       ```
 
 ---
+
+## 🔄 API Routes
+
+### User Routes
+- **GET /user**: Retrieves all users.
+- **GET /user/:id**: Retrieves a user by ID.
+- **POST /user**: Creates a new user.
+
+### Billet Routes
+- **GET /billet**: Retrieves all billets.
+- **POST /billet**: Uploads a new billet.
+
+### Auth Routes
+- **GET /refreshtoken**: Retrieves all refresh tokens.
+- **POST /refreshtoken**: Generates a new refresh token.
+- **POST /login**: Authenticates a user and returns a token.
