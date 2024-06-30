@@ -16,13 +16,17 @@ export const nextAuthOptions: NextAuthOptions = {
                 },
             },
             async authorize(credentials, _) {
-                const { data, status }: any = await login({ email: credentials?.email, password: credentials?.password });
+                try {
+                    const { data, status }: any = await login({ email: credentials?.email, password: credentials?.password });
 
-                if (status === 200) return data;
-                if (status === 404) return { error: 'Email not found' };
-                if (status === 401) return { error: 'Invalid credentials' };
-
-                return null;
+                    if (status === 200) return data;
+                    if (status === 404) return { error: 'Email not found' };
+                    if (status === 401) return { error: 'Invalid credentials' };
+    
+                    return null;
+                } catch (err: any) {
+                    console.log(err);
+                }
             },
         })
     ],
