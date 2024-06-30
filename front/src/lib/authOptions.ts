@@ -5,6 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 export const nextAuthOptions: NextAuthOptions = {
     providers: [
         Credentials({
+            id: 'user-login',
             name: 'credentials',
             credentials: {
                 email: {

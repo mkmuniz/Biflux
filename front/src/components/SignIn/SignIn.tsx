@@ -40,7 +40,7 @@ export default function LoginForm() {
             setError("");
         }
 
-        const result: SignInResponse | undefined = await signIn('credentials', {
+        const result: SignInResponse | undefined = await signIn('user-login', {
             ...data,
             recaptcha: recaptchaValue,
             redirect: false
