@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 
 import { useIsVisible } from "@/hooks/useIsVisible";
 
-import { ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
 import { ArrowUpOnSquareIcon } from "@heroicons/react/24/outline";
+import { ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
 
-import Container from "../Container/Container";
 import Section from "../Section/Section";
+import Container from "../Container/Container";
 
 export default function Solutions() {
     const refSolutions = useRef<HTMLDivElement>(null);

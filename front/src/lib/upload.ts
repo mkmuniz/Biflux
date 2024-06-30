@@ -1,15 +1,13 @@
 'use server'
 
-import { PutObjectCommand, S3 } from "@aws-sdk/client-s3";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
+import { PutObjectCommand, S3 } from "@aws-sdk/client-s3";
 
 export async function handleUpload(_: APIGatewayProxyEventV2 | null, formData: FormData) {
     try {
         const file = formData.get('fileUploader') as File;
 
-        if (!file) {
-            throw new Error("File not found in form data");
-        }
+        if (!file) throw new Error("File not found in form data");
 
         const fileName = file.name;
         const fileType = file.type;
@@ -43,8 +41,7 @@ export async function handleUpload(_: APIGatewayProxyEventV2 | null, formData: F
 
     } catch (err: any) {
         console.error(err.message);
-        return {
-            status: 'error', message: err.message
-        };
+        
+        return { status: 'error', message: err.message };
     }
 }

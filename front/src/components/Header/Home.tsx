@@ -1,10 +1,9 @@
 "use client"
 
 import React, { useRef, MutableRefObject } from "react";
+import { useIsVisible } from "@/hooks/useIsVisible";
 
 import Image from "next/image";
-
-import { useIsVisible } from "@/hooks/useIsVisible";
 
 import Section from "../Section/Section";
 import Container from "../Container/Container";

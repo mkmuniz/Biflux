@@ -1,14 +1,17 @@
 "use client";
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
 import { signUp } from '@/requests/user.requests';
+import { useMutation } from '@tanstack/react-query';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import ButtonSubmit from '../Buttons/Submit';
+
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 
@@ -22,6 +25,7 @@ export default function SignUpForm() {
     const [showPassword, setStatusPassword] = useState(true);
     const [errorSignUp, setError] = useState<string>('');
     const [successSignUp, setSuccess] = useState<string>('');
+
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
 
@@ -29,6 +33,8 @@ export default function SignUpForm() {
         mutationFn: signUp,
         onSuccess: (data) => {
             if (data.status === 409) return setError('Email already exists');
+            if(data.status === 500) return setError('Internal Server Error, Back Later!');
+
             setSuccess('Successfully signed up! Redirecting to login...');
             setTimeout(() => {
                 router.replace('/login');

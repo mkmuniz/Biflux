@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Dialog, DialogBody } from '@material-tailwind/react';
 import { handleUpload } from '@/lib/upload';
+import { Dialog, DialogBody } from '@material-tailwind/react';
 
 interface ModalUploadProps {
     open: boolean;

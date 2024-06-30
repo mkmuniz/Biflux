@@ -17,6 +17,8 @@ export class AuthController {
             res.json(tokens);
         } catch (err: any) {
             console.error(err);
+
+            return;
         };
     };
 
@@ -27,6 +29,7 @@ export class AuthController {
             res.json(refreshTokens);
         } catch (err: any) {
             console.error(err);
+
             return
         };
     };
@@ -42,6 +45,8 @@ export class AuthController {
             res.json(newRefreshToken);
         } catch (err: any) {
             console.error(err);
+
+            return;
         };
     };
 };
