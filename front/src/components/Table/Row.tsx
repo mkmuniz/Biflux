@@ -29,7 +29,7 @@ export default function TableRow({ data }: TableRowProps) {
                                         className="font-normal opacity-70"
                                         placeholder={""}
                                     >
-                                        <Link href={{ pathname: '/dashboard', query: { id: billet.clientNumber } }}  >
+                                        <Link href={{ pathname: '/billets/dashboard', query: { id: billet.clientNumber } }}  >
                                             {billet.clientNumber}
                                         </Link>
                                     </Typography>

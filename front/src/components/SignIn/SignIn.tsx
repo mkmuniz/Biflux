@@ -53,7 +53,7 @@ export default function LoginForm() {
 
         setSuccess("Successfully logged in!");
         setTimeout(() => {
-            router.replace('/dashboard');
+            router.replace('/user/home');
         }, 5000);
     };
 

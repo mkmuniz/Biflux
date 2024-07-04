@@ -11,7 +11,7 @@ export default function PopUpError({ message, onClose }: PopUpErrorProps) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsVisible(false);
-            setTimeout(onClose, 300); // Wait for animation to finish before calling onClose
+            setTimeout(onClose, 300);
         }, 5000);
 
         return () => clearTimeout(timer);

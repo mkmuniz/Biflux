@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>48. Home</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="48.-Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(5.000000, 2.000000)" stroke="white" stroke-width="4">
+            <path d="M46.0757076,0.556672782 C45.3258238,-0.185050966 44.1073372,-0.186064049 43.3564292,0.556672782 L1.19574571,44.0115821 C-0.730226727,45.996677 -0.0544765305,47.6059144 2.71456298,47.6059144 L10.4675257,47.6059144 L10.4675257,94.0730307 C10.4675257,95.1394909 11.327825,96 12.3890579,96 L77.0430789,96 C78.0985548,96 78.964611,95.1372665 78.964611,94.0730307 L78.964611,47.6059144 L86.7175738,47.6059144 C89.4823658,47.6059144 90.2199325,45.9433798 88.3671997,43.8949992 L75.4291759,29.5907251 L75.4291759,6.72800673 L61.9920762,6.72800673 L61.9920762,16.2998441 L46.0757076,0.556672782 Z" id="Layer-1"></path>
+            <polyline id="Layer-2" points="31 96 31 54 31 54 59 54 59 96"></polyline>
+        </g>
+    </g>
+</svg>
