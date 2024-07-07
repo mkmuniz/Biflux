@@ -109,7 +109,7 @@ export default function LoginForm() {
                     />
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full pt-6">
-                            <ButtonSubmit styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-black hover:before:left-0 hover:before:w-full hover:text-white" method="submit">
+                            <ButtonSubmit styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] w-full" method="submit" shadow={true}>
                                 <span className="relative z-10">LOGIN</span>
                             </ButtonSubmit>
                         </div>

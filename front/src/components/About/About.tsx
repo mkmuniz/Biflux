@@ -6,10 +6,10 @@ import { useIsVisible } from "@/hooks/useIsVisible";
 export default function About() {
     const refTextDiv: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const refImagesDiv: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-    
+
     const isVisibleTextDiv: boolean = useIsVisible(refTextDiv);
     const isVisibleImagesDiv: boolean = useIsVisible(refImagesDiv);
-    
+
     return (
         <>
             <section id="about" className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px] bg-white dark:bg-dark">
@@ -47,14 +47,16 @@ export default function About() {
                         <div ref={refTextDiv} className={`w-full px-4 lg:w-1/2 xl:w-5/12 font-bold transition-opacity ease-in duration-700 ${isVisibleTextDiv ? "opacity-100" : "opacity-0"}`}>
                             <div className="mt-10 lg:mt-0 m-6 sm:text-left text-center">
                                 <p className="mb-5 text-base text-body-color dark:text-dark-6">
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                    The point of using Lorem Ipsum is that it has a more-or-less.
+                                    Mauris velit nisl, sodales vel velit sed, finibus fringilla ex. Sed varius nibh in enim semper, 
+                                    sit amet dapibus quam facilisis. Curabitur a tortor in velit consequat porta.
                                 </p>
                                 <p className="mb-8 text-base text-body-color dark:text-dark-6">
-                                    A domain name is one of the first steps to establishing your
-                                    brand. Secure a consistent brand image with a domain name that
-                                    matches your business.
+                                Curabitur metus risus, egestas vel purus non, laoreet mattis urna. 
+                                Praesent eleifend augue id leo auctor, sed sagittis sapien venenatis. 
+                                Nunc tincidunt mi ac leo cursus, sit amet porta diam vehicula. P
+                                hasellus vitae tellus sed lorem elementum mattis aliquet nec dolor. 
+                                Aliquam nec ornare mi, sed sollicitudin nisi. 
+                                Fusce lorem tortor, consequat vel blandit ut, egestas sed eros.
                                 </p>
                             </div>
                         </div>

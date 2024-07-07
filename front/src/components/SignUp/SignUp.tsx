@@ -33,7 +33,7 @@ export default function SignUpForm() {
         mutationFn: signUp,
         onSuccess: (data) => {
             if (data.status === 409) return setError('Email already exists');
-            if(data.status === 500) return setError('Internal Server Error, Back Later!');
+            if (data.status === 500) return setError('Internal Server Error, Back Later!');
 
             setSuccess('Successfully signed up! Redirecting to login...');
             setTimeout(() => {
@@ -126,13 +126,17 @@ export default function SignUpForm() {
                             )}
                         </button>
                     </div>
-                    <div className="flex flex-col items-center justify-between">
-                        <ButtonSubmit method="submit" styles="flex items-center font-bold justify-center w-full text-black relative h-[40px] overflow-hidden border border-gray-300 rounded px-3 transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-standard before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full">
-                            <span className="relative z-10">SIGN UP</span>
-                        </ButtonSubmit>
-                        <Link className="m-6 inline-block align-baseline font-bold hover:text-blue-gray-700 transition-all text-sm text-black" href="/login">
-                            Have an account already?
-                        </Link>
+                    <div className="flex items-center justify-between flex-col">
+                        <div className="w-full">
+                            <ButtonSubmit method="submit" styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] w-full" shadow={true}>
+                                <span className="relative z-10">SIGN UP</span>
+                            </ButtonSubmit>
+                        </div>
+                        <div className="p-6">
+                            <Link className="inline-block align-baseline font-bold hover:text-blue-gray-700 transition-all text-sm text-black" href="/login">
+                                Have an account already?
+                            </Link>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -1,14 +1,18 @@
 'use client'
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Logo from "@/../public/logo.png";
 import HomeIcon from '@/../public/assets/icons/home.svg';
+import BilletsTable from '@/../public/assets/icons/table.svg';
+import ProfileIcon from '@/../public/assets/icons/profile.svg';
 import DashboardIcon from '@/../public/assets/icons/dashboard.svg';
 import HamburgerIcon from '@/../public/assets/icons/hamburger.svg';
-import ProfileIcon from '@/../public/assets/icons/profile.svg';
+import CloseIcon from '@/../public/assets/icons/close.svg';
+
 import LogoutButton from '@/app/(auth-routes)/logout/page';
+import UserProfileCard from '../UserProfileCard/UserProfileCard';
 
 const sideBarLinks = [
     {
@@ -16,6 +20,12 @@ const sideBarLinks = [
         description: 'Home',
         icon: HomeIcon,
         alt: 'Biflux Home Icon',
+    },
+    {
+        path: '/billets/table',
+        description: 'Billets',
+        icon: BilletsTable,
+        alt: 'Biflux Billets Table Icon',
     },
     {
         path: '/billets/dashboard',
@@ -28,17 +38,26 @@ const sideBarLinks = [
         description: 'Profile',
         icon: ProfileIcon,
         alt: 'Biflux Hamburger Icon',
-    }
+    },
 ];
 
 const SideBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isOpen]);
+
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
 
-    return (
+    return <>
+        <div className={`fixed inset-0 z-[50] ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
         <div className="flex bg-standard min-w-screen fixed top-0 w-full z-[99]">
             <div className="flex justify-between p-2 w-full h-full">
                 <div className="ml-3 z-[70]">
@@ -55,15 +74,19 @@ const SideBar = () => {
                         aria-label="Toggle navigation"
                     >
                         <span className="sr-only">Toggle Navigation</span>
-                        <Image src={HamburgerIcon} className="w-6 h-6" alt="Biflux Hamburger Icon" />
+                        <div className={`transition-transform duration-300 ease-in-out transform ${isOpen ? 'rotate-90' : 'rotate-0'}`}>
+                            <Image src={isOpen ? CloseIcon : HamburgerIcon} className="w-6 h-6" alt="Toggle Icon" />
+                        </div>
                     </button>
                 </div>
             </div>
             <div className={`flex flex-col justify-between fixed top-0 left-0 bottom-0 min-h-screen mt-12 h-full z-[60] bg-standard transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'}`}>
                 <div className="flex flex-col justify-center items-center gap-y-2 py-4">
-                    {sideBarLinks.map((link) => (
-                        <SideBarLink key={link.path} path={link.path} description={link.description} alt={link.alt} />
-                    ))}
+                    <div className="flex flex-col justify-center items-center gap-y-2">
+                        {sideBarLinks.map((link) => (
+                            <SideBarLink key={link.path} path={link.path} description={link.description} alt={link.alt} />
+                        ))}
+                    </div>
                 </div>
             </div>
             <div
@@ -80,7 +103,7 @@ const SideBar = () => {
                 </div>
             </div>
         </div>
-    );
+    </>
 };
 
 export default SideBar;
