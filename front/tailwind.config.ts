@@ -16,6 +16,7 @@ const config: Config = withMT({
       colors: {
         'standard': '#4E66FF',
         'standard-dark': '#4759C9',
+        'standard-hover': '#4E62E9',
         'yellow-standard': '#FFE03D',
         'yellow-hover': '#F2D338'
       },

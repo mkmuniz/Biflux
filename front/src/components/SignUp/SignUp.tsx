@@ -128,7 +128,7 @@ export default function SignUpForm() {
                     </div>
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full">
-                            <ButtonSubmit method="submit" styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] w-full" shadow={true}>
+                            <ButtonSubmit method="submit" styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full" shadow={true}>
                                 <span className="relative z-10">SIGN UP</span>
                             </ButtonSubmit>
                         </div>

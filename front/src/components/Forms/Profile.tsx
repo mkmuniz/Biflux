@@ -55,7 +55,7 @@ export default function ProfileForm({ session }: ProfileFormProps) {
                     />
                 </div>
                 <div className="flex items-center justify-center relative">
-                    <button className="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] w-full">
+                    <button className="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-colors duration-500 hover:bg-standard-hover w-full">
                         Save Changes
                     </button>
                     <span className="z-10 bg-standard-dark absolute w-full px-3 py-6 rounded inset-1 inset-x-1" />

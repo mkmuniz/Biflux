@@ -1,4 +1,4 @@
-import { patch, post } from "./request.config";
+import { get, patch, post } from "./request.config";
 
 export async function login(body: any) {
     const data = await post('login', body);
@@ -10,6 +10,12 @@ export async function signUp(body: any) {
     const data: any = await post('user', body);
 
     return { ...data };
+};
+
+export async function getUserById(id: string) {
+    const data = await get(`user/${id}`);
+
+    return data;
 };
 
 export async function getUserByEmail(email: string) {

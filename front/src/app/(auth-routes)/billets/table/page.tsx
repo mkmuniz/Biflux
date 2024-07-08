@@ -7,7 +7,7 @@ import { BilletsTable } from '@/components/Table/Billets';
 export default function Table() {
     return <>
         <Section styles="bg-white">
-            <Container styles="p-32">
+            <Container styles="md:pt-32 md:pl-32 pt-16 pl-20 flex items-center justify-center">
                 <BilletsTable />
             </Container>
         </Section>
