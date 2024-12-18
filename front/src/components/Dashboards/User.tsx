@@ -28,11 +28,11 @@ export default function UserDashboard() {
     if (status === 'loading') return <UserDashboardSkeleton />
 
     return (
-        <Section styles="bg-white w-screen h-screen">
+        <Section styles="bg-white h-screen">
             <Container styles="pl-28 pt-20">
                 <div className="flex justify-center mobile:flex-col gap-x-2 min-w-screen w-full">
                     <div className="flex h-[300px] md:w-2/3 w-full shadow-xl p-3">
-                        <div className="text-3xl h-full w-full p-3">
+                        <div className="text-3xl h-full w-full p-3 flex items-center justify-center">
                             <span>Welcome, {session?.name}!</span>
                         </div>
                     </div>
