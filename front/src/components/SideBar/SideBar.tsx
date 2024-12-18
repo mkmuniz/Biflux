@@ -27,12 +27,12 @@ const sideBarLinks = [
         icon: BilletsTable,
         alt: 'Biflux Billets Table Icon',
     },
-    {
-        path: '/billets/dashboard',
-        description: 'Dashboard',
-        icon: DashboardIcon,
-        alt: 'Biflux Dashboard Icon',
-    },
+    // {
+    //     path: '/billets/dashboard',
+    //     description: 'Dashboard',
+    //     icon: DashboardIcon,
+    //     alt: 'Biflux Dashboard Icon',
+    // },
     {
         path: '/user/profile',
         description: 'Profile',

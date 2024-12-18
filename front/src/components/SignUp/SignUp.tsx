@@ -15,6 +15,8 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 
+import LoadingSpinner from '../LoadingSpinner';
+
 interface SignUpData {
     name: string;
     email: string;
@@ -25,6 +27,7 @@ export default function SignUpForm() {
     const [showPassword, setStatusPassword] = useState(true);
     const [errorSignUp, setError] = useState<string>('');
     const [successSignUp, setSuccess] = useState<string>('');
+    const [loading, setLoading] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
@@ -52,17 +55,19 @@ export default function SignUpForm() {
 
     const handleSignUp: SubmitHandler<SignUpData> = (data) => {
         if (!errors.email && !errors.name && !errors.password) {
+            setLoading(true);
             mutate(data);
+            setLoading(false);
         }
     };
 
     return (
-        <div className="h-screen flex items-center justify-center sm:mt-12 bg-white">
+        <div className="h-screen flex items-center justify-center sm:mt-12 bg-white relative">
             <div className="sm:min-w-[400px] flex bg-white rounded items-center justify-center sm:shadow-md">
                 <form className="px-8" onSubmit={handleSubmit(handleSignUp)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl w-full">
-                            Sign Up
+                            Create an account
                         </span>
                     </div>
                     <div className="mb-4">
@@ -128,8 +133,10 @@ export default function SignUpForm() {
                     </div>
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full">
-                            <ButtonSubmit method="submit" styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full" shadow={true}>
-                                <span className="relative z-10">SIGN UP</span>
+                            <ButtonSubmit method="submit" styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full`} shadow={true} disabled={loading}>
+                                <span className="relative z-10">
+                                    {loading ? <LoadingSpinner /> : 'SIGN UP'}
+                                </span>
                             </ButtonSubmit>
                         </div>
                         <div className="p-6">
@@ -140,8 +147,10 @@ export default function SignUpForm() {
                     </div>
                 </form>
             </div>
-            {errorSignUp && <PopUpError message={errorSignUp} onClose={() => setError('')} />}
-            {successSignUp && <PopUpSuccess message={successSignUp} onClose={() => setSuccess('')} />}
+            <div className="absolute bottom-4 right-4">
+                {errorSignUp && <PopUpError message={errorSignUp} onClose={() => setError('')} />}
+                {successSignUp && <PopUpSuccess message={successSignUp} onClose={() => setSuccess('')} />}
+            </div>
         </div>
     );
 }

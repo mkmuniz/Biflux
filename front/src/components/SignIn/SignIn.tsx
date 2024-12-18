@@ -13,6 +13,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
+import LoadingSpinner from '../LoadingSpinner';
 
 interface FormData {
     email: string;
@@ -24,6 +25,7 @@ export default function LoginForm() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [showPassword, setStatusPassword] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const recaptchaRef = React.createRef<ReCAPTCHA>();
     const { register, handleSubmit, formState } = useForm<FormData>();
@@ -41,11 +43,15 @@ export default function LoginForm() {
             setError("");
         }
 
+        setLoading(true);
+
         const result: SignInResponse | undefined = await signIn('user-login', {
             ...data,
             recaptcha: recaptchaValue,
             redirect: false
         });
+
+        setLoading(false);
 
         if (result?.error) {
             return setError(result.error);
@@ -68,7 +74,7 @@ export default function LoginForm() {
                 <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
                     <div className="flex items-center justify-center h-32">
                         <span className="text-black font-bold text-center text-2xl">
-                            Sign In
+                            Welcome Back!
                         </span>
                     </div>
                     <div className="mb-4 w-full">
@@ -109,8 +115,10 @@ export default function LoginForm() {
                     />
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full pt-6">
-                            <ButtonSubmit styles="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full" method="submit" shadow={true}>
-                                <span className="relative z-10">LOGIN</span>
+                            <ButtonSubmit styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full`} method="submit" shadow={true} disabled={loading}>
+                                <span className="relative z-10">
+                                    {loading ? <LoadingSpinner /> : <div className="relative z-10 font-bold">LOGIN</div>}
+                                </span>
                             </ButtonSubmit>
                         </div>
                         <div className="p-6">

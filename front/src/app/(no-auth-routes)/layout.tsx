@@ -22,13 +22,13 @@ const menuItems: MenuItem[] = [
         description: "Home"
     },
     {
+        href: "/#solutions",
+        description: "Solutions"
+    },
+    {
         href: "/#about",
         description: "About"
     },
-    {
-        href: "/#solutions",
-        description: "Solutions"
-    }
 ];
 
 export default async function PrivateLayout({ children }: PrivateLayoutProps) {

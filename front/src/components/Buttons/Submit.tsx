@@ -1,20 +1,23 @@
+import React from 'react';
+
 interface ButtonSubmitProps {
-    children: React.ReactNode,
-    styles?: string,
-    method?: string,
-    shadow?: boolean,
+    styles: string;
+    method: 'submit' | 'reset' | 'button';
+    shadow?: boolean;
+    disabled?: boolean;
+    children: React.ReactNode;
+}
+
+const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ styles, method, shadow, disabled, children }) => {
+    return (
+        <button
+            type={method}
+            className={`${styles} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={disabled}
+        >
+            {children}
+        </button>
+    );
 };
 
-export default function ButtonSubmit({ children, styles, method, shadow }: ButtonSubmitProps) {
-    return <>
-        <div className="flex items-center justify-center relative">
-            <button className={styles} formMethod={method}>
-                {children}
-            </button>
-            {shadow ? <>
-                <span className="z-10 bg-standard-dark absolute w-full px-3 py-6 rounded inset-1 inset-x-1" />
-            </> :
-                <></>}
-        </div>
-    </>;
-};
+export default ButtonSubmit;
