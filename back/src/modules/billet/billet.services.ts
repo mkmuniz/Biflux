@@ -14,6 +14,9 @@ export class BilletServices {
             where: {
                 userId: userId
             },
+            include: {
+                consumes: true
+            },
             orderBy: {
                 createdAt: 'desc'
             }
