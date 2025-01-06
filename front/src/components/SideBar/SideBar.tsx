@@ -4,15 +4,14 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 import Logo from "@/../public/logo.png";
+
 import HomeIcon from '@/../public/assets/icons/home.svg';
 import BilletsTable from '@/../public/assets/icons/table.svg';
 import ProfileIcon from '@/../public/assets/icons/profile.svg';
-import DashboardIcon from '@/../public/assets/icons/dashboard.svg';
 import HamburgerIcon from '@/../public/assets/icons/hamburger.svg';
 import CloseIcon from '@/../public/assets/icons/close.svg';
 
 import LogoutButton from '@/app/(auth-routes)/logout/page';
-import UserProfileCard from '../UserProfileCard/UserProfileCard';
 
 const sideBarLinks = [
     {

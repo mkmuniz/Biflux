@@ -1,13 +1,14 @@
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
+
 import Section from "../Section/Section";
 import Container from "../Container/Container";
+
 import UserDashboardSkeleton from "../Skeletons/UserDashboard";
+
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
 
 interface Billet {
     id: string;
@@ -27,8 +28,8 @@ export default function UserDashboard() {
     const { data: billets, isLoading } = useQuery({
         queryKey: ['billets', session?.user?.id],
         queryFn: async () => {
-            const response = await fetch(`${baseUrl}billet?userId=${session?.user?.id}`);
-            
+            const response = await fetch(`http://localhost:4000/billet?userId=${session?.user?.id}`);
+
             if (!response.ok)
                 throw new Error('Failed to fetch billets');
 
@@ -37,14 +38,14 @@ export default function UserDashboard() {
         enabled: !!session?.user?.id,
     });
 
-    if (status === 'loading' || isLoading) {
+    if (status === 'loading' || isLoading) 
         return <UserDashboardSkeleton />;
-    }
 
     const processConsumptionData = () => {
         if (!billets || billets.length === 0) return [];
         
         const latestBillet = billets[0];
+
         return latestBillet.consumes.map((consume: Consume) => ({
             name: consume.type,
             value: Math.abs(consume.value)
@@ -123,16 +124,16 @@ export default function UserDashboard() {
 
                     <div className="w-full bg-white shadow-xl rounded-lg p-6">
                         <h2 className="text-xl font-semibold mb-4 text-gray-800">Distribuição de Custos (R$)</h2>
-                        <div className="h-[400px]">
-                            <ResponsiveContainer width="100%" height="100%">
+                        <div className="h-[400px] relative">
+                            <ResponsiveContainer width="100%" height="80%">
                                 <PieChart>
                                     <Pie
                                         data={pieData}
                                         cx="50%"
                                         cy="50%"
                                         labelLine={false}
-                                        label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
-                                        outerRadius={140}
+                                        label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                                        outerRadius={80}
                                         fill="#8884d8"
                                         dataKey="value"
                                     >
@@ -147,6 +148,16 @@ export default function UserDashboard() {
                                     <Legend 
                                         verticalAlign="bottom"
                                         height={36}
+                                        wrapperStyle={{
+                                            fontSize: '12px',
+                                            paddingTop: '10px',
+                                            width: '100%',
+                                            overflowWrap: 'break-word',
+                                            wordWrap: 'break-word'
+                                        }}
+                                        formatter={(value: string) => {
+                                            return value.length > 20 ? value.substring(0, 20) + '...' : value;
+                                        }}
                                     />
                                 </PieChart>
                             </ResponsiveContainer>
