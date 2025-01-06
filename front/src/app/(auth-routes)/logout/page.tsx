@@ -21,7 +21,7 @@ export default function LogoutButton() {
     };
 
     return <>
-        <li>
+        <li className="list-none">
             <Link onClick={logout} href="/logout" className="flex items-center p-2 text-white rounded-lg group">
                 <Image src={LogoutIcon} alt="Biflux Logout Icon" />
             </Link>
