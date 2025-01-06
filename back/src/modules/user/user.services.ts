@@ -3,6 +3,12 @@ import { hashPassword } from "../../utils/hashPassword";
 
 const db = new PrismaClient();
 
+interface UserData {
+    name: string;
+    email: string;
+    password: string;
+}
+
 export class UserServices {
     static async getAllUsers() {
         const users: User[] = await db.user.findMany();
@@ -10,9 +16,11 @@ export class UserServices {
         return users;
     };
 
-    static async getUserById(id: number) {
+    static async getUserById(id: string) {
         const user = await db.user.findUnique({
-            where: { id }
+            where: {
+                id
+            }
         });
 
         return user;
@@ -20,17 +28,25 @@ export class UserServices {
 
     static async getUserByEmail(email: string) {
         const user = await db.user.findUnique({
-            where: { email }
+            where: {
+                email
+            }
         });
 
         return user;
     };
 
-    static async createUser(data: any) {
-        const hashedPassword = await hashPassword(data.password);
+    static async createUser(userData: UserData) {
+        const { name, email, password } = userData;
+
+        const hashedPassword = await hashPassword(password);
 
         const user = await db.user.create({
-            data: { ...data, password: hashedPassword }
+            data: {
+                name,
+                email,
+                password: hashedPassword
+            }
         });
 
         return user;
