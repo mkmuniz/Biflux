@@ -6,47 +6,49 @@ export class AuthController {
     static async login(req: Request, res: Response) {
         try {
             const { email, password } = req.body;
-            const user: any = await UserServices.getUserByEmail(email);
-
-            if (!user) return res.status(404).json({ message: "This email does not exist." });
-
-            const tokens = await AuthServices.login({ email, password });
-
-            if (!tokens) return res.status(401).json({ message: "Invalid credentials" });
             
-            res.json(tokens);
+            if (!email || !password)
+                return res.status(400).json({ message: "Email and password are required" });
+
+            try {
+                const tokens = await AuthServices.login(email, password);
+                return res.json(tokens);
+            } catch (error: any) {
+                if (error.message === 'User not found')
+                    return res.status(404).json({ message: "This email does not exist." });
+
+                if (error.message === 'Invalid password')
+                    return res.status(401).json({ message: "Invalid credentials" });
+
+                throw error;
+            }
         } catch (err: any) {
-            console.error(err);
+            console.error('Login error:', err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
 
-            return;
-        };
-    };
-
-    static async getAllRefreshToken(req: Request, res: Response) {
-        try {
-            const refreshTokens = await AuthServices.getAllRefreshTokens();
-
-            res.json(refreshTokens);
-        } catch (err: any) {
-            console.error(err);
-
-            return
-        };
-    };
-
-    static async generateNewRefreshToken(req: Request, res: Response) {
+    static async refreshToken(req: Request, res: Response) {
         try {
             const { refreshToken } = req.body;
 
-            const newRefreshToken = await AuthServices.generateNewRefreshToken(refreshToken);
+            if (!refreshToken) {
+                return res.status(400).json({ message: "Refresh token is required" });
+            }
 
-            if (!newRefreshToken) res.json({ message: "Not authorized" }).status(401);
+            try {
+                const newTokens = await AuthServices.getRefreshTokenByUserId(refreshToken);
+                
+                if (!newTokens)
+                    return res.status(401).json({ message: "Invalid refresh token" });
 
-            res.json(newRefreshToken);
+                return res.json(newTokens);
+            } catch (error) {
+                return res.status(401).json({ message: "Not authorized" });
+            }
         } catch (err: any) {
-            console.error(err);
-
-            return;
-        };
-    };
-};
+            console.error('Refresh token error:', err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
+}

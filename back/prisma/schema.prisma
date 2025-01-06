@@ -8,45 +8,50 @@ datasource db {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(uuid())
   email         String         @unique
-  name          String?
+  name          String
   password      String
+  billets       Billet[]
   refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  Billet        Billet[]
-
-  @@map("users")
+  updatedAt     DateTime       @default(now())
 }
 
 model RefreshToken {
-  id          String @id @unique @default(uuid())
+  id          String   @id @default(uuid())
   hashedToken String
-  expiresIn   Int
-  user        User   @relation(fields: [userId], references: [id])
-  userId      Int    @unique
+  expiresIn   BigInt
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 
   @@map("refresh_token")
 }
 
 model Billet {
-  id             Int       @id @unique @default(autoincrement())
-  referenceMonth String
-  user           User      @relation(fields: [userId], references: [id])
-  userId         Int
-  Consume        Consume[]
-
-  @@map("billets")
+  id                    String    @id @default(uuid())
+  fileName             String
+  filePath             String
+  clientNumber         String?
+  month                String?
+  userId               String
+  user                 User      @relation(fields: [userId], references: [id])
+  consumes             Consume[]
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @default(now())
 }
 
 model Consume {
-  id       Int     @id @unique @default(autoincrement())
-  type     String
-  value    Float
-  quantity Float
-  Billet   Billet @relation(fields: [billetId], references: [id])
-  billetId Int
+  id                    String   @id @default(uuid())
+  type                  String   // Tipo do consumo (Energia Elétrica, SCEEE, GD I, etc)
+  value                 Float    // Valor em R$
+  quantity              Float    // Quantidade em kWh
+  billetId              String
+  billet                Billet   @relation(fields: [billetId], references: [id])
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
 
   @@map("consume")
 }
