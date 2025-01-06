@@ -23,11 +23,11 @@ export const nextAuthOptions: NextAuthOptions = {
                         case 200:
                             return data
                         case 401:
-                            return { error: 'Email not found' }
+                            return { error: 'Invalid credentials, try again!' }
                         case 404:
-                            return { error: 'Invalid credentials' }
+                            return { error: 'Not found, try again!' }
                         case 500:
-                            return { error: 'Internal Error, Back Later!' }
+                            return { error: 'Internal error, we are working on it!' }
                     }
 
                     return null;

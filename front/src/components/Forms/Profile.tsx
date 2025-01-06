@@ -1,8 +1,10 @@
 import React from "react";
 
 interface Session {
-    name?: string;
-    email?: string;
+    user?: {
+        name?: string;
+        email?: string;
+    }
 }
 
 interface ProfileFormProps {
@@ -27,7 +29,7 @@ export default function ProfileForm({ session }: ProfileFormProps) {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="name"
                         type="text"
-                        placeholder={session?.name}
+                        placeholder={session?.user?.name}
                     />
                 </div>
                 <div className="mb-4">
@@ -39,7 +41,7 @@ export default function ProfileForm({ session }: ProfileFormProps) {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="email"
                         type="text"
-                        placeholder={session?.email}
+                        placeholder={session?.user?.email}
                     />
                 </div>
                 <div className="mb-4">
@@ -58,7 +60,6 @@ export default function ProfileForm({ session }: ProfileFormProps) {
                     <button className="z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-colors duration-500 hover:bg-standard-hover w-full">
                         Save Changes
                     </button>
-                    <span className="z-10 bg-standard-dark absolute w-full px-3 py-6 rounded inset-1 inset-x-1" />
                 </div>
             </form>
         </>
