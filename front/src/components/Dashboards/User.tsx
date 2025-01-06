@@ -7,6 +7,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
+
 interface Billet {
     id: string;
     month: string;
@@ -25,10 +27,11 @@ export default function UserDashboard() {
     const { data: billets, isLoading } = useQuery({
         queryKey: ['billets', session?.user?.id],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:4000/billet?userId=${session?.user?.id}`);
-            if (!response.ok) {
+            const response = await fetch(`${baseUrl}billet?userId=${session?.user?.id}`);
+            
+            if (!response.ok)
                 throw new Error('Failed to fetch billets');
-            }
+
             return response.json();
         },
         enabled: !!session?.user?.id,

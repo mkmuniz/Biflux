@@ -1,10 +1,10 @@
 'use server'
 
-import { PutObjectCommand, S3 } from "@aws-sdk/client-s3";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
 
 export async function handleUpload(userId: string, formData: FormData) {
     try {
-        const response = await fetch('http://localhost:4000/billet', {
+        const response = await fetch(`${baseUrl}billet`, {
             method: 'POST',
             body: formData
         });

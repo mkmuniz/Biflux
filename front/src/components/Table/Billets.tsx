@@ -3,9 +3,10 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { PlusIcon, MagnifyingGlassIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import ModalUpload from "../Modal/Upload";
-import { handleUpload } from "@/lib/upload";
 import { useSession } from "next-auth/react";
 import BilletsTableSkeleton from "../Skeletons/BilletsTable";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
 
 interface Billet {
     clientNumber: string;
@@ -28,7 +29,7 @@ export function BilletsTable() {
             setLoading(true);
             setError(null);
             
-            const response = await fetch(`http://localhost:4000/billet?userId=${session?.user?.id}`);
+            const response = await fetch(`${baseUrl}billet?userId=${session?.user?.id}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
