@@ -27,17 +27,11 @@ const sideBarLinks = [
         icon: BilletsTable,
         alt: 'Biflux Billets Table Icon',
     },
-    // {
-    //     path: '/billets/dashboard',
-    //     description: 'Dashboard',
-    //     icon: DashboardIcon,
-    //     alt: 'Biflux Dashboard Icon',
-    // },
     {
         path: '/user/profile',
         description: 'Profile',
         icon: ProfileIcon,
-        alt: 'Biflux Hamburger Icon',
+        alt: 'Biflux Profile Icon',
     },
 ];
 
@@ -113,7 +107,7 @@ const SideBarLink = ({ path, description, icon, alt }: any) => {
         <div className="hs-tooltip inline-block">
             <a
                 href={path}
-                className="hs-tooltip-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-white"
+                className="hs-tooltip-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-white transition-transform duration-300 transform hover:scale-110"
             >
                 {icon && <Image src={icon} alt={alt} className="w-6 h-6" />}
                 {description}

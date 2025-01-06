@@ -1,10 +1,13 @@
 import { Router } from "express";
 import { BilletController } from "./billet.controller";
+import multer from 'multer';
 
-const userRouter = Router();
+const billetRouter = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-userRouter
+billetRouter
     .get('/billet', BilletController.getAllBillets)
-    .post('/billet', BilletController.uploadBillet)
+    .post('/billet', upload.single('file'), BilletController.uploadBillet)
+    .get('/billet/download/:fileName', BilletController.getDownloadUrl);
 
-export default userRouter;
+export default billetRouter;

@@ -1,28 +1,34 @@
-import { User } from "@prisma/client";
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-export function generateAccessToken(user: User) {
-  return jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET, {
-    expiresIn: '5m',
-  });
+const accessTokenSecret = process.env.JWT_ACCESS_TOKEN_SECRET || 'access_secret';
+const refreshTokenSecret = process.env.JWT_REFRESH_TOKEN_SECRET || 'refresh_secret';
+
+interface TokenUser {
+    id: string;
+    email: string;
+    name: string;
 }
 
-export function generateRefreshToken(user: User, jti: any) {
-  return jwt.sign({
-    userId: user.id,
-    jti
-  }, process.env.JWT_REFRESH_SECRET, {
-    expiresIn: '8h',
-  });
+export const generateTokens = (user: TokenUser) => {
+    const accessToken = jwt.sign(
+        { id: user.id, email: user.email, name: user.name },
+        accessTokenSecret,
+        { expiresIn: '15m' }
+    );
+
+    const refreshToken = jwt.sign(
+        { id: user.id },
+        refreshTokenSecret,
+        { expiresIn: '30d' }
+    );
+
+    return { accessToken, refreshToken };
 };
 
-export function generateTokens(user: User, jti: any) {
-  const accessToken = generateAccessToken(user);
-  const refreshToken = generateRefreshToken(user, jti);
+export const verifyAccessToken = (token: string) => {
+    return jwt.verify(token, accessTokenSecret);
+};
 
-  return {
-    accessToken,
-    refreshToken,
-  };
+export const verifyRefreshToken = (token: string) => {
+    return jwt.verify(token, refreshTokenSecret);
 };

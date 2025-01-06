@@ -15,7 +15,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinner from '../Loading/LoadingSpinner';
 
 interface SignUpData {
     name: string;
