@@ -6,10 +6,12 @@ export class BilletController {
     static async getAllBillets(req: Request, res: Response) {
         try {
             const userId = req.query.userId as string;
+            
             if (!userId)
                 return res.status(400).json({ message: 'User ID is required' });
 
             const data = await BilletServices.getAllBilletsByUserId(userId);
+            
             return res.json(data);
         } catch (err: any) {
             console.error(err);
@@ -38,7 +40,7 @@ export class BilletController {
                 return res.status(404).json({ message: 'User not found' });
 
             const data = await BilletServices.uploadBillet(file, userId);
-            
+
             return res.json(data);
         } catch (err: any) {
             console.error('Upload error:', err);
@@ -49,7 +51,9 @@ export class BilletController {
     static async getDownloadUrl(req: Request, res: Response) {
         try {
             const { fileName } = req.params;
+
             const signedUrl = await BilletServices.getSignedDownloadUrl(fileName);
+
             return res.json({ downloadUrl: signedUrl });
         } catch (err: any) {
             console.error(err);

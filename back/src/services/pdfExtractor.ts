@@ -19,14 +19,11 @@ export async function extractPdfData(buffer: Buffer): Promise<ExtractedData> {
     const monthMatch = text.match(monthRegex);
     const month = monthMatch ? monthMatch[1].trim() : '';
 
-    const dueDateRegex = /(\d{2}\/\d{2}\/\d{4})/;
-    const dueDateMatch = text.match(dueDateRegex);
-    const dueDate = dueDateMatch ? dueDateMatch[1] : '';
-
     const consumes: Omit<Consume, 'id' | 'billetId' | 'createdAt' | 'updatedAt'>[] = [];
 
     const energiaPattern = /Energia Elétrica\s*kWh\s+(\d+)\s+[\d,]+\s+([\d,]+)/;
     const energiaMatch = text.match(energiaPattern);
+
     if (energiaMatch) {
         consumes.push({
             type: 'Energia Elétrica',
@@ -37,6 +34,7 @@ export async function extractPdfData(buffer: Buffer): Promise<ExtractedData> {
 
     const sceeePattern = /Energia SCEE s\/ ICMSkWh\s+(\d+)\s+[\d,]+\s+([\d,]+)/;
     const sceeeMatch = text.match(sceeePattern);
+    
     if (sceeeMatch) {
         consumes.push({
             type: 'Energia SCEEE s/ICMS',
@@ -47,6 +45,7 @@ export async function extractPdfData(buffer: Buffer): Promise<ExtractedData> {
 
     const gdPattern = /Energia compensada GD IkWh\s+(\d+)\s+[\d,]+\s+(-[\d,]+)/;
     const gdMatch = text.match(gdPattern);
+
     if (gdMatch) {
         consumes.push({
             type: 'Energia Compensada GD I',
@@ -57,6 +56,7 @@ export async function extractPdfData(buffer: Buffer): Promise<ExtractedData> {
 
     const iluminacaoPattern = /Contrib Ilum Publica Municipal\s+([\d,]+)/;
     const iluminacaoMatch = text.match(iluminacaoPattern);
+
     if (iluminacaoMatch) {
         consumes.push({
             type: 'Contrib Ilum Publica Municipal',

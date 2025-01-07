@@ -16,7 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use(logger('dev'));
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'https://biflux.vercel.app'] }));
 app.use(bodyParser.json());
 app.use(userRouter);
 app.use(authRouter);
