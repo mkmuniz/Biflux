@@ -1,136 +1,148 @@
 'use client'
 
-import ReCAPTCHA from "react-google-recaptcha";
-import React, { useState, FormEvent } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-
 import Link from 'next/link';
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { signIn, SignInResponse } from 'next-auth/react';
-
-import ButtonSubmit from '../Buttons/Submit';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-
 import PopUpError from '../PopUps/Error';
-import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
 
-interface FormData {
+interface SignInData {
     email: string;
     password: string;
 }
 
-export default function LoginForm() {
-    const router = useRouter();
+export default function SignInForm() {
+    const [showPassword, setShowPassword] = useState(true);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const [showPassword, setStatusPassword] = useState(true);
-    const [loading, setLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInData>();
 
-    const recaptchaRef = React.createRef<ReCAPTCHA>();
-    const { register, handleSubmit, formState } = useForm<FormData>();
-
-    const { errors } = formState;
-
-    const googleRecaptchaKey: string = String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY);
-
-    const handleSignIn: SubmitHandler<FormData> = async (data) => {
-        const recaptchaValue = recaptchaRef.current?.getValue();
-
-        if (!recaptchaValue) {
-            return setError("Please complete the reCAPTCHA");
-        } else {
-            setError("");
-        }
-
-        setLoading(true);
-
-        const result: SignInResponse | undefined = await signIn('user-login', {
-            ...data,
-            recaptcha: recaptchaValue,
-            redirect: false
-        });
-
-        setLoading(false);
-
-        if (result?.error) {
-            return setError(result.error);
-        }
-
-        setSuccess("Successfully logged in!");
-        setTimeout(() => {
-            router.replace('/user/home');
-        }, 5000);
+    const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setShowPassword(prev => !prev);
     };
 
-    function togglePasswordVisibility(e: FormEvent) {
-        e.preventDefault();
-        setStatusPassword((showPassword) => !showPassword);
-    }
+    const handleSignIn: SubmitHandler<SignInData> = async (data) => {
+        try {
+            setIsSubmitting(true);
+            const response = await signIn('user-login', {
+                ...data,
+                redirect: false
+            });
+
+            if (response?.error) {
+                setError(response.error);
+                return;
+            }
+
+            router.replace('/user/home');
+        } catch (err) {
+            setError('Failed to sign in. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
-        <div className="w-full h-screen flex items-center justify-center sm:mt-12 bg-white">
-            <div className="sm:min-w-[400px] sm:min-h-[500px] bg-white grid items-center justify-center rounded sm:shadow-md">
-                <form className="px-8" onSubmit={handleSubmit(handleSignIn)}>
-                    <div className="flex items-center justify-center h-32">
-                        <span className="text-black font-bold text-center text-2xl">
-                            Welcome Back!
-                        </span>
+        <div className="min-h-screen flex items-center justify-center bg-white p-4">
+            <div className="w-full max-w-md">
+                <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+                    <div className="text-center space-y-2">
+                        <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
+                        <p className="text-gray-500">Sign in to manage your energy bills</p>
                     </div>
-                    <div className="mb-2 w-full">
-                        <label className="block text-sm mb-2 text-black" htmlFor="email">
-                            E-mail
-                        </label>
-                        <input {...register("email", {
-                            pattern: {
-                                value: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/,
-                                message: 'Invalid email format'
-                            },
-                            required: 'Email is required'
-                        })} className={`shadow border-gray-500 sm:min-w-[300px] border appearance-none ${errors.email ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="text" placeholder="example@mail.com" />
-                        <p className="text-red-500 text-[12px]">{errors.email?.message}</p>
-                    </div>
-                    <div className="mb-6 relative container mx-auto">
-                        <label className="block text-sm mb-2 text-black" htmlFor="password">
-                            Password
-                        </label>
-                        <input {...register("password", {
-                            required: 'Password is required'
-                        })} className={`shadow border-gray-500 border appearance-none rounded sm:min-w-[300px] w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-400' : ''}`} id="password" type={showPassword ? "password" : "text"} placeholder="*********" />
-                        <p className="text-red-500 text-[12px]">{errors.password?.message}</p>
+
+                    <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+                                Email Address
+                            </label>
+                            <input
+                                {...register("email", {
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Invalid email address"
+                                    }
+                                })}
+                                className={`w-full px-4 py-3 rounded-lg border ${
+                                    errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                } focus:outline-none focus:ring-2 ${
+                                    errors.email ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                } transition-colors`}
+                                placeholder="you@example.com"
+                            />
+                            {errors.email && (
+                                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                            )}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    {...register("password", { required: 'Password is required' })}
+                                    type={showPassword ? "password" : "text"}
+                                    className={`w-full px-4 py-3 rounded-lg border ${
+                                        errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                    } focus:outline-none focus:ring-2 ${
+                                        errors.password ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                    } transition-colors`}
+                                    placeholder="••••••••"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                >
+                                    {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+                                </button>
+                            </div>
+                            {errors.password && (
+                                <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+                            )}
+                        </div>
+
                         <button
-                            className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
-                            onClick={(e) => togglePasswordVisibility(e)}
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={`w-full py-3 px-4 rounded-lg text-white font-medium 
+                                ${isSubmitting 
+                                    ? 'bg-standard-dark cursor-not-allowed' 
+                                    : 'bg-standard hover:bg-standard-hover active:bg-standard-dark'} 
+                                transition-colors duration-200 flex items-center justify-center`}
                         >
-                            {showPassword ? (
-                                <EyeSlashIcon className="w-6" />
+                            {isSubmitting ? (
+                                <>
+                                    <LoadingSpinner />
+                                    <span className="ml-2">Signing in...</span>
+                                </>
                             ) : (
-                                <EyeIcon className="w-6" />
+                                'Sign in'
                             )}
                         </button>
-                    </div>
-                    <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={googleRecaptchaKey}
-                    />
-                    <div className="flex items-center justify-between flex-col">
-                        <div className="w-full pt-6">
-                            <ButtonSubmit styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:bg-standard-hover w-full`} method="submit" shadow={true} disabled={loading}>
-                                <span className="relative z-10">
-                                    {loading ? <LoadingSpinner /> : <div className="relative z-10 font-bold">LOGIN</div>}
-                                </span>
-                            </ButtonSubmit>
-                        </div>
-                        <div className="p-6">
-                            <Link className="inline-block align-baseline font-bold hover:text-blue-gray-100 transition-all text-sm text-black hover:text-blue-hover" href="/sign-up">
-                                Dont have an account?
+
+                        <p className="text-center text-sm text-gray-500">
+                            Don't have an account?{' '}
+                            <Link href="/sign-up" className="text-blue-600 hover:text-blue-700 font-medium">
+                                Create one
                             </Link>
-                        </div>
-                    </div>
-                </form>
-                {error && <PopUpError message={error} onClose={() => setError('')} />}
-                {success && <PopUpSuccess message={success} onClose={() => setSuccess('')} />}
+                        </p>
+                    </form>
+                </div>
             </div>
+
+            {error && (
+                <div className="fixed bottom-4 right-4">
+                    <PopUpError message={error} onClose={() => setError('')} />
+                </div>
+            )}
         </div>
     );
 }
