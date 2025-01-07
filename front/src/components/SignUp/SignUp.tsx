@@ -151,7 +151,7 @@ export default function SignUpForm() {
                             Create an account
                         </span>
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <label className="block text-sm mb-2 text-black" htmlFor="name">
                             Name
                         </label>
@@ -164,7 +164,7 @@ export default function SignUpForm() {
                         />
                         {errors.name && <p className="text-red-500 text-[12px]">{errors.name.message}</p>}
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <label className="block text-sm mb-2 text-black" htmlFor="email">
                             Email
                         </label>
@@ -183,7 +183,7 @@ export default function SignUpForm() {
                         />
                         {errors.email && <p className="text-red-500 text-[12px]">{errors.email.message}</p>}
                     </div>
-                    <div className="mb-4 relative">
+                    <div className="mb-2 relative">
                         <label className="block text-sm mb-2 text-black" htmlFor="password">
                             Password
                         </label>
@@ -204,21 +204,21 @@ export default function SignUpForm() {
                                 <EyeIcon className="w-6" />
                             )}
                         </button>
-                        {password && (
-                            <div className="mb-2">
-                                <div className="h-2 w-full bg-gray-200 rounded-full">
-                                    <div
-                                        className={`h-full rounded-full transition-all duration-300 ${getPasswordStrengthColor()}`}
-                                        style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
-                                    ></div>
-                                </div>
-                                <p className={`text-sm mt-1 ${passwordStrength.score >= 3 ? 'text-green-600' : 'text-red-500'}`}>
-                                    {passwordStrength.feedback}
-                                </p>
-                            </div>
-                        )}
                     </div>
-                    <div className="mb-4 relative">
+                    {password && (
+                        <div>
+                            <div className="h-2 w-full bg-gray-200 rounded-full">
+                                <div
+                                    className={`h-full rounded-full transition-all duration-300 ${getPasswordStrengthColor()}`}
+                                    style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                                ></div>
+                            </div>
+                            <p className={`text-sm mt-1 ${passwordStrength.score >= 3 ? 'text-green-600' : 'text-red-500'}`}>
+                                {passwordStrength.feedback}
+                            </p>
+                        </div>
+                    )}
+                    <div className="mb-2 relative">
                         <label className="block text-sm mb-2 text-black" htmlFor="confirmPassword">
                             Confirm Password
                         </label>
@@ -248,12 +248,11 @@ export default function SignUpForm() {
                     </div>
                     <div className="flex items-center justify-between flex-col">
                         <div className="w-full">
-                            <ButtonSubmit 
-                                method="submit" 
-                                styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover w-full ${
-                                    passwordStrength.score < 3 || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                                }`} 
-                                shadow={true} 
+                            <ButtonSubmit
+                                method="submit"
+                                styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover w-full ${passwordStrength.score < 3 || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                                    }`}
+                                shadow={true}
                                 disabled={isSubmitting || passwordStrength.score < 3}
                             >
                                 <span className="relative z-10">
