@@ -77,7 +77,7 @@ export default function LoginForm() {
                             Welcome Back!
                         </span>
                     </div>
-                    <div className="mb-4 w-full">
+                    <div className="mb-2 w-full">
                         <label className="block text-sm mb-2 text-black" htmlFor="email">
                             E-mail
                         </label>
