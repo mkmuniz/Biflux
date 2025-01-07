@@ -143,136 +143,158 @@ export default function SignUpForm() {
     };
 
     return (
-        <div className="h-screen flex items-center justify-center sm:mt-12 bg-white relative">
-            <div className="sm:min-w-[400px] flex bg-white rounded items-center justify-center sm:shadow-md">
-                <form className="px-8" onSubmit={handleSubmit(handleSignUp)}>
-                    <div className="flex items-center justify-center h-32">
-                        <span className="text-black font-bold text-center text-2xl w-full">
-                            Create an account
-                        </span>
+        <div className="min-h-screen flex items-center justify-center bg-white m-12">
+            <div className="w-full max-w-md">
+                <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+                    <div className="text-center space-y-2">
+                        <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
+                        <p className="text-gray-500">Join us and start managing your energy bills</p>
                     </div>
-                    <div className="mb-2">
-                        <label className="block text-sm mb-2 text-black" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            {...register("name", { required: 'Name is required' })}
-                            className={`shadow min-w-[300px] appearance-none border ${errors.name ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-                            id="name"
-                            type="text"
-                            placeholder="Name Completed"
-                        />
-                        {errors.name && <p className="text-red-500 text-[12px]">{errors.name.message}</p>}
-                    </div>
-                    <div className="mb-2">
-                        <label className="block text-sm mb-2 text-black" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            {...register("email", {
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Invalid email address"
-                                }
-                            })}
-                            className={`shadow min-w-[300px] appearance-none border ${errors.email ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-                            id="email"
-                            type="email"
-                            placeholder="example@email.com"
-                        />
-                        {errors.email && <p className="text-red-500 text-[12px]">{errors.email.message}</p>}
-                    </div>
-                    <div className="mb-2 relative">
-                        <label className="block text-sm mb-2 text-black" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            {...register("password", { required: 'Password is required' })}
-                            className={`shadow min-w-[300px] appearance-none border ${errors.password ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-                            id="password"
-                            type={showPassword ? "password" : "text"}
-                            placeholder="*********"
-                        />
-                        <button
-                            className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
-                            onClick={togglePasswordVisibility('password')}
-                        >
-                            {showPassword ? (
-                                <EyeSlashIcon className="w-6" />
-                            ) : (
-                                <EyeIcon className="w-6" />
-                            )}
-                        </button>
-                    </div>
-                    {password && (
+
+                    <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
                         <div>
-                            <div className="h-2 w-full bg-gray-200 rounded-full">
-                                <div
-                                    className={`h-full rounded-full transition-all duration-300 ${getPasswordStrengthColor()}`}
-                                    style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
-                                ></div>
-                            </div>
-                            <p className={`text-sm mt-1 ${passwordStrength.score >= 3 ? 'text-green-600' : 'text-red-500'}`}>
-                                {passwordStrength.feedback}
-                            </p>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+                                Full Name
+                            </label>
+                            <input
+                                {...register("name", { required: 'Name is required' })}
+                                className={`w-full px-4 py-3 rounded-lg border ${
+                                    errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                } focus:outline-none focus:ring-2 ${
+                                    errors.name ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                } transition-colors`}
+                                placeholder="Full Name"
+                            />
+                            {errors.name && (
+                                <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                            )}
                         </div>
-                    )}
-                    <div className="mb-2 relative">
-                        <label className="block text-sm mb-2 text-black" htmlFor="confirmPassword">
-                            Confirm Password
-                        </label>
-                        <input
-                            {...register("confirmPassword", {
-                                required: 'Please confirm your password',
-                                validate: value => value === password || "Passwords do not match"
-                            })}
-                            className={`shadow min-w-[300px] appearance-none border ${errors.confirmPassword ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-                            id="confirmPassword"
-                            type={showConfirmPassword ? "password" : "text"}
-                            placeholder="*********"
-                        />
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+                                Email Address
+                            </label>
+                            <input
+                                {...register("email", {
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Invalid email address"
+                                    }
+                                })}
+                                className={`w-full px-4 py-3 rounded-lg border ${
+                                    errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                } focus:outline-none focus:ring-2 ${
+                                    errors.email ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                } transition-colors`}
+                                placeholder="you@example.com"
+                            />
+                            {errors.email && (
+                                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                            )}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    {...register("password", { required: 'Password is required' })}
+                                    type={showPassword ? "password" : "text"}
+                                    className={`w-full px-4 py-3 rounded-lg border ${
+                                        errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                    } focus:outline-none focus:ring-2 ${
+                                        errors.password ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                    } transition-colors`}
+                                    placeholder="••••••••"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility('password')}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                >
+                                    {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+                                </button>
+                            </div>
+
+                            {password && (
+                                <div className="mt-2 space-y-2">
+                                    <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                        <div
+                                            className={`h-full transition-all duration-300 ${getPasswordStrengthColor()}`}
+                                            style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                                        />
+                                    </div>
+                                    <p className={`text-sm ${passwordStrength.score >= 3 ? 'text-green-600' : 'text-red-500'}`}>
+                                        {passwordStrength.feedback}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="confirmPassword">
+                                Confirm Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    {...register("confirmPassword", {
+                                        required: 'Please confirm your password',
+                                        validate: value => value === password || "Passwords do not match"
+                                    })}
+                                    type={showConfirmPassword ? "password" : "text"}
+                                    className={`w-full px-4 py-3 rounded-lg border ${
+                                        errors.confirmPassword ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                                    } focus:outline-none focus:ring-2 ${
+                                        errors.confirmPassword ? 'focus:ring-red-200' : 'focus:ring-blue-200'
+                                    } transition-colors`}
+                                    placeholder="••••••••"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility('confirm')}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                >
+                                    {showConfirmPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+                                </button>
+                            </div>
+                            {errors.confirmPassword && (
+                                <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>
+                            )}
+                        </div>
+
                         <button
-                            className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 mt-3"
-                            onClick={togglePasswordVisibility('confirm')}
+                            type="submit"
+                            disabled={isSubmitting || passwordStrength.score < 3}
+                            className={`w-full py-3 px-4 rounded-lg text-white font-medium 
+                                ${isSubmitting || passwordStrength.score < 3 
+                                    ? 'bg-standard-dark cursor-not-allowed' 
+                                    : 'bg-standard hover:bg-standard-hover active:bg-standard-dark'} 
+                                transition-colors duration-200 flex items-center justify-center`}
                         >
-                            {showConfirmPassword ? (
-                                <EyeSlashIcon className="w-6" />
+                            {isSubmitting ? (
+                                <>
+                                    <LoadingSpinner />
+                                    <span className="ml-2">Creating Account...</span>
+                                </>
                             ) : (
-                                <EyeIcon className="w-6" />
+                                'Create Account'
                             )}
                         </button>
-                        {errors.confirmPassword && (
-                            <p className="text-red-500 text-[12px]">{errors.confirmPassword.message}</p>
-                        )}
-                    </div>
-                    <div className="flex items-center justify-between flex-col">
-                        <div className="w-full">
-                            <ButtonSubmit
-                                method="submit"
-                                styles={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover w-full ${passwordStrength.score < 3 || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                                    }`}
-                                shadow={true}
-                                disabled={isSubmitting || passwordStrength.score < 3}
-                            >
-                                <span className="relative z-10">
-                                    {isSubmitting ? (
-                                        <LoadingSpinner />
-                                    ) : (
-                                        'LOGIN'
-                                    )}
-                                </span>
-                            </ButtonSubmit>
-                        </div>
-                        <div className="p-6">
-                            <Link className="inline-block align-baseline font-bold hover:text-blue-gray-700 transition-all text-sm text-black" href="/login">
-                                Have an account already?
+
+                        <p className="text-center text-sm text-gray-500">
+                            Already have an account?{' '}
+                            <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                                Sign in
                             </Link>
-                        </div>
-                    </div>
-                </form>
+                        </p>
+                    </form>
+                </div>
             </div>
-            <div className="absolute bottom-4 right-4">
+
+            {/* Notifications */}
+            <div className="fixed bottom-4 right-4 space-y-2">
                 {errorSignUp && <PopUpError message={errorSignUp} onClose={() => setError('')} />}
                 {successSignUp && <PopUpSuccess message={successSignUp} onClose={() => setSuccess('')} />}
             </div>
