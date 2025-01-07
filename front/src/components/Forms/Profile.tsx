@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface Session {
@@ -16,8 +17,8 @@ export default function ProfileForm({ session }: ProfileFormProps) {
         <>
             <form className="rounded h-full sm:mt-0 mt-16 md:shadow-lg p-6 xl:w-2/5 lg:w-3/5 w-full mobile:h-screen">
                 <div className="mb-4 w-full flex items-center justify-center">
-                    <div className="w-32 h-32 bg-standard rounded-full">
-
+                    <div className="w-32 h-32 rounded-full">
+                        <Image src={"/assets/icons/profile-default-placeholder.png"} width={128} height={128} alt="Profile default picture" className="h-full w-full" />
                     </div>
                 </div>
                 <div className="mb-4">
