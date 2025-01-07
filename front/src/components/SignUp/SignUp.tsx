@@ -151,7 +151,7 @@ export default function SignUpForm() {
                             Create an account
                         </span>
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-4">
                         <label className="block text-sm mb-2 text-black" htmlFor="name">
                             Name
                         </label>
@@ -160,11 +160,11 @@ export default function SignUpForm() {
                             className={`shadow min-w-[300px] appearance-none border ${errors.name ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
                             id="name"
                             type="text"
-                            placeholder="John Doe"
+                            placeholder="Name Completed"
                         />
                         {errors.name && <p className="text-red-500 text-[12px]">{errors.name.message}</p>}
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-4">
                         <label className="block text-sm mb-2 text-black" htmlFor="email">
                             Email
                         </label>
@@ -179,11 +179,11 @@ export default function SignUpForm() {
                             className={`shadow min-w-[300px] appearance-none border ${errors.email ? 'border-red-400' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
                             id="email"
                             type="email"
-                            placeholder="john@example.com"
+                            placeholder="example@email.com"
                         />
                         {errors.email && <p className="text-red-500 text-[12px]">{errors.email.message}</p>}
                     </div>
-                    <div className="mb-6 relative">
+                    <div className="mb-4 relative">
                         <label className="block text-sm mb-2 text-black" htmlFor="password">
                             Password
                         </label>
@@ -218,7 +218,7 @@ export default function SignUpForm() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-6 relative">
+                    <div className="mb-4 relative">
                         <label className="block text-sm mb-2 text-black" htmlFor="confirmPassword">
                             Confirm Password
                         </label>
