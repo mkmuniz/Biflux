@@ -12,6 +12,7 @@ export class AuthController {
 
             try {
                 const tokens = await AuthServices.login(email, password);
+
                 return res.json(tokens);
             } catch (error: any) {
                 if (error.message === 'User not found')
@@ -23,7 +24,7 @@ export class AuthController {
                 throw error;
             }
         } catch (err: any) {
-            console.error('Login error:', err);
+            console.error('Login error:', err.message);
             return res.status(500).json({ message: "Internal server error" });
         }
     }
@@ -32,9 +33,8 @@ export class AuthController {
         try {
             const { refreshToken } = req.body;
 
-            if (!refreshToken) {
+            if (!refreshToken)
                 return res.status(400).json({ message: "Refresh token is required" });
-            }
 
             try {
                 const newTokens = await AuthServices.getRefreshTokenByUserId(refreshToken);
