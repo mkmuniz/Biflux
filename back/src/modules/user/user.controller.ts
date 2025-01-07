@@ -9,6 +9,7 @@ export class UserController {
             return res.json(data);
         } catch (err: any) {
             console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
         };
     };
 
@@ -20,6 +21,7 @@ export class UserController {
             return res.json(user);
         } catch (err) {
             console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
         };
     };
 
@@ -35,6 +37,7 @@ export class UserController {
             res.json(user);
         } catch (err: any) {
             console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
         };
     };
 };
