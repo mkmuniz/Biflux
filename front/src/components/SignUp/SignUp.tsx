@@ -103,7 +103,7 @@ export default function SignUpForm() {
             if (data.status === 409) return setError('Email already exists');
             if (data.status === 500) return setError('Internal error, we are working on it!');
             if (data.status === 404) return setError('Not found, try again!');
-            if (data.status === 200) {
+            if (data.status === 201) {
                 setSuccess('Successfully signed up! Redirecting to login...');
                 setTimeout(() => {
                     router.replace('/login');
