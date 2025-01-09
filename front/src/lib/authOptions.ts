@@ -25,7 +25,7 @@ export const nextAuthOptions: NextAuthOptions = {
                         case 401:
                             return { error: 'Invalid credentials, try again!' }
                         case 404:
-                            return { error: 'Not found, try again!' }
+                            return { error: 'User not found, try again!' }
                         case 500:
                             return { error: 'Internal error, we are working on it!' }
                     }

@@ -12,6 +12,7 @@ model User {
   email         String         @unique
   name          String
   password      String
+  profilePicture String?
   billets       Billet[]
   refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
