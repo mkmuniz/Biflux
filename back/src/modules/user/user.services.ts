@@ -7,6 +7,7 @@ interface UserData {
     name: string;
     email: string;
     password: string;
+    profilePicture: string;
 }
 
 export class UserServices {
@@ -47,6 +48,23 @@ export class UserServices {
                 email,
                 password: hashedPassword
             }
+        });
+
+        return user;
+    };
+
+    static async updateUserProfile(id: string, userData: Partial<UserData>) {
+        const updateData: any = {...userData};
+
+        updateData.updatedAt = new Date();
+        
+        if (userData.password) updateData.password = await hashPassword(userData.password);
+
+        const user = await db.user.update({
+            where: {
+                id
+            },
+            data: updateData
         });
 
         return user;

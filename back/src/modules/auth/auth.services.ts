@@ -56,7 +56,7 @@ export class AuthServices {
 
     static async getRefreshTokenByUserId(userId: string) {
         return db.refreshToken.findUnique({
-            where: { userId: Number(userId) }
+            where: { userId }
         });
     }
 }
