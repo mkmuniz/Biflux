@@ -1,5 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import { hashPassword } from "../../utils/hashPassword";
+import cloudinary from "../../config/cloudinaryConfig";
+import { UserDTO, UserEntity } from "../../types/user.types";
 
 const db = new PrismaClient();
 
@@ -7,7 +9,7 @@ interface UserData {
     name: string;
     email: string;
     password: string;
-    profilePicture: string;
+    profilePicture?: string;
 }
 
 export class UserServices {
@@ -38,32 +40,50 @@ export class UserServices {
     };
 
     static async createUser(userData: UserData) {
-        const { name, email, password } = userData;
+        const { name, email, password, profilePicture } = userData;
 
         const hashedPassword = await hashPassword(password);
+
+        let profilePictureUrl = '';
+
+        if (profilePicture) {
+            const uploadResponse = await cloudinary.uploader.upload(profilePicture, {
+                folder: 'profile_pictures'
+            });
+            profilePictureUrl = uploadResponse.secure_url;
+        }
 
         const user = await db.user.create({
             data: {
                 name,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                profilePicture: profilePictureUrl
             }
         });
 
         return user;
     };
 
-    static async updateUserProfile(id: string, userData: Partial<UserData>) {
-        const updateData: any = {...userData};
+    static async updateUserProfile(id: string, data: Partial<UserDTO>) {
+        const updateData: Partial<UserEntity> = {
+            name: data.name,
+            email: data.email
+        };
 
-        updateData.updatedAt = new Date();
-        
-        if (userData.password) updateData.password = await hashPassword(userData.password);
+        if (data.password) {
+            updateData.password = await hashPassword(data.password);
+        }
+
+        if (data.profilePicture) {
+            const uploadResponse = await cloudinary.uploader.upload(data.profilePicture, {
+                folder: 'profile_pictures'
+            });
+            updateData.profilePicture = uploadResponse.secure_url;
+        }
 
         const user = await db.user.update({
-            where: {
-                id
-            },
+            where: { id },
             data: updateData
         });
 
