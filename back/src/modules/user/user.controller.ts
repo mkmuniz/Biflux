@@ -56,9 +56,9 @@ export class UserController {
     static async updateUserProfile(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const userBody = req.body;
+            const { name, email, profilePicture } = req.body;
 
-            const user = await UserServices.updateUserProfile(id, userBody);
+            const user = await UserServices.updateUserProfile(id, { name, email, profilePicture });
 
             return res.status(200).json(user);
         } catch (err) {

@@ -7,6 +7,7 @@ import Container from "../Container/Container";
 import UserDashboardSkeleton from "../Skeletons/UserDashboard";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { fetchUserProfile } from '../../requests/user.requests';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -40,7 +41,16 @@ export default function UserDashboard() {
         enabled: !!session?.user?.id,
     });
 
-    if (status === 'loading' || isLoading) 
+    const { data: userProfile, isLoading: isProfileLoading } = useQuery({
+        queryKey: ['userProfile', session?.user?.id],
+        queryFn: async () => {
+            if (!session?.user?.id) return null;
+            return fetchUserProfile(session.user.id);
+        },
+        enabled: !!session?.user?.id,
+    });
+
+    if (status === 'loading' || isLoading || isProfileLoading) 
         return <UserDashboardSkeleton />;
 
     const processConsumptionData = () => {
@@ -72,7 +82,10 @@ export default function UserDashboard() {
             <Container styles="mobile:pl-28 mobile:pt-20 md:pt-10 flex flex-col">
                 <div className="flex mobile:flex-col gap-4 w-full mb-8">
                     <div className="flex h-[200px] w-full shadow-xl rounded-lg p-6 bg-white">
-                        <div className="text-3xl h-full w-full flex items-center justify-center">
+                        <div className="text-3xl h-full w-full flex flex-col items-center justify-center">
+                            {userProfile?.profilePicture && (
+                                <img src={userProfile.profilePicture} alt="Profile" className="w-24 h-24 rounded-full mr-4" />
+                            )}
                             <span>Welcome, {session?.user?.name}!</span>
                         </div>
                     </div>

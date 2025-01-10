@@ -29,7 +29,6 @@ export default function SignUpForm() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(true);
     const [errorSignUp, setError] = useState<string>('');
     const [successSignUp, setSuccess] = useState<string>('');
-    const [loading, setLoading] = useState(false);
     const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({ score: 0, feedback: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,7 +36,6 @@ export default function SignUpForm() {
     const router = useRouter();
 
     const password = watch('password');
-    const confirmPassword = watch('confirmPassword');
 
     useEffect(() => {
         if (password) {

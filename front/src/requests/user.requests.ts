@@ -24,14 +24,20 @@ export async function getUserByEmail(email: string) {
     return data;
 };
 
-export async function updateUser(body: any) {
-    const data = await patch('user', body);
+export async function updateUserProfile(id: string, body: any) {
+    const data = await patch(`user/profile/${id}`, body);
 
     return data;
 };
 
 export async function getRefreshToken(body: any) {
     const data = await post('refreshtoken', body);
+
+    return data;
+};
+
+export async function fetchUserProfile(id: string) {
+    const data = await get(`user/profile/${id}`);
 
     return data;
 };

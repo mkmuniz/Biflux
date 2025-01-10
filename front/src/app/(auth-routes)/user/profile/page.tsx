@@ -8,12 +8,10 @@ import ProfileForm from "@/components/Forms/Profile";
 import Container from "@/components/Container/Container";
 
 export default async function Profile() {
-    const session: any = await getServerSession(nextAuthOptions);
-
     return <>
         <Section styles="bg-white">
             <Container styles="md:pt-32 md:pl-32 pt-16 pl-20 flex items-center justify-center">
-                <ProfileForm session={session} />
+                <ProfileForm />
             </Container>
         </Section>
     </>;
