@@ -31,9 +31,6 @@ export default function ProfileForm() {
         queryKey: ['user-profile'],
         queryFn: () => fetchUserProfile(session?.user?.id as string),
         enabled: !!session?.user?.id,
-        onError: () => {
-            setError('Failed to fetch profile data');
-        }
     });
 
     useEffect(() => {
