@@ -9,26 +9,28 @@ interface TokenUser {
     name: string;
 }
 
-export const generateTokens = (user: TokenUser) => {
-    const accessToken = jwt.sign(
-        { id: user.id, email: user.email, name: user.name },
-        accessTokenSecret,
-        { expiresIn: '15m' }
-    );
+export class TokenService {
+    static generateTokens(user: TokenUser): { accessToken: string; refreshToken: string } {
+        const accessToken = jwt.sign(
+            { id: user.id, email: user.email, name: user.name },
+            accessTokenSecret,
+            { expiresIn: '15m' }
+        );
 
-    const refreshToken = jwt.sign(
-        { id: user.id },
-        refreshTokenSecret,
-        { expiresIn: '30d' }
-    );
+        const refreshToken = jwt.sign(
+            { id: user.id },
+            refreshTokenSecret,
+            { expiresIn: '30d' }
+        );
 
-    return { accessToken, refreshToken };
-};
+        return { accessToken, refreshToken };
+    }
 
-export const verifyAccessToken = (token: string) => {
-    return jwt.verify(token, accessTokenSecret);
-};
+    static verifyAccessToken(token: string): string | jwt.JwtPayload {
+        return jwt.verify(token, accessTokenSecret);
+    }
 
-export const verifyRefreshToken = (token: string) => {
-    return jwt.verify(token, refreshTokenSecret);
-};
+    static verifyRefreshToken(token: string): string | jwt.JwtPayload {
+        return jwt.verify(token, refreshTokenSecret);
+    }
+}
