@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { db } from "../../db";
-import { extractPdfData } from '../../services/pdfExtractor';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { db } from '../../db';
+import { PdfDataExtractor } from '../../utils/pdfExtractor';
 
 const accessKeyId = String(process.env.AWS_ACCESS_KEY_ID);
 const secretAccessKey = String(process.env.AWS_SECRET_ACCESS_KEY);
@@ -10,20 +10,26 @@ const Bucket = String(process.env.S3_BUCKET);
 
 export class BilletServices {
     static async getAllBilletsByUserId(userId: string) {
-        return db.billet.findMany({
-            where: {
-                userId: userId
-            },
-            include: {
-                consumes: true
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
+        const existingUser = await db.user.findUnique({
+            where: { id: userId },
         });
-    };
+
+        if (!existingUser) throw new Error('User not found.');
+
+        return db.billet.findMany({
+            where: { userId },
+            include: { consumes: true },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
 
     static async uploadBillet(file: Express.Multer.File, userId: string) {
+        const existingUser = await db.user.findUnique({
+            where: { id: userId },
+        });
+
+        if (!existingUser) throw new Error('User not found.');
+
         const fileExtension = file.originalname.split('.').pop();
         const uniqueFileName = `${userId}_${Date.now()}.${fileExtension}`;
 
@@ -31,15 +37,15 @@ export class BilletServices {
             region,
             credentials: {
                 accessKeyId,
-                secretAccessKey
-            }
+                secretAccessKey,
+            },
         });
 
         const params = {
             Bucket,
             Key: uniqueFileName,
             Body: file.buffer,
-            ContentType: file.mimetype
+            ContentType: file.mimetype,
         };
 
         const command = new PutObjectCommand(params);
@@ -47,32 +53,33 @@ export class BilletServices {
 
         const filePath = `https://${Bucket}.s3.${region}.amazonaws.com/${uniqueFileName}`;
 
-        const extractedData = await extractPdfData(file.buffer);
+        const pdfExtractor = new PdfDataExtractor();
+        const extractedData = await pdfExtractor.extractData(file.buffer);
 
         return db.billet.create({
             data: {
                 fileName: file.originalname,
-                filePath: filePath,
-                userId: userId,
+                filePath,
+                userId,
                 clientNumber: extractedData.clientNumber,
                 month: extractedData.month,
                 consumes: {
-                    create: extractedData.consumes
-                }
+                    create: extractedData.consumes,
+                },
             },
             include: {
-                consumes: true
-            }
+                consumes: true,
+            },
         });
-    };
+    }
 
     static async getSignedDownloadUrl(fileName: string) {
         const s3 = new S3Client({
             region,
             credentials: {
                 accessKeyId,
-                secretAccessKey
-            }
+                secretAccessKey,
+            },
         });
 
         const command = new GetObjectCommand({
