@@ -39,8 +39,8 @@ export class UserServices {
         return user;
     };
 
-    static async createUser(userData: UserData) {
-        const { name, email, password, profilePicture } = userData;
+    static async createUser(userData: UserDTO) {
+        const { name, email, password, profilePicture }: UserEntity = userData;
 
         const hashedPassword = await hashPassword(password);
 

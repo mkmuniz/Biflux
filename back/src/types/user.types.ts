@@ -1,8 +1,8 @@
 export interface UserDTO {
-    name?: string;
-    email?: string;
-    profilePicture?: string;
-    password?: string;
+    name: string;
+    email: string;
+    profilePicture: string;
+    password: string;
 }
 
 export interface UserEntity {
