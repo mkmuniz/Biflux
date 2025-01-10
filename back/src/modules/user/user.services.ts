@@ -1,92 +1,61 @@
-import { PrismaClient, User } from "@prisma/client";
-import { hashPassword } from "../../utils/hashPassword";
-import cloudinary from "../../config/cloudinaryConfig";
+import { IUserRepository } from "./user.repository";
+import { ICloudStorageService } from "../cloudinary/cloudinary.services";
 import { UserDTO, UserEntity } from "../../types/user.types";
-
-const db = new PrismaClient();
-
-interface UserData {
-    name: string;
-    email: string;
-    password: string;
-    profilePicture?: string;
-}
+import { PasswordUtils } from "../../utils/passwordUtils";
 
 export class UserServices {
-    static async getAllUsers() {
-        const users: User[] = await db.user.findMany();
+    constructor(
+        private readonly userRepository: IUserRepository,
+        private readonly cloudStorageService: ICloudStorageService
+    ) {}
 
-        return users;
-    };
+    async getAllUsers() {
+        return this.userRepository.getAll();
+    }
 
-    static async getUserById(id: string) {
-        const user = await db.user.findUnique({
-            where: {
-                id
-            }
-        });
-
+    async getUserById(id: string) {
+        const user = await this.userRepository.findById(id);
         return user;
-    };
+    }
 
-    static async getUserByEmail(email: string) {
-        const user = await db.user.findUnique({
-            where: {
-                email
-            }
-        });
-
-        return user;
-    };
-
-    static async createUser(userData: UserDTO) {
+    async createUser(userData: UserDTO) {
         const { name, email, password, profilePicture }: UserEntity = userData;
 
-        const hashedPassword = await hashPassword(password);
+        const existingUser = await this.userRepository.findByEmail(email);
+        
+        if (existingUser) throw new Error("User already exists");
 
-        let profilePictureUrl = '';
+        const hashedPassword = await PasswordUtils.hashPassword(password);
+        const profilePictureUrl = profilePicture
+            ? await this.cloudStorageService.upload(profilePicture, "profile_pictures")
+            : "";
 
-        if (profilePicture) {
-            const uploadResponse = await cloudinary.uploader.upload(profilePicture, {
-                folder: 'profile_pictures'
-            });
-            profilePictureUrl = uploadResponse.secure_url;
-        }
-
-        const user = await db.user.create({
-            data: {
-                name,
-                email,
-                password: hashedPassword,
-                profilePicture: profilePictureUrl
-            }
-        });
-
-        return user;
-    };
-
-    static async updateUserProfile(id: string, data: Partial<UserDTO>) {
-        const updateData: Partial<UserEntity> = {
-            name: data.name,
-            email: data.email
+        const newUser: UserEntity = {
+            name,
+            email,
+            password: hashedPassword,
+            profilePicture: profilePictureUrl,
         };
 
-        if (data.password) {
-            updateData.password = await hashPassword(data.password);
-        }
+        return this.userRepository.create(newUser);
+    }
 
+    async updateUserProfile(id: string, data: Partial<UserDTO>) {
+        const existingUser = await this.userRepository.findById(id);
+        if (!existingUser) throw new Error("User profile not found");
+
+        const updateData: Partial<UserEntity> = {};
+
+        if (data.name) updateData.name = data.name;
+        if (data.email) updateData.email = data.email;
+        if (data.password) updateData.password = await PasswordUtils.hashPassword(data.password);
         if (data.profilePicture) {
-            const uploadResponse = await cloudinary.uploader.upload(data.profilePicture, {
-                folder: 'profile_pictures'
-            });
-            updateData.profilePicture = uploadResponse.secure_url;
+            updateData.profilePicture = await this.cloudStorageService.upload(
+                data.profilePicture,
+                "profile_pictures"
+            );
         }
 
-        const user = await db.user.update({
-            where: { id },
-            data: updateData
-        });
-
-        return user;
-    };
-};
+        return this.userRepository.update(id, updateData);
+    }
+}

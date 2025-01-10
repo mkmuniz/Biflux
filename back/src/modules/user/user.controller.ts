@@ -1,69 +1,84 @@
 import { Request, Response } from "express";
 import { UserServices } from "./user.services";
+import { ErrorHandler } from "../../utils/errorHandler";
 
 export class UserController {
-    static async getAllUsers(req: Request, res: Response) {
+    private userServices: UserServices;
+
+    constructor(userServices: UserServices) {
+        this.userServices = userServices;
+    }
+
+    async getAllUsers(req: Request, res: Response) {
         try {
-            const data = await UserServices.getAllUsers();
-
-            return res.status(200).json(data);
+            const users = await this.userServices.getAllUsers();
+            return res.json(users);
         } catch (err: any) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        };
-    };
+            return ErrorHandler.handleError(res, err);
+        }
+    }
 
-    static async getUserById(req: Request, res: Response) {
+    async getUserById(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const user = await UserServices.getUserById(id);
 
-            return res.status(200).json(user);
-        } catch (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        };
-    };
+            if (!id) return ErrorHandler.badRequest(res, "User ID is required");
 
-    static async createUser(req: Request, res: Response) {
+            const user = await this.userServices.getUserById(id);
+
+            if (!user) return ErrorHandler.notFound(res, "User not found");
+
+            return res.json(user);
+        } catch (err: any) {
+            return ErrorHandler.handleError(res, err);
+        }
+    }
+
+    async createUser(req: Request, res: Response) {
         try {
             const userBody = req.body;
-            const emailAlreadyExist = await UserServices.getUserByEmail(userBody.email);
-            
-            if (emailAlreadyExist) res.status(409).json({ message: 'Email already exists' })
-            
-            const user = await UserServices.createUser(userBody);
+
+            if (!userBody) return ErrorHandler.badRequest(res, "User fields are required");
+
+            const user = await this.userServices.createUser(userBody);
 
             return res.status(201).json(user);
         } catch (err: any) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        };
-    };
+            if (err.message === "User already exists") return ErrorHandler.conflict(res, err.message);
+            return ErrorHandler.handleError(res, err);
+        }
+    }
 
-    static async getUserProfile(req: Request, res: Response) {
+    async getUserProfile(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const user = await UserServices.getUserById(id);
+
+            const user = await this.userServices.getUserById(id);
+
+            if (!user) return ErrorHandler.notFound(res, "User not found");
 
             return res.json(user);
-        } catch (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        };
-    };
+        } catch (err: any) {
+            return ErrorHandler.handleError(res, err);
+        }
+    }
 
-    static async updateUserProfile(req: Request, res: Response) {
+    async updateUserProfile(req: Request, res: Response) {
         try {
             const { id } = req.params;
             const { name, email, profilePicture } = req.body;
 
-            const user = await UserServices.updateUserProfile(id, { name, email, profilePicture });
+            if (!id) return ErrorHandler.badRequest(res, "User ID is required");
 
-            return res.status(200).json(user);
-        } catch (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        };
-    };
-};
+            const isDataEmpty = !name && !email && !profilePicture;
+            if (isDataEmpty) return ErrorHandler.badRequest(res, "At least one field must be provided for update");
+
+            const updatedUser = await this.userServices.updateUserProfile(id, { name, email, profilePicture });
+
+            return res.status(200).json(updatedUser);
+        } catch (err: any) {
+            if (err.message === 'User profile not found') return ErrorHandler.notFound(res, "User profile not found");
+            return ErrorHandler.handleError(res, err);
+        }
+    }
+}
