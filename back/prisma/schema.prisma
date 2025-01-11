@@ -48,11 +48,11 @@ model Consume {
   id                    String   @id @default(uuid())
   type                  String   // Tipo do consumo (Energia Elétrica, SCEEE, GD I, etc)
   value                 Float    // Valor em R$
-  quantity              Float    // Quantidade em kWh
+  quantity              Int?     // Agora aceita valores nulos
   billetId              String
-  billet                Billet   @relation(fields: [billetId], references: [id])
+  billet                Billet   @relation(fields: [billetId], references: [id], onDelete: Cascade)
   createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   @@map("consume")
 }
