@@ -48,90 +48,85 @@ export default function SignInForm() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white p-4">
-            <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+            <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[128px]"></div>
+            <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
+
+            <div className="w-full max-w-md p-4 relative">
+                <div className="bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-zinc-800 p-8 space-y-6">
                     <div className="text-center space-y-2">
-                        <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
-                        <p className="text-gray-500">Sign in to manage your energy bills</p>
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
+                            Bem-vindo de Volta
+                        </h1>
+                        <p className="text-gray-400">Entre para gerenciar seus boletos</p>
                     </div>
 
-                    <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
+                    <form onSubmit={handleSubmit(handleSignIn)} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
-                                Email Address
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Email
                             </label>
                             <input
                                 {...register("email", {
-                                    required: 'Email is required',
+                                    required: 'Email é obrigatório',
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Invalid email address"
+                                        message: "Email inválido"
                                     }
                                 })}
-                                className={`w-full px-4 py-3 rounded-lg border ${
-                                    errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                } focus:outline-none focus:ring-2 ${
-                                    errors.email ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                } transition-colors`}
-                                placeholder="you@example.com"
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                placeholder="seu@email.com"
                             />
                             {errors.email && (
-                                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
                             )}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
-                                Password
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Senha
                             </label>
                             <div className="relative">
                                 <input
-                                    {...register("password", { required: 'Password is required' })}
+                                    {...register("password", { required: 'Senha é obrigatória' })}
                                     type={showPassword ? "password" : "text"}
-                                    className={`w-full px-4 py-3 rounded-lg border ${
-                                        errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                    } focus:outline-none focus:ring-2 ${
-                                        errors.password ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                    } transition-colors`}
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={togglePasswordVisibility}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black hover:text-black transition-colors"
                                 >
                                     {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                 </button>
                             </div>
                             {errors.password && (
-                                <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.password.message}</p>
                             )}
                         </div>
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full py-3 px-4 rounded-lg text-white font-medium 
-                                ${isSubmitting 
-                                    ? 'bg-standard-dark cursor-not-allowed' 
-                                    : 'bg-standard hover:bg-standard-hover active:bg-standard-dark'} 
-                                transition-colors duration-200 flex items-center justify-center`}
+                            className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] 
+                                ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
+                                transition-all duration-200 flex items-center justify-center`}
                         >
                             {isSubmitting ? (
                                 <>
                                     <LoadingSpinner />
-                                    <span className="ml-2">Signing in...</span>
+                                    <span className="ml-2">Entrando...</span>
                                 </>
                             ) : (
-                                'Sign in'
+                                'Entrar'
                             )}
                         </button>
 
-                        <p className="text-center text-sm text-gray-500">
-                            Don&apos;t have an account?{' '}
-                            <Link href="/sign-up" className="text-blue-600 hover:text-blue-700 font-medium">
-                                Create one
+                        <p className="text-center text-sm text-gray-400">
+                            Não tem uma conta?{' '}
+                            <Link href="/sign-up" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors font-medium">
+                                Criar conta
                             </Link>
                         </p>
                     </form>
