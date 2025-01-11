@@ -14,11 +14,6 @@ interface NavBar {
     navLinks: Link[]
 };
 
-interface NavLinks {
-    list: Link[],
-    isOpen: boolean,
-};
-
 export default function NavBar({ navLinks }: NavBar) {
     const [isOpen, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -41,7 +36,7 @@ export default function NavBar({ navLinks }: NavBar) {
     }, [isOpen]);
     
     return (
-        <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-lg' : 'bg-transparent'}`}>
+        <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${scrolled ? 'bg-black backdrop-blur-lg' : 'bg-transparent'}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link href="/" className="flex items-center">
                     <div className="relative">
@@ -60,21 +55,22 @@ export default function NavBar({ navLinks }: NavBar) {
                 </Link>
 
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <NavLink 
-                        href="/sign-up" 
-                        styles="py-2 px-4 text-gray-300 hover:text-white transition-colors mr-4" 
-                        description="Cadastro" 
-                    />
-                    <NavLink 
-                        href="/login" 
-                        styles="px-6 py-2 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
-                    >
-                        <span className="relative z-10">Login</span>
-                    </NavLink>
+                    <div className="hidden md:flex items-center">
+                        <NavLink 
+                            href="/sign-up" 
+                            styles="py-2 px-4 text-gray-300 hover:text-white transition-colors mr-4" 
+                            description="Cadastro" 
+                        />
+                        <NavLink 
+                            href="/login" 
+                            styles="px-6 py-2 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
+                            description="Login"
+                        />
+                    </div>
 
                     <button 
                         onClick={() => setOpen(!isOpen)} 
-                        className="inline-flex items-center md:hidden ml-4"
+                        className="inline-flex items-center md:hidden"
                     >
                         {isOpen ? (
                             <svg className="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -88,7 +84,7 @@ export default function NavBar({ navLinks }: NavBar) {
                     </button>
                 </div>
 
-                <div className={`items-center justify-between transition-all duration-500 ${isOpen ? 'mobile:h-screen bg-black/95 backdrop-blur-lg' : 'mobile:h-0'} w-full md:flex md:w-auto md:order-1`} id="navbar-sticky">
+                <div className={`items-center justify-between transition-all duration-500 ${isOpen ? 'mobile:h-screen bg-black/95 backdrop-blur-lg' : 'mobile:h-0'} w-full md:flex md:w-auto md:order-1`}>
                     <ul className={`flex flex-col text-center items-center justify-center p-4 md:p-0 font-medium md:space-x-8 md:flex-row h-full`}>
                         {navLinks.map((link: Link, index: Key) => (
                             <NavLink 
@@ -98,6 +94,18 @@ export default function NavBar({ navLinks }: NavBar) {
                                 styles={`block py-2 px-3 text-gray-300 hover:text-white transition-colors ${isOpen ? 'mobile:text-xl' : 'mobile:text-[0px] mobile:hidden'}`} 
                             />
                         ))}
+                        <div className="md:hidden flex flex-col items-center space-y-4 mt-4">
+                            <NavLink 
+                                href="/sign-up" 
+                                styles={`py-2 px-4 text-gray-300 hover:text-white transition-colors ${isOpen ? 'mobile:text-xl' : 'mobile:text-[0px] mobile:hidden'}`}
+                                description="Cadastro" 
+                            />
+                            <NavLink 
+                                href="/login" 
+                                styles={`px-6 py-2 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105 ${isOpen ? 'mobile:text-xl' : 'mobile:text-[0px] mobile:hidden'}`}
+                                description="Login"
+                            />
+                        </div>
                     </ul>
                 </div>
             </div>
