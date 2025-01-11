@@ -45,30 +45,31 @@ Biflux, sua solução completa para gerenciar contas de energia com facilidade. 
 
 ## 💻 Uso
 
-Você pode acessar em produção através deste [link](https://biflux.vercel.app/home). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
+Você pode acessar em produção através deste [link](https://biflux.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
 
 ## 🛣️ Rotas
 
 ### Autenticação
-- `POST /api/auth/login` - Login do usuário
-- `POST /api/auth/register` - Registro de novo usuário
-- `POST /api/auth/refresh` - Atualização do token de acesso
+- `POST /auth/login` - Login do usuário
+- `POST /auth/register` - Registro de novo usuário
+- `POST /auth/refresh` - Atualização do token de acesso
 
 ### Contas
-- `GET /api/billets` - Lista todas as contas
-- `POST /api/billets` - Upload de nova conta
-- `GET /api/billets/:id` - Obtém detalhes de uma conta específica
-- `DELETE /api/billets/:id` - Remove uma conta
+- `GET /billets` - Lista todas as contas
+- `POST /billets` - Upload de nova conta
+- `GET /billets/:id` - Obtém detalhes de uma conta específica
 
 ### Usuário
-- `GET /api/user/profile` - Obtém perfil do usuário
-- `PUT /api/user/profile` - Atualiza dados do perfil
+- `GET /user/:id` - Busca um usuário pelo o seu ID
+- `GET /user/profile/:id` - Obtém perfil do usuário
+- `POST /user` - Cria um novo usuário
+- `PATCH /user/profile/:id` - Atualiza dados do perfil
 
 ## 🛠️ Instalação
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/your-username/biflux.git
+git clone https://github.com/mkmuniz/biflux.git
 ```
 
 2. Instale as dependências:
