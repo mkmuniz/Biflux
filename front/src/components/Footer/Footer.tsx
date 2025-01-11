@@ -5,11 +5,11 @@ import Container from "../Container/Container";
 export default function Footer() {
     return (
         <Section styles="bg-black relative overflow-hidden">
-            <div className="absolute bottom-0 -left-24 w-96 h-96 bg-[#8B5CF6]/10 rounded-full blur-[128px]"></div>
-            <div className="absolute bottom-0 -right-24 w-96 h-96 bg-[#00A3FF]/10 rounded-full blur-[128px]"></div>
+            <div className="absolute bottom-0 -left-24 w-96 h-96 rounded-full blur-[128px] bg-[#8B5CF6]/10"></div>
+            <div className="absolute bottom-0 -right-24 w-96 h-96 rounded-full blur-[128px] bg-[#00A3FF]/10"></div>
             
             <Container styles="relative">
-                <footer className="w-full text-white">
+                <footer className="w-full text-white z-10">
                     <div className="w-full mx-auto p-4 md:py-8">
                         <div className="sm:flex sm:items-center sm:justify-between">
                             <Link href="/" className="flex items-center mb-4 sm:mb-0 space-x-3">

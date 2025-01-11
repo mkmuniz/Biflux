@@ -48,7 +48,7 @@ export default function SignInForm() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden z-20">
             <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[128px]"></div>
             <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
 
@@ -134,9 +134,7 @@ export default function SignInForm() {
             </div>
 
             {error && (
-                <div className="fixed bottom-4 right-4">
-                    <PopUpError message={error} onClose={() => setError('')} />
-                </div>
+                <PopUpError message={error} onClose={() => setError('')} />
             )}
         </div>
     );
