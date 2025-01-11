@@ -210,7 +210,7 @@ export default function SignUpForm() {
                             </label>
                             <input
                                 {...register("name", { required: 'Nome é obrigatório' })}
-                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                 placeholder="Seu nome completo"
                             />
                             {errors.name && (
@@ -230,7 +230,7 @@ export default function SignUpForm() {
                                         message: "Email inválido"
                                     }
                                 })}
-                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                 placeholder="seu@email.com"
                             />
                             {errors.email && (
@@ -246,7 +246,7 @@ export default function SignUpForm() {
                                 <input
                                     {...register("password", { required: 'Senha é obrigatória' })}
                                     type={showPassword ? "password" : "text"}
-                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
@@ -284,7 +284,7 @@ export default function SignUpForm() {
                                         validate: value => value === password || "As senhas não coincidem"
                                     })}
                                     type={showConfirmPassword ? "password" : "text"}
-                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button

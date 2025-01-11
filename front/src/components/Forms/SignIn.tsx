@@ -74,7 +74,7 @@ export default function SignInForm() {
                                         message: "Email inválido"
                                     }
                                 })}
-                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                 placeholder="seu@email.com"
                             />
                             {errors.email && (
@@ -90,7 +90,7 @@ export default function SignInForm() {
                                 <input
                                     {...register("password", { required: 'Senha é obrigatória' })}
                                     type={showPassword ? "password" : "text"}
-                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
