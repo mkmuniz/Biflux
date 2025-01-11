@@ -11,11 +11,11 @@ export default function BilletsTableSkeleton() {
                         <div className="relative flex-1 md:flex-none">
                             <div className="w-full md:w-64 h-10 bg-zinc-800/50 rounded-xl animate-pulse"></div>
                         </div>
-                        <div className="w-28 h-10 bg-[#00DC82]/20 rounded-xl animate-pulse"></div>
+                        <div className="w-28 h-10 bg-[#8B5CF6]/20 rounded-xl animate-pulse"></div>
                     </div>
                 </div>
 
-                <div className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 overflow-hidden">
+                <div className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(139,92,246,0.1)] border border-zinc-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
@@ -44,7 +44,7 @@ export default function BilletsTableSkeleton() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-2">
-                                                <div className="h-8 w-24 bg-[#00DC82]/20 rounded-xl animate-pulse"></div>
+                                                <div className="h-8 w-24 bg-[#8B5CF6]/20 rounded-xl animate-pulse"></div>
                                             </div>
                                         </td>
                                     </tr>

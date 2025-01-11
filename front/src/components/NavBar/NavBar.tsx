@@ -36,7 +36,7 @@ export default function NavBar({ navLinks }: NavBar) {
     }, [isOpen]);
     
     return (
-        <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${scrolled ? 'bg-black backdrop-blur-lg' : 'bg-transparent'}`}>
+        <nav className={`fixed w-full z-30 top-0 start-0 transition-all duration-300 ${scrolled ? 'bg-black backdrop-blur-lg' : 'bg-transparent'}`}>
             <div className={`${isOpen ? 'w-full' : 'max-w-screen-xl'} flex flex-wrap items-center justify-between mx-auto p-4`}>
                 <Link href="/" className="flex items-center">
                     <div className="relative">

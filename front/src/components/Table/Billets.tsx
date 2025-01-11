@@ -85,24 +85,24 @@ export function BilletsTable() {
                                 type="text"
                                 placeholder="Buscar boletos..."
                                 onChange={handleSearch}
-                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-white focus:outline-none focus:border-[#00DC82] focus:ring-1 focus:ring-[#00DC82]"
+                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
                             />
                             <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         </div>
                         <button
                             onClick={handleOpen}
-                            className="flex items-center gap-2 px-4 py-2 bg-[#00DC82] text-black font-medium rounded-xl transition-all duration-200 hover:bg-[#00DC82]/90"
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]"
                         >
-                            <PlusIcon className="h-5 w-5 bg-transparent" />
-                            <span className="bg-transparent">Upload</span>
+                            <PlusIcon className="h-5 w-5" />
+                            <span>Upload</span>
                         </button>
                     </div>
                 </div>
 
-                <div className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800">
+                <div className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(139,92,246,0.1)] border border-zinc-800">
                     {isLoading ? (
                         <div className="flex justify-center items-center p-8">
-                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00DC82]"></div>
+                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#8B5CF6]"></div>
                         </div>
                     ) : (
                         <div className="overflow-x-auto">
@@ -134,7 +134,7 @@ export function BilletsTable() {
                                             <td className="px-6 py-4">
                                                 <button
                                                     onClick={() => handleDownload(billet.filePath)}
-                                                    className="flex items-center gap-2 text-sm text-[#00DC82] hover:text-[#00DC82]/80 transition-colors duration-200"
+                                                    className="flex items-center gap-2 text-sm text-[#8B5CF6] hover:text-[#00A3FF] transition-colors duration-200"
                                                 >
                                                     <ArrowDownTrayIcon className="h-5 w-5" />
                                                     <span>Download</span>

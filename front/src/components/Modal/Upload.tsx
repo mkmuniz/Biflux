@@ -26,12 +26,12 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
         e.preventDefault();
         
         if (!session?.user.id) {
-            setFormState({ status: 'error', message: 'User not authenticated' });
+            setFormState({ status: 'error', message: 'Usuário não autenticado' });
             return;
         }
 
         if (uploadedFiles.length === 0) {
-            setFormState({ status: 'error', message: 'Please select a file' });
+            setFormState({ status: 'error', message: 'Selecione um arquivo' });
             return;
         }
 
@@ -40,7 +40,7 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
         formData.append('userId', session.user.id);
 
         try {
-            setFormState({ status: 'loading', message: 'Uploading file...' });
+            setFormState({ status: 'loading', message: 'Upando o arquivo...' });
 
             const response = await handleUpload(session.user.id, formData);
 
@@ -110,7 +110,7 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
                             <path d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z" />
                             <path d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z" />
                         </svg>
-                        Upload PDF
+                        Enviar PDF
                         <input
                             type="file"
                             id="file"
@@ -119,7 +119,7 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
                             accept="application/pdf"
                             onChange={handleFileChange}
                         />
-                        <p className="text-xs font-medium text-gray-400 mt-2">Only PDF files are allowed.</p>
+                        <p className="text-xs font-medium text-gray-400 mt-2">Apenas arquivos PDF são permitidos</p>
                     </label>
 
                     {uploadedFiles.length > 0 && (
@@ -137,8 +137,8 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
                         <button
                             type="submit"
                             disabled={formState.status === 'loading'}
-                            className={`w-full px-3 py-3 bg-black text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover ${
-                                formState.status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
+                            className={`w-full px-3 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] ${
+                                formState.status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
                             }`}
                         >
                             <span className="relative z-10 font-bold">

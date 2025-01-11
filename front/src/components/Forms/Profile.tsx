@@ -105,7 +105,7 @@ export default function ProfileForm() {
         }
     };
 
-    return (
+    return <>
         <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 p-8 w-full">
             <div className="mb-8 w-full flex items-center justify-center">
                 <div
@@ -150,13 +150,13 @@ export default function ProfileForm() {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className={`w-full px-4 py-3 bg-[#00DC82] text-white font-medium rounded-xl transition-all duration-200 hover:bg-[#00DC82]/90 flex items-center justify-center ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
+                    className={`w-full px-4 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] flex items-center justify-center ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
                 >
                     {isPending ? <LoadingSpinner /> : 'Salvar Alterações'}
                 </button>
             </div>
-            {error && <PopUpError message={error} onClose={() => setError(null)} />}
-            {success && <PopUpSuccess message={success} onClose={() => setSuccess(null)} />}
         </form>
-    );
+        {error && <PopUpError message={error} onClose={() => setError(null)} />}
+        {success && <PopUpSuccess message={success} onClose={() => setSuccess(null)} />}
+    </>
 }
