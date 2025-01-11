@@ -16,7 +16,7 @@ const PopUpError: React.FC<PopUpErrorProps> = ({ message, onClose }) => {
     }, [onClose]);
 
     return (
-        <div className="animate-slide-up">
+        <div className="animate-slide-up fixed bottom-4 right-4 z-50 bg-black">
             <div className="bg-zinc-900/90 backdrop-blur-sm border border-red-500/20 text-white p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3">
                 <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-2">
                     <XMarkIcon className="w-5 h-5 text-white" />
