@@ -137,7 +137,7 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
                         <button
                             type="submit"
                             disabled={formState.status === 'loading'}
-                            className={`w-full px-3 py-3 bg-standard text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover ${
+                            className={`w-full px-3 py-3 bg-black text-white rounded shadow-standard transition-all duration-500 hover:bg-standard-hover ${
                                 formState.status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
                             }`}
                         >
