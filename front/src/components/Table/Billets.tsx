@@ -61,7 +61,7 @@ export function BilletsTable() {
     };
 
     const handleUploadSuccess = () => {
-        queryClient.invalidateQueries(['billets', session?.user?.id]);
+        queryClient.invalidateQueries({ queryKey: ['billets', session?.user?.id] });
         handleOpen();
     };
 
