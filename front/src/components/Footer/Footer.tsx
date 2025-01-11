@@ -1,35 +1,95 @@
 import Link from "next/link";
-
 import Section from "../Section/Section";
 import Container from "../Container/Container";
 
 export default function Footer() {
-    return <>
-        <Section styles="bg-standard">
-            <Container>
+    return (
+        <Section styles="bg-black relative overflow-hidden">
+            <div className="absolute bottom-0 -left-24 w-96 h-96 bg-[#8B5CF6]/10 rounded-full blur-[128px]"></div>
+            <div className="absolute bottom-0 -right-24 w-96 h-96 bg-[#00A3FF]/10 rounded-full blur-[128px]"></div>
+            
+            <Container styles="relative">
                 <footer className="w-full text-white">
                     <div className="w-full mx-auto p-4 md:py-8">
                         <div className="sm:flex sm:items-center sm:justify-between">
-                            <Link href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 text-3xl font-bold">
-                                Biflux
+                            <Link href="/" className="flex items-center mb-4 sm:mb-0 space-x-3">
+                                <span className="text-3xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
+                                    Biflux
+                                </span>
                             </Link>
-                            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
+                            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 gap-2">
                                 <li>
-                                    <Link href="/" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">Home</Link>
+                                    <Link 
+                                        href="/" 
+                                        className="block py-2 px-3 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        Home
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link href="/#about" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">About</Link>
+                                    <Link 
+                                        href="/#solutions" 
+                                        className="block py-2 px-3 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        Nossas Soluções
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://www.linkedin.com/in/mikael-muniz-ribeiro-5764961a3/" className="block py-2 px-3 hover:text-gray-100 transition-all" aria-current="page">Contact</Link>
+                                    <Link 
+                                        href="/#about" 
+                                        className="block py-2 px-3 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        Sobre Nós
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
-                        <hr className="my-6 sm:mx-auto border-white lg:my-8" />
-                        <span className="block text-sm sm:text-center">© 2024 <a href="https://github.com/mkmuniz" className="hover:underline">Mikael</a>. All Rights Reserved.</span>
+                        
+                        <hr className="my-8 border-zinc-800" />
+                        
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div className="flex flex-col items-center md:items-start">
+                                <p className="text-gray-400">
+                                    Desenvolvido por{" "}
+                                    <Link 
+                                        href="https://mkmuniz.dev" 
+                                        target="_blank" 
+                                        className="text-white hover:text-[#8B5CF6] transition-colors"
+                                    >
+                                        Mikael Muniz Ribeiro
+                                    </Link>
+                                </p>
+                                <div className="flex items-center gap-4 mt-2">
+                                    <Link 
+                                        href="https://github.com/mkmuniz" 
+                                        target="_blank" 
+                                        className="text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        GitHub
+                                    </Link>
+                                    <Link 
+                                        href="https://www.linkedin.com/in/mikael-muniz-ribeiro/" 
+                                        target="_blank" 
+                                        className="text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        LinkedIn
+                                    </Link>
+                                    <Link 
+                                        href="https://mkmuniz.dev" 
+                                        target="_blank" 
+                                        className="text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        Meu Site
+                                    </Link>
+                                </div>
+                            </div>
+                            <span className="text-sm text-gray-400">
+                                © 2024 Biflux. Todos os direitos reservados.
+                            </span>
+                        </div>
                     </div>
                 </footer>
             </Container>
         </Section>
-    </>;
-};
+    );
+}

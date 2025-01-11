@@ -51,7 +51,7 @@ const SideBar = () => {
 
     return <>
         <div className={`fixed inset-0 z-[50] ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
-        <div className="flex bg-standard min-w-screen fixed top-0 w-full z-[99]">
+        <div className="flex bg-black min-w-screen fixed top-0 w-full z-[99]">
             <div className="flex justify-between p-2 w-full h-full">
                 <div className="ml-3 z-[70]">
                     <a className="flex-none" href="#">
@@ -61,7 +61,7 @@ const SideBar = () => {
                 <div>
                     <button
                         type="button"
-                        className="p-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-standard text-white shadow-sm"
+                        className="p-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-black text-white shadow-sm"
                         onClick={toggleSidebar}
                         aria-controls="sidebar-mini"
                         aria-label="Toggle navigation"
@@ -73,7 +73,7 @@ const SideBar = () => {
                     </button>
                 </div>
             </div>
-            <div className={`flex flex-col justify-between fixed top-0 left-0 bottom-0 min-h-screen mt-12 h-full z-[60] bg-standard transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'}`}>
+            <div className={`flex flex-col justify-between fixed top-0 left-0 bottom-0 min-h-screen mt-12 h-full z-[60] bg-black transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'}`}>
                 <div className="flex flex-col justify-center items-center gap-y-2 py-4">
                     <div className="flex flex-col justify-center items-center gap-y-2">
                         {sideBarLinks.map((link) => (
@@ -84,7 +84,7 @@ const SideBar = () => {
             </div>
             <div
                 id="sidebar-mini"
-                className={`flex flex-col justify-between hs-overlay transition-all duration-300 transform fixed top-0 left-0 bottom-0 z-[60] mt-12 bg-standard w-20`}
+                className={`flex flex-col justify-between hs-overlay transition-all duration-300 transform fixed top-0 left-0 bottom-0 z-[60] mt-12 bg-black w-20`}
             >
                 <div className="flex flex-col justify-center items-center gap-y-2 py-4">
                     {sideBarLinks.map((link) => (

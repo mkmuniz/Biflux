@@ -9,6 +9,8 @@ import { updateUserProfile, fetchUserProfile } from "@/requests/user.requests";
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
+import Container from "../Container/Container";
+import Section from "../Section/Section";
 
 interface ProfileData {
     id: string;
@@ -104,15 +106,15 @@ export default function ProfileForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="rounded h-full sm:mt-0 mt-16 md:shadow-lg p-6 xl:w-2/5 lg:w-3/5 w-full mobile:h-screen">
-            <div className="mb-4 w-full flex items-center justify-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 p-8 w-full">
+            <div className="mb-8 w-full flex items-center justify-center">
                 <div
                     className="w-32 h-32 rounded-full overflow-hidden cursor-pointer relative group"
                     onClick={() => fileInputRef.current?.click()}
                 >
                     <Image src={preview} width={128} height={128} alt="Profile picture" className="h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-white text-sm">Change Photo</span>
+                        <span className="text-white text-sm">Alterar Foto</span>
                     </div>
                 </div>
                 <input
@@ -124,29 +126,33 @@ export default function ProfileForm() {
                     className="hidden"
                 />
             </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                    Name
+            <div className="mb-6">
+                <label className="block text-gray-300 text-sm font-medium mb-2" htmlFor="name">
+                    Nome
                 </label>
                 <input
-                    {...register("name", { required: 'Name is required' })}
-                    className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.name ? 'border-red-500' : ''}`}
+                    {...register("name", { required: 'Nome é obrigatório' })}
+                    className={`w-full py-2 px-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-[#00DC82] focus:ring-1 focus:ring-[#00DC82] transition-colors ${errors.name ? 'border-red-500' : ''}`}
                 />
-                {errors.name && <p className="text-red-500 text-xs italic">{errors.name.message}</p>}
+                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
             </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <div className="mb-6">
+                <label className="block text-gray-300 text-sm font-medium mb-2" htmlFor="email">
                     Email
                 </label>
                 <input
-                    {...register("email", { required: 'Email is required' })}
-                    className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
+                    {...register("email", { required: 'Email é obrigatório' })}
+                    className={`w-full py-2 px-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-[#00DC82] focus:ring-1 focus:ring-[#00DC82] transition-colors ${errors.email ? 'border-red-500' : ''}`}
                 />
-                {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
+                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
             </div>
             <div className="flex items-center justify-center relative">
-                <button type="submit" disabled={isPending} className={`z-20 px-3 py-3 bg-standard text-white rounded shadow-standard shadow-[0_0_-15px_-15px_rgba(0,0,0,0.3)] transition-colors duration-500 hover:bg-standard-hover w-full ${isPending ? 'cursor-not-allowed' : ''}`}>
-                    {isPending ? <LoadingSpinner /> : 'Save Changes'}
+                <button
+                    type="submit"
+                    disabled={isPending}
+                    className={`w-full px-4 py-3 bg-[#00DC82] text-white font-medium rounded-xl transition-all duration-200 hover:bg-[#00DC82]/90 flex items-center justify-center ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
+                >
+                    {isPending ? <LoadingSpinner /> : 'Salvar Alterações'}
                 </button>
             </div>
             {error && <PopUpError message={error} onClose={() => setError(null)} />}

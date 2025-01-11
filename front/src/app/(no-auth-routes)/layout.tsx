@@ -23,11 +23,11 @@ const menuItems: MenuItem[] = [
     },
     {
         href: "/#solutions",
-        description: "Solutions"
+        description: "Nossas Soluções"
     },
     {
         href: "/#about",
-        description: "About"
+        description: "Sobre Nós"
     },
 ];
 

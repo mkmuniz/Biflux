@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { signUp } from '@/requests/user.requests';
 import { useMutation } from '@tanstack/react-query';
@@ -11,12 +11,14 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
+import Image from 'next/image';
 
 interface SignUpData {
     name: string;
     email: string;
     password: string;
     confirmPassword: string;
+    profilePicture: string;
 }
 
 interface PasswordStrength {
@@ -31,6 +33,9 @@ export default function SignUpForm() {
     const [successSignUp, setSuccess] = useState<string>('');
     const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({ score: 0, feedback: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [preview, setPreview] = useState("/assets/icons/profile-default-placeholder.png");
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
@@ -43,6 +48,25 @@ export default function SignUpForm() {
             setPasswordStrength(strength);
         }
     }, [password]);
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (file) {
+            if (file.size > 100 * 1024) {
+                setError('Image size should not exceed 100kb');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                setSelectedFile(base64String);
+                setPreview(base64String);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const evaluatePasswordStrength = (password: string): PasswordStrength => {
         let score = 0;
@@ -141,76 +165,95 @@ export default function SignUpForm() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white m-12">
-            <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden pt-24">
+            <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[128px]"></div>
+            <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
+
+            <div className="w-full max-w-md p-4 relative">
+                <div className="bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-zinc-800 p-8 space-y-6">
                     <div className="text-center space-y-2">
-                        <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
-                        <p className="text-gray-500">Join us and start managing your energy bills</p>
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
+                            Criar Conta
+                        </h1>
                     </div>
 
-                    <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
+                    <form onSubmit={handleSubmit(handleSignUp)} className="space-y-6">
+                        <div className="mb-4 w-full flex items-center justify-center">
+                            <div
+                                className="w-32 h-32 rounded-full overflow-hidden cursor-pointer relative group"
+                                onClick={() => fileInputRef.current?.click()}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-full blur-lg opacity-20"></div>
+                                <Image 
+                                    src={preview} 
+                                    width={128} 
+                                    height={128} 
+                                    alt="Profile picture" 
+                                    className="h-full w-full object-cover relative z-10" 
+                                />
+                                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span className="text-white text-sm">Alterar Foto</span>
+                                </div>
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                {...register("profilePicture")}
+                                onChange={handleImageChange}
+                                ref={fileInputRef}
+                                className="hidden"
+                            />
+                        </div>
+
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
-                                Full Name
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Nome Completo
                             </label>
                             <input
-                                {...register("name", { required: 'Name is required' })}
-                                className={`w-full px-4 py-3 rounded-lg border ${
-                                    errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                } focus:outline-none focus:ring-2 ${
-                                    errors.name ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                } transition-colors`}
-                                placeholder="Full Name"
+                                {...register("name", { required: 'Nome é obrigatório' })}
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                placeholder="Seu nome completo"
                             />
                             {errors.name && (
-                                <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
                             )}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
-                                Email Address
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Email
                             </label>
                             <input
                                 {...register("email", {
-                                    required: 'Email is required',
+                                    required: 'Email é obrigatório',
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Invalid email address"
+                                        message: "Email inválido"
                                     }
                                 })}
-                                className={`w-full px-4 py-3 rounded-lg border ${
-                                    errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                } focus:outline-none focus:ring-2 ${
-                                    errors.email ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                } transition-colors`}
-                                placeholder="you@example.com"
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
+                                placeholder="seu@email.com"
                             />
                             {errors.email && (
-                                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
                             )}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
-                                Password
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Senha
                             </label>
                             <div className="relative">
                                 <input
-                                    {...register("password", { required: 'Password is required' })}
+                                    {...register("password", { required: 'Senha é obrigatória' })}
                                     type={showPassword ? "password" : "text"}
-                                    className={`w-full px-4 py-3 rounded-lg border ${
-                                        errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                    } focus:outline-none focus:ring-2 ${
-                                        errors.password ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                    } transition-colors`}
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={togglePasswordVisibility('password')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black hover:text-black transition-colors"
                                 >
                                     {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                 </button>
@@ -218,13 +261,13 @@ export default function SignUpForm() {
 
                             {password && (
                                 <div className="mt-2 space-y-2">
-                                    <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full transition-all duration-300 ${getPasswordStrengthColor()}`}
                                             style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
                                         />
                                     </div>
-                                    <p className={`text-sm ${passwordStrength.score >= 3 ? 'text-green-600' : 'text-red-500'}`}>
+                                    <p className={`text-sm ${passwordStrength.score >= 3 ? 'text-green-400' : 'text-red-400'}`}>
                                         {passwordStrength.feedback}
                                     </p>
                                 </div>
@@ -232,59 +275,53 @@ export default function SignUpForm() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="confirmPassword">
-                                Confirm Password
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Confirmar Senha
                             </label>
                             <div className="relative">
                                 <input
                                     {...register("confirmPassword", {
-                                        required: 'Please confirm your password',
-                                        validate: value => value === password || "Passwords do not match"
+                                        required: 'Por favor, confirme sua senha',
+                                        validate: value => value === password || "As senhas não coincidem"
                                     })}
                                     type={showConfirmPassword ? "password" : "text"}
-                                    className={`w-full px-4 py-3 rounded-lg border ${
-                                        errors.confirmPassword ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                                    } focus:outline-none focus:ring-2 ${
-                                        errors.confirmPassword ? 'focus:ring-red-200' : 'focus:ring-blue-200'
-                                    } transition-colors`}
+                                    className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={togglePasswordVisibility('confirm')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black hover:text-black transition-colors"
                                 >
                                     {showConfirmPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                 </button>
                             </div>
                             {errors.confirmPassword && (
-                                <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.confirmPassword.message}</p>
                             )}
                         </div>
 
                         <button
                             type="submit"
                             disabled={isSubmitting || passwordStrength.score < 3}
-                            className={`w-full py-3 px-4 rounded-lg text-white font-medium 
-                                ${isSubmitting || passwordStrength.score < 3 
-                                    ? 'bg-standard-dark cursor-not-allowed' 
-                                    : 'bg-standard hover:bg-standard-hover active:bg-standard-dark'} 
-                                transition-colors duration-200 flex items-center justify-center`}
+                            className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF]
+                                ${isSubmitting || passwordStrength.score < 3 ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
+                                transition-all duration-200 flex items-center justify-center`}
                         >
                             {isSubmitting ? (
                                 <>
                                     <LoadingSpinner />
-                                    <span className="ml-2">Creating Account...</span>
+                                    <span className="ml-2">Criando Conta...</span>
                                 </>
                             ) : (
-                                'Create Account'
+                                'Criar Conta'
                             )}
                         </button>
 
-                        <p className="text-center text-sm text-gray-500">
-                            Already have an account?{' '}
-                            <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
-                                Sign in
+                        <p className="text-center text-sm text-gray-400">
+                            Já tem uma conta?{' '}
+                            <Link href="/login" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors font-medium">
+                                Entrar
                             </Link>
                         </p>
                     </form>
