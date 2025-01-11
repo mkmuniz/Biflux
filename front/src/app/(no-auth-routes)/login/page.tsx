@@ -1,8 +1,8 @@
-import LoginForm from "@/components/SignIn/SignIn";
+import SignInForm from "@/components/Forms/SignIn";
 import React from "react";
 
 export default function Login() {
     return <>
-        <LoginForm />
+        <SignInForm />
     </>
 };
