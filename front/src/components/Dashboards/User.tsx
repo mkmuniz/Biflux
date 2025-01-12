@@ -1,9 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 
-import Section from "../Section/Section";
-import Container from "../Container/Container";
-
 import UserDashboardSkeleton from "../Skeletons/UserDashboard";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
@@ -131,7 +128,7 @@ export default function UserDashboard() {
                                     backgroundColor: '#18181b',
                                     border: '1px solid #27272a',
                                     borderRadius: '0.75rem',
-                                    color: '#ffffff'
+                                    color: '#fff',
                                 }}
                             />
                             <Legend
@@ -195,7 +192,9 @@ export default function UserDashboard() {
                                     backgroundColor: '#18181b',
                                     border: '1px solid #27272a',
                                     borderRadius: '0.75rem',
-                                    color: '#ffffff'
+                                }}
+                                itemStyle={{
+                                    color: "#fff"
                                 }}
                             />
                             <Legend
