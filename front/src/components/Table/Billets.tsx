@@ -70,7 +70,7 @@ export function BilletsTable() {
     }
 
     return (
-        <Section styles="bg-black min-h-screen w-full">
+        <Section styles="bg-black min-h-screen w-full mobile:p-4">
             <Container styles="max-w-6xl mx-auto">
                 <ModalUpload 
                     open={open} 
