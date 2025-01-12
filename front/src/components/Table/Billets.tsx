@@ -85,7 +85,7 @@ export function BilletsTable() {
                                 type="text"
                                 placeholder="Buscar boletos..."
                                 onChange={handleSearch}
-                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
+                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
                             />
                             <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         </div>
