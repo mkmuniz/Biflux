@@ -27,7 +27,7 @@ const CookieConsent = () => {
   if (!showBanner) return null;
 
   return (
-    <div className={`fixed bottom-0 left-0 right-0 bg-black/95 shadow-lg p-4 md:p-6 z-50 transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
+    <div className={`fixed bottom-0 left-0 right-0 bg-black/95 shadow-lg p-4 md:p-6 z-[999] transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
       <div className="relative">
         <div className="absolute top-1/2 -left-24 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[128px]"></div>
         <div className="absolute top-1/2 -right-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
