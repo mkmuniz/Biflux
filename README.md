@@ -1,6 +1,6 @@
 # Biflux
 
-![image](https://github.com/mkmuniz/Biflux/assets/65512888/734ea2ad-1918-4572-bd8e-508d473dd1ab)
+![image](https://github.com/user-attachments/assets/e23eacc8-b094-4c75-b1ed-75098d0af611)
 
 ---
 
