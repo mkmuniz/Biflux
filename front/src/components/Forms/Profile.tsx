@@ -22,12 +22,16 @@ interface ProfileData {
 export default function ProfileForm() {
     const { data: session } = useSession();
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ProfileData>();
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ProfileData>();
     const [preview, setPreview] = useState("/assets/icons/profile-default-placeholder.png");
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const [initialData, setInitialData] = useState<ProfileData | null>(null);
+
+    const watchedName = watch('name');
+    const watchedEmail = watch('email');
 
     const { data } = useQuery({
         queryKey: ['user-profile'],
@@ -37,9 +41,10 @@ export default function ProfileForm() {
 
     useEffect(() => {
         if (data) {
-            setValue('name', data.name);
-            setValue('email', data.email);
+            setValue('name', data.name, { shouldDirty: false });
+            setValue('email', data.email, { shouldDirty: false });
             setPreview(data.profilePicture || "/assets/icons/profile-default-placeholder.png");
+            setInitialData(data);
         }
     }, [data, setValue]);
 
@@ -105,8 +110,15 @@ export default function ProfileForm() {
         }
     };
 
+    const isFormChanged = () => {
+        if (!initialData) return false;
+        return watchedName !== initialData.name || 
+               watchedEmail !== initialData.email || 
+               selectedFile !== null;
+    };
+
     return <>
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 p-8 w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 p-8 mobile:w-full w-2/3">
             <div className="mb-8 w-full flex items-center justify-center">
                 <div
                     className="w-32 h-32 rounded-full overflow-hidden cursor-pointer relative group"
@@ -149,8 +161,8 @@ export default function ProfileForm() {
             <div className="flex items-center justify-center relative">
                 <button
                     type="submit"
-                    disabled={isPending}
-                    className={`w-full px-4 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] flex items-center justify-center ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
+                    disabled={isPending || !data || !isFormChanged()}
+                    className={`w-full px-4 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] flex items-center justify-center ${(isPending || !data || !isFormChanged()) ? 'cursor-not-allowed opacity-70' : ''}`}
                 >
                     {isPending ? <LoadingSpinner /> : 'Salvar Alterações'}
                 </button>
