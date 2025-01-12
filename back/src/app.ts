@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import { Request, Response } from 'express';
 import logger from 'morgan';
 import authRouter from './modules/auth/auth.routes';
@@ -17,7 +16,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use(logger('dev'));
 app.use(cors({ origin: ['http://localhost:3000', 'https://biflux.vercel.app'] }));
-app.use(bodyParser.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(userRouter);
 app.use(authRouter);
 app.use(billetRouter);

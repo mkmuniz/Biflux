@@ -52,17 +52,19 @@ export default function SignUpForm() {
         const file = e.target.files?.[0];
 
         if (file) {
-            if (file.size > 100 * 1024) {
-                setError('Image size should not exceed 100kb');
+            if (file.size > 1000 * 1024) {
+                setError('Image size should not exceed 1mb');
                 return;
             }
 
             const reader = new FileReader();
+
             reader.onloadend = () => {
                 const base64String = reader.result as string;
                 setSelectedFile(base64String);
                 setPreview(base64String);
             };
+
             reader.readAsDataURL(file);
         }
     };
@@ -157,6 +159,8 @@ export default function SignUpForm() {
             return;
         }
 
+        if (selectedFile) data.profilePicture = selectedFile;
+        
         if (!errors.email && !errors.name && !errors.password) {
             setIsSubmitting(true);
             mutate(data);
@@ -190,8 +194,8 @@ export default function SignUpForm() {
                                     alt="Profile picture" 
                                     className="h-full w-full object-cover relative z-10" 
                                 />
-                                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <span className="text-white text-sm">Alterar Foto</span>
+                                <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span className="text-white text-sm">Enviar Foto</span>
                                 </div>
                             </div>
                             <input
