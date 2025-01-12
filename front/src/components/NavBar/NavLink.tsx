@@ -5,12 +5,13 @@ interface NavLink {
     href: string,
     description?: string,
     styles: string,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    onClick?: () => void
 };
 
-export default function NavLink({ href, description, styles, children }: NavLink) {
+export default function NavLink({ href, description, styles, children, onClick }: NavLink) {
     return <>
-        <Link href={href} className={styles}>
+        <Link href={href} className={styles} onClick={onClick}>
             {children ?
                 <>
                     {children}
