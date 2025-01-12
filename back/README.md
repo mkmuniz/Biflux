@@ -39,6 +39,13 @@ Biflux is your comprehensive solution for managing energy bills with ease. It is
       JWT_ACCESS_SECRET=""
       JWT_REFRESH_SECRET=""
       ENVIRONMENT=""
+
+      CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
+      CLOUDINARY_API_KEY="your-cloudinary-api-jey"
+      CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
+
+      GEMINI_AI_API_KEY="your-gemini-api-key"
+      
       PORT='4000'
       ```
 

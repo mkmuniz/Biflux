@@ -107,10 +107,18 @@ npm run dev
 DATABASE_URL="postgresql://user:password@localhost:5432/biflux"
 JWT_ACCESS_TOKEN_SECRET="your-access-token-secret"
 JWT_REFRESH_TOKEN_SECRET="your-refresh-token-secret"
+
 AWS_ACCESS_KEY_ID="your-aws-access-key"
 AWS_SECRET_ACCESS_KEY="your-aws-secret-key"
 S3_BUCKET="your-s3-bucket-name"
 S3_REGION="your-s3-region"
+
+CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
+CLOUDINARY_API_KEY="your-cloudinary-api-jey"
+CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
+
+GEMINI_AI_API_KEY="your-gemini-api-key"
+
 PORT=4000
 ```
 
