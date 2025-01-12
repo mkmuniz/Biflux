@@ -16,15 +16,15 @@ const PopUpSuccess: React.FC<PopUpSuccessProps> = ({ message, onClose }) => {
     }, [onClose]);
 
     return (
-        <div className="animate-slide-up fixed bottom-4 right-4 z-50 bg-black">
-            <div className="bg-zinc-900/90 backdrop-blur-sm border border-[#00DC82]/20 text-white p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3">
-                <div className="bg-gradient-to-r from-[#00DC82] to-[#00A3FF] rounded-lg p-2">
+        <div className="fixed top-20 right-0 p-4 z-[9999]">
+            <div className="animate-slide-down bg-zinc-900/90 backdrop-blur-sm border border-[#00DC82]/20 text-white p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 max-w-md">
+                <div className="bg-gradient-to-r from-[#00DC82] to-[#00A3FF] rounded-lg p-2 flex-shrink-0">
                     <CheckIcon className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-gray-300">{message}</span>
+                <span className="text-gray-300 text-sm">{message}</span>
                 <button 
                     onClick={onClose}
-                    className="ml-4 text-gray-400 hover:text-white transition-colors"
+                    className="ml-auto flex-shrink-0 text-gray-400 hover:text-white transition-colors"
                 >
                     <XMarkIcon className="w-5 h-5" />
                 </button>
