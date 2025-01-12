@@ -10,7 +10,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Biflux',
-  description: 'Your personal billets dashboard',
+  description: 'Seu painel pessoal de boletos',
 }
 
 const roboto = Roboto({ weight: '700', subsets: ['latin']});
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
