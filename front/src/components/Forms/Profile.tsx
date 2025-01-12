@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { updateUserProfile, fetchUserProfile } from "@/requests/user.requests";
+import { PencilIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
@@ -112,21 +113,21 @@ export default function ProfileForm() {
 
     const isFormChanged = () => {
         if (!initialData) return false;
-        return watchedName !== initialData.name || 
-               watchedEmail !== initialData.email || 
-               selectedFile !== null;
+        return watchedName !== initialData.name ||
+            watchedEmail !== initialData.email ||
+            selectedFile !== null;
     };
 
     return <>
         <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-900/80 rounded-xl shadow-[0_4px_20px_rgba(0,220,130,0.1)] border border-zinc-800 p-8 mobile:w-full w-2/3">
-            <div className="mb-8 w-full flex items-center justify-center">
+            <div className="mb-8 w-full flex flex-col items-center justify-center">
                 <div
                     className="w-32 h-32 rounded-full overflow-hidden cursor-pointer relative group"
                     onClick={() => fileInputRef.current?.click()}
                 >
                     <Image src={preview} width={128} height={128} alt="Profile picture" className="h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-white text-sm">Alterar Foto</span>
+                        <PencilIcon className="w-8 h-8 text-white" />
                     </div>
                 </div>
                 <input
