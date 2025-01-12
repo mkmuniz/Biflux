@@ -1,26 +1,27 @@
 import React from 'react';
 import Image from 'next/image';
 
-const Loading = () => {
+export default function Loading() {
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm z-50">
-            <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-full blur-lg opacity-20"></div>
+        <div className="min-h-screen bg-black flex flex-col items-center justify-center relative">
+            <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[128px]"></div>
+            <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
+            
+            <div className="flex flex-col items-center justify-center space-y-8 relative z-10">
                 <Image 
-                    src="/logo.png" 
-                    width={80} 
-                    height={80} 
-                    alt="logo" 
-                    className="relative z-10 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                    src="/logo.png"
+                    width={80}
+                    height={80}
+                    alt="Biflux Logo"
+                    className="animate-pulse"
                 />
-            </div>
-            <div className="flex gap-2 mt-6">
-                <div className="w-2 h-2 bg-white rounded-full animate-[bounce_1s_infinite_0ms]"></div>
-                <div className="w-2 h-2 bg-white rounded-full animate-[bounce_1s_infinite_200ms]"></div>
-                <div className="w-2 h-2 bg-white rounded-full animate-[bounce_1s_infinite_400ms]"></div>
+                
+                <div className="flex space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-[#6B8AF9] animate-bounce" style={{ animationDelay: '200ms' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce" style={{ animationDelay: '400ms' }}></div>
+                </div>
             </div>
         </div>
     );
-};
-
-export default Loading;
+}
