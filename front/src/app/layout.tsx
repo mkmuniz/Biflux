@@ -1,5 +1,6 @@
 import TanstackProvider from '@/providers/TanStackProvider';
 import NextAuthSessionProvider from '@/providers/sessionProvider';
+import CookieConsent from '@/components/PopUps/CookieConsent';
 
 import type { Metadata } from 'next';
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             {children}
           </TanstackProvider>
         </NextAuthSessionProvider>
+        <CookieConsent />
       </body>
     </html>
   )
