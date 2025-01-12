@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signUp } from '../../requests/user.requests';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon, EyeSlashIcon, CameraIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
@@ -181,7 +181,7 @@ export default function SignUpForm() {
                     </div>
 
                     <form onSubmit={handleSubmit(handleSignUp)} className="space-y-6">
-                        <div className="mb-4 w-full flex items-center justify-center">
+                        <div className="mb-4 w-full flex flex-col items-center justify-center gap-2">
                             <div
                                 className="w-32 h-32 rounded-full overflow-hidden cursor-pointer relative group"
                                 onClick={() => fileInputRef.current?.click()}
@@ -195,9 +195,10 @@ export default function SignUpForm() {
                                     className="h-full w-full object-cover relative z-10" 
                                 />
                                 <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <span className="text-white text-sm">Enviar Foto</span>
+                                    <CameraIcon className="w-8 h-8 text-white" />
                                 </div>
                             </div>
+                            <span className="text-gray-400 text-sm">Envie uma foto</span>
                             <input
                                 type="file"
                                 accept="image/*"
