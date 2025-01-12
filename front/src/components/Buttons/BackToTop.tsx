@@ -27,7 +27,7 @@ export default function BackToTop() {
     }, []);
 
     return (
-        <div className={`fixed bottom-8 right-8 transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        <div className={`fixed bottom-8 right-8 z-[998] transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
             <div className="relative">
                 <button
                     onClick={scrollToTop}
