@@ -52,8 +52,8 @@ export default function SignUpForm() {
         const file = e.target.files?.[0];
 
         if (file) {
-            if (file.size > 1000 * 1024) {
-                setError('Image size should not exceed 1mb');
+            if (file.size > 5000 * 1024) {
+                setError('Image size should not exceed 5mb');
                 return;
             }
 
