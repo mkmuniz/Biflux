@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signUp } from '../../requests/user.requests';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { EyeIcon, EyeSlashIcon, CameraIcon } from '@heroicons/react/24/outline';
+import { EyeIcon, EyeSlashIcon, CameraIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
@@ -18,6 +18,7 @@ interface SignUpData {
     password: string;
     confirmPassword: string;
     profilePicture: string;
+    termsAccepted: boolean;
 }
 
 interface PasswordStrength {
@@ -35,6 +36,7 @@ export default function SignUpForm() {
     const [preview, setPreview] = useState("/assets/icons/profile-default-placeholder.png");
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
+    const [isTermsOpen, setIsTermsOpen] = useState(false);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
@@ -156,6 +158,11 @@ export default function SignUpForm() {
 
         if (data.password !== data.confirmPassword) {
             setError('Passwords do not match');
+            return;
+        }
+
+        if (!data.termsAccepted) {
+            setError('Você precisa aceitar os termos para criar uma conta');
             return;
         }
 
@@ -302,6 +309,56 @@ export default function SignUpForm() {
                             </div>
                             {errors.confirmPassword && (
                                 <p className="mt-1 text-sm text-red-400">{errors.confirmPassword.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-4 rounded-xl p-4">
+                            <div 
+                                onClick={() => setIsTermsOpen(!isTermsOpen)}
+                                className="flex items-center justify-between cursor-pointer group"
+                            >
+                                <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
+                                    Ao criar uma conta, você concorda com a coleta e processamento dos seguintes dados:
+                                </p>
+                                <ChevronDownIcon 
+                                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isTermsOpen ? 'rotate-180' : ''}`}
+                                />
+                            </div>
+                            
+                            <div className={`overflow-hidden transition-all duration-200 ease-in-out ${isTermsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <ul className="text-sm text-gray-400 list-disc pl-5 space-y-2 pt-4">
+                                    <li>Dados de cadastro: nome completo, e-mail e foto de perfil</li>
+                                    <li>Dados extraídos dos boletos de energia:
+                                        <ul className="list-disc pl-5 mt-1 space-y-1">
+                                            <li>Número da instalação</li>
+                                            <li>Mês de referência</li>
+                                            <li>Consumo de energia elétrica (kWh e valores)</li>
+                                            <li>Energia SCEE sem ICMS (kWh e valores)</li>
+                                            <li>Energia Compensada GD I (kWh e valores)</li>
+                                            <li>Contribuição de Iluminação Pública Municipal</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="flex items-start gap-2 pt-2 border-t border-zinc-800">
+                                <input
+                                    type="checkbox"
+                                    id="termsAccepted"
+                                    {...register("termsAccepted", { 
+                                        required: 'Você precisa aceitar os termos para criar uma conta' 
+                                    })}
+                                    className="mt-1"
+                                />
+                                <label htmlFor="termsAccepted" className="text-sm text-gray-300">
+                                    Concordo com a coleta e processamento dos dados acima para fins de análise e gestão do consumo de energia, conforme detalhado em nossa{' '}
+                                    <Link href="/politica-privacidade" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors">
+                                        Política de Privacidade
+                                    </Link>
+                                </label>
+                            </div>
+                            {errors.termsAccepted && (
+                                <p className="text-sm text-red-400">{errors.termsAccepted.message}</p>
                             )}
                         </div>
 
