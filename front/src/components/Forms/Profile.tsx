@@ -66,8 +66,8 @@ export default function ProfileForm() {
         const file = e.target.files?.[0];
 
         if (file) {
-            if (file.size > 100 * 1024) {
-                setError('Image size should not exceed 100kb');
+            if (file.size > 1000 * 1024) {
+                setError('Image size should not exceed 1mb');
                 return;
             }
 
