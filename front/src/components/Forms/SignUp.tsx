@@ -312,7 +312,7 @@ export default function SignUpForm() {
                             )}
                         </div>
 
-                        <div className="space-y-4 rounded-xl p-4">
+                        <div className="space-y-4 border border-zinc-800 rounded-xl p-4">
                             <div 
                                 onClick={() => setIsTermsOpen(!isTermsOpen)}
                                 className="flex items-center justify-between cursor-pointer group"
