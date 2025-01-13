@@ -7,7 +7,7 @@ export class AuthController {
             const { email, password } = req.body;
             
             if (!email || !password)
-                return res.status(400).json({ message: "Email and password are required" });
+                return res.status(400).json({ message: "Email e a senha são requeridos" });
 
             try {
                 const tokens = await AuthServices.login(email, password);
@@ -15,10 +15,10 @@ export class AuthController {
                 return res.json(tokens);
             } catch (error: any) {
                 if (error.message === 'User not found')
-                    return res.status(404).json({ message: "This email does not exist." });
+                    return res.status(404).json({ message: "Este usuário não existe" });
 
                 if (error.message === 'Invalid password')
-                    return res.status(401).json({ message: "Invalid credentials" });
+                    return res.status(401).json({ message: "Credenciais inválidas, tente novamente" });
 
                 throw error;
             }

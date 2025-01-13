@@ -84,19 +84,19 @@ export default function SignUpForm() {
         switch (score) {
             case 0:
             case 1:
-                feedback = 'Very weak password';
+                feedback = 'Muito Fraca';
                 break;
             case 2:
-                feedback = 'Weak password';
+                feedback = 'Fraca';
                 break;
             case 3:
-                feedback = 'Medium strength password';
+                feedback = 'Média';
                 break;
             case 4:
-                feedback = 'Strong password';
+                feedback = 'Forte';
                 break;
             case 5:
-                feedback = 'Very strong password';
+                feedback = 'Muito Forte';
                 break;
         }
 
@@ -125,11 +125,10 @@ export default function SignUpForm() {
         mutationFn: signUp,
         onSuccess: (data: any) => {
             setIsSubmitting(false);
-            if (data.status === 409) return setError('Email already exists');
-            if (data.status === 500) return setError('Internal error, we are working on it!');
-            if (data.status === 404) return setError('Not found, try again!');
+            if (data.status === 409) return setError('O Email inserido já é cadastrado');
+            if (data.status === 500) return setError('Erro interno, tente mais tarde!');
             if (data.status === 201) {
-                setSuccess('Successfully signed up! Redirecting to login...');
+                setSuccess('Cadastro realizado com sucesso, aguarde...');
                 setTimeout(() => {
                     router.replace('/login');
                 }, 5000);
@@ -372,7 +371,6 @@ export default function SignUpForm() {
                             {isSubmitting ? (
                                 <>
                                     <LoadingSpinner />
-                                    <span className="ml-2">Criando Conta...</span>
                                 </>
                             ) : (
                                 'Criar Conta'
