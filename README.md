@@ -45,7 +45,7 @@ BrightFlow, sua solução completa para gerenciar contas de energia com facilida
 
 ## 💻 Uso
 
-Você pode acessar em produção através deste [link](https://BrightFlow.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
+Você pode acessar em produção através deste [link](https://brightflow.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
 
 ## 🛣️ Rotas
 

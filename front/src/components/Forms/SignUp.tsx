@@ -11,6 +11,7 @@ import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
 import Image from 'next/image';
+import { useRecaptcha } from '@/hooks/useRecaptcha';
 
 interface SignUpData {
     name: string;
@@ -37,6 +38,7 @@ export default function SignUpForm() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const [isTermsOpen, setIsTermsOpen] = useState(false);
+    const { executeRecaptcha } = useRecaptcha();
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
@@ -84,19 +86,19 @@ export default function SignUpForm() {
         switch (score) {
             case 0:
             case 1:
-                feedback = 'Muito Fraca';
+                feedback = 'Very weak password';
                 break;
             case 2:
-                feedback = 'Fraca';
+                feedback = 'Weak password';
                 break;
             case 3:
-                feedback = 'Média';
+                feedback = 'Medium strength password';
                 break;
             case 4:
-                feedback = 'Forte';
+                feedback = 'Strong password';
                 break;
             case 5:
-                feedback = 'Muito Forte';
+                feedback = 'Very strong password';
                 break;
         }
 
@@ -125,10 +127,11 @@ export default function SignUpForm() {
         mutationFn: signUp,
         onSuccess: (data: any) => {
             setIsSubmitting(false);
-            if (data.status === 409) return setError('O Email inserido já é cadastrado');
-            if (data.status === 500) return setError('Erro interno, tente mais tarde!');
+            if (data.status === 409) return setError('Email already exists');
+            if (data.status === 500) return setError('Internal error, we are working on it!');
+            if (data.status === 404) return setError('Not found, try again!');
             if (data.status === 201) {
-                setSuccess('Cadastro realizado com sucesso, aguarde...');
+                setSuccess('Successfully signed up! Redirecting to login...');
                 setTimeout(() => {
                     router.replace('/login');
                 }, 5000);
@@ -149,7 +152,7 @@ export default function SignUpForm() {
         }
     };
 
-    const handleSignUp: SubmitHandler<SignUpData> = (data: SignUpData) => {
+    const handleSignUp: SubmitHandler<SignUpData> = async (data) => {
         if (passwordStrength.score < 3) {
             setError('Password needs to be stronger');
             return;
@@ -165,11 +168,26 @@ export default function SignUpForm() {
             return;
         }
 
-        if (selectedFile) data.profilePicture = selectedFile;
-        
-        if (!errors.email && !errors.name && !errors.password) {
+        try {
             setIsSubmitting(true);
-            mutate(data);
+
+            const recaptchaToken = await executeRecaptcha();
+            if (!recaptchaToken) {
+                setError('Falha na verificação de segurança. Por favor, tente novamente.');
+                return;
+            }
+
+            if (selectedFile) data.profilePicture = selectedFile;
+            
+            if (!errors.email && !errors.name && !errors.password) {
+                mutate({
+                    ...data,
+                    recaptchaToken
+                });
+            }
+        } catch (error) {
+            setError('Falha ao criar conta. Por favor, tente novamente.');
+            setIsSubmitting(false);
         }
     };
 
@@ -371,6 +389,7 @@ export default function SignUpForm() {
                             {isSubmitting ? (
                                 <>
                                     <LoadingSpinner />
+                                    <span className="ml-2">Criando Conta...</span>
                                 </>
                             ) : (
                                 'Criar Conta'
