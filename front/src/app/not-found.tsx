@@ -11,15 +11,17 @@ export default function NotFound() {
             <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-[#00A3FF]/20 rounded-full blur-[128px]"></div>
 
             <div className="relative text-center space-y-8">
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-full blur-lg opacity-20"></div>
-                    <Image 
-                        src="/logo.png" 
-                        width={100} 
-                        height={100} 
-                        alt="Biflux Logo" 
-                        className="relative z-10 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
-                    />
+                <div className="relative flex justify-center">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-full blur-lg opacity-20"></div>
+                        <Image 
+                            src="/logo.png" 
+                            width={100} 
+                            height={100} 
+                            alt="Biflux Logo" 
+                            className="relative z-10 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-4">
