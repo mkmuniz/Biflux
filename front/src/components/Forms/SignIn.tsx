@@ -133,7 +133,6 @@ export default function SignInForm() {
                                 {isSubmitting ? (
                                     <>
                                         <LoadingSpinner />
-                                        <span className="ml-2">Entrando...</span>
                                     </>
                                 ) : (
                                     'Entrar'

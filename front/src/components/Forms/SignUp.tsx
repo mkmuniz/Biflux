@@ -404,7 +404,6 @@ export default function SignUpForm() {
                                 {isSubmitting ? (
                                     <>
                                         <LoadingSpinner />
-                                        <span className="ml-2">Criando Conta...</span>
                                     </>
                                 ) : (
                                     'Criar Conta'
