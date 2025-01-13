@@ -1,17 +1,23 @@
 "use client";
 
+
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+
 import { useRouter } from 'next/navigation';
 import { signUp } from '../../requests/user.requests';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
+
+import Link from 'next/link';
+import Image from 'next/image';
+
 import { EyeIcon, EyeSlashIcon, CameraIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
 import LoadingSpinner from '../Loading/LoadingSpinner';
-import Image from 'next/image';
-import { useRecaptcha } from '@/hooks/useRecaptcha';
+
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface SignUpData {
     name: string;
@@ -38,7 +44,7 @@ export default function SignUpForm() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const [isTermsOpen, setIsTermsOpen] = useState(false);
-    const { executeRecaptcha } = useRecaptcha();
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpData>();
     const router = useRouter();
@@ -171,7 +177,9 @@ export default function SignUpForm() {
         try {
             setIsSubmitting(true);
 
-            const recaptchaToken = await executeRecaptcha();
+            // Executa o reCAPTCHA
+            const recaptchaToken = await recaptchaRef.current?.executeAsync();
+            recaptchaRef.current?.reset();
             if (!recaptchaToken) {
                 setError('Falha na verificação de segurança. Por favor, tente novamente.');
                 return;
@@ -379,22 +387,30 @@ export default function SignUpForm() {
                             )}
                         </div>
 
-                        <button
-                            type="submit"
-                            disabled={isSubmitting || passwordStrength.score < 3}
-                            className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF]
-                                ${isSubmitting || passwordStrength.score < 3 ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
-                                transition-all duration-200 flex items-center justify-center`}
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <LoadingSpinner />
-                                    <span className="ml-2">Criando Conta...</span>
-                                </>
-                            ) : (
-                                'Criar Conta'
-                            )}
-                        </button>
+                        <div className="relative">
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                size="invisible"
+                                sitekey={String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY)}
+                                className="invisible"
+                            />
+                            <button
+                                type="submit"
+                                disabled={isSubmitting || passwordStrength.score < 3}
+                                className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF]
+                                    ${isSubmitting || passwordStrength.score < 3 ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
+                                    transition-all duration-200 flex items-center justify-center`}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <LoadingSpinner />
+                                        <span className="ml-2">Criando Conta...</span>
+                                    </>
+                                ) : (
+                                    'Criar Conta'
+                                )}
+                            </button>
+                        </div>
 
                         <p className="text-center text-sm text-gray-400">
                             Já tem uma conta?{' '}
