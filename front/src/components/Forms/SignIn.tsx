@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PopUpError from '../PopUps/Error';
 import LoadingSpinner from '../Loading/LoadingSpinner';
+import { useRecaptcha } from '@/hooks/useRecaptcha';
 
 interface SignInData {
     email: string;
@@ -20,6 +21,7 @@ export default function SignInForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<SignInData>();
+    const { executeRecaptcha } = useRecaptcha();
 
     const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -29,8 +31,16 @@ export default function SignInForm() {
     const handleSignIn: SubmitHandler<SignInData> = async (data) => {
         try {
             setIsSubmitting(true);
+            
+            const recaptchaToken = await executeRecaptcha();
+            if (!recaptchaToken) {
+                setError('Falha na verificação de segurança. Por favor, tente novamente.');
+                return;
+            }
+
             const response = await signIn('user-login', {
                 ...data,
+                recaptchaToken,
                 redirect: false
             });
 
@@ -41,7 +51,7 @@ export default function SignInForm() {
 
             router.replace('/user/home');
         } catch (err) {
-            setError('Failed to sign in. Please try again.');
+            setError('Falha ao entrar. Por favor, tente novamente.');
         } finally {
             setIsSubmitting(false);
         }
@@ -116,6 +126,7 @@ export default function SignInForm() {
                             {isSubmitting ? (
                                 <>
                                     <LoadingSpinner />
+                                    <span className="ml-2">Entrando...</span>
                                 </>
                             ) : (
                                 'Entrar'
