@@ -127,4 +127,5 @@ PORT=4000
 NEXT_PUBLIC_API_URL="http://localhost:4000"
 NEXTAUTH_SECRET="your-nextauth-secret"
 NEXTAUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY="your-google-recaptcha-site-key"
 ```
