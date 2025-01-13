@@ -1,14 +1,18 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
+
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
 import PopUpError from '../PopUps/Error';
 import LoadingSpinner from '../Loading/LoadingSpinner';
-import { useRecaptcha } from '@/hooks/useRecaptcha';
+
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface SignInData {
     email: string;
@@ -21,7 +25,7 @@ export default function SignInForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<SignInData>();
-    const { executeRecaptcha } = useRecaptcha();
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
 
     const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -31,8 +35,10 @@ export default function SignInForm() {
     const handleSignIn: SubmitHandler<SignInData> = async (data) => {
         try {
             setIsSubmitting(true);
-            
-            const recaptchaToken = await executeRecaptcha();
+
+            const recaptchaToken = await recaptchaRef.current?.executeAsync();
+            recaptchaRef.current?.reset();
+
             if (!recaptchaToken) {
                 setError('Falha na verificação de segurança. Por favor, tente novamente.');
                 return;
@@ -116,23 +122,30 @@ export default function SignInForm() {
                             )}
                         </div>
 
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] 
-                                ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
-                                transition-all duration-200 flex items-center justify-center`}
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <LoadingSpinner />
-                                    <span className="ml-2">Entrando...</span>
-                                </>
-                            ) : (
-                                'Entrar'
-                            )}
-                        </button>
-
+                        <div className="relative">
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] 
+                                    ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
+                                    transition-all duration-200 flex items-center justify-center`}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <LoadingSpinner />
+                                        <span className="ml-2">Entrando...</span>
+                                    </>
+                                ) : (
+                                    'Entrar'
+                                )}
+                            </button>
+                        </div>
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            size="invisible"
+                            sitekey={String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY)}
+                            className="invisible"
+                        />
                         <p className="text-center text-sm text-gray-400">
                             Não tem uma conta?{' '}
                             <Link href="/sign-up" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors font-medium">
