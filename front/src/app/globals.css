@@ -3,5 +3,20 @@
 @tailwind utilities;
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
 }
