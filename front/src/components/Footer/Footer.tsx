@@ -14,7 +14,7 @@ export default function Footer() {
                         <div className="sm:flex sm:items-center sm:justify-between">
                             <Link href="/" className="flex items-center mb-4 sm:mb-0 space-x-3">
                                 <span className="text-3xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
-                                    Biflux
+                                    BrightFlow
                                 </span>
                             </Link>
                             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 gap-2">
@@ -84,7 +84,7 @@ export default function Footer() {
                                 </div>
                             </div>
                             <span className="text-sm text-gray-400">
-                                © 2024 Biflux. Todos os direitos reservados.
+                                © 2024 BrightFlow. Todos os direitos reservados.
                             </span>
                         </div>
                     </div>

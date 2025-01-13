@@ -18,19 +18,19 @@ const sideBarLinks = [
         path: '/user/home',
         description: 'Home',
         icon: HomeIcon,
-        alt: 'Biflux Home Icon',
+        alt: 'BrightFlow Home Icon',
     },
     {
         path: '/billets/table',
         description: 'Billets',
         icon: BilletsTable,
-        alt: 'Biflux Billets Table Icon',
+        alt: 'BrightFlow Billets Table Icon',
     },
     {
         path: '/user/profile',
         description: 'Profile',
         icon: ProfileIcon,
-        alt: 'Biflux Profile Icon',
+        alt: 'BrightFlow Profile Icon',
     },
 ];
 
@@ -55,7 +55,7 @@ const SideBar = () => {
             <div className="flex justify-between p-2 w-full h-full">
                 <div className="ml-3 z-[70]">
                     <a className="flex-none" href="#">
-                        <Image src={Logo} className="w-10 h-10" alt="Biflux Logo" />
+                        <Image src={Logo} className="w-10 h-10" alt="BrightFlow Logo" />
                     </a>
                 </div>
                 <div>

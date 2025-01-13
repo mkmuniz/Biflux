@@ -1,4 +1,4 @@
-# Biflux
+# BrightFlow
 
 ![image](https://github.com/user-attachments/assets/e23eacc8-b094-4c75-b1ed-75098d0af611)
 
@@ -27,7 +27,7 @@
 
 ## 📜 Introdução
 
-Biflux, sua solução completa para gerenciar contas de energia com facilidade. Biflux é uma plataforma open-source projetada para simplificar o processo de gerenciamento de contas de luz, oferecendo aos usuários uma experiência perfeita desde o armazenamento de contas até a visualização de dados analíticos.
+BrightFlow, sua solução completa para gerenciar contas de energia com facilidade. BrightFlow é uma plataforma open-source projetada para simplificar o processo de gerenciamento de contas de luz, oferecendo aos usuários uma experiência perfeita desde o armazenamento de contas até a visualização de dados analíticos.
 
 ## 💻 Funcionalidades
 
@@ -45,7 +45,7 @@ Biflux, sua solução completa para gerenciar contas de energia com facilidade. 
 
 ## 💻 Uso
 
-Você pode acessar em produção através deste [link](https://biflux.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
+Você pode acessar em produção através deste [link](https://BrightFlow.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
 
 ## 🛣️ Rotas
 
@@ -69,7 +69,7 @@ Você pode acessar em produção através deste [link](https://biflux.vercel.app
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/mkmuniz/biflux.git
+git clone https://github.com/mkmuniz/BrightFlow.git
 ```
 
 2. Instale as dependências:
@@ -104,7 +104,7 @@ npm run dev
 
 ### Backend (.env)
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/biflux"
+DATABASE_URL="postgresql://user:password@localhost:5432/BrightFlow"
 JWT_ACCESS_TOKEN_SECRET="your-access-token-secret"
 JWT_REFRESH_TOKEN_SECRET="your-refresh-token-secret"
 

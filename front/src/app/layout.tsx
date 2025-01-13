@@ -9,7 +9,7 @@ import { Roboto } from 'next/font/google';
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Biflux',
+  title: 'BrightFlow',
   description: 'Seu painel pessoal de boletos ;)',
 }
 

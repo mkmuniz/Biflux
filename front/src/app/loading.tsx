@@ -12,7 +12,7 @@ export default function Loading() {
                     src="/logo.png"
                     width={80}
                     height={80}
-                    alt="Biflux Logo"
+                    alt="BrightFlow Logo"
                     className="animate-pulse"
                 />
                 

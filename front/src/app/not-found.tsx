@@ -18,7 +18,7 @@ export default function NotFound() {
                             src="/logo.png" 
                             width={100} 
                             height={100} 
-                            alt="Biflux Logo" 
+                            alt="BrightFlow Logo" 
                             className="relative z-10 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
                         />
                     </div>

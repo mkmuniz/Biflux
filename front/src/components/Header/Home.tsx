@@ -29,7 +29,7 @@ export default function Header() {
                                 src="/logo.png"
                                 width={100}
                                 height={100}
-                                alt="Biflux Logo"
+                                alt="BrightFlow Logo"
                                 className="relative z-10 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
                             />
                         </div>
@@ -41,7 +41,7 @@ export default function Header() {
                             className={`text-5xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent transition-all duration-700 
                             ${isVisibleHeaderSubtext ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
                         >
-                            Biflux
+                            BrightFlow
                         </span>
 
                         <p

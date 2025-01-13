@@ -11,7 +11,7 @@
 
 ## 📜 Introduction
 
-Biflux is your comprehensive solution for managing energy bills with ease. It is an open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization. Biflux provides an API for the registration, authentication, and storage of data from bills sent to an S3 bucket.
+BrightFlow is your comprehensive solution for managing energy bills with ease. It is an open-source platform designed to streamline the process of handling electricity bills, offering users a seamless experience from bill storage to insightful data visualization. BrightFlow provides an API for the registration, authentication, and storage of data from bills sent to an S3 bucket.
 
 ## 💻 Usage
 
