@@ -1,6 +1,6 @@
 # BrightFlow
 
-![image](https://github.com/user-attachments/assets/e23eacc8-b094-4c75-b1ed-75098d0af611)
+![image](https://github.com/user-attachments/assets/3918016f-7083-4302-8c40-957c3ce66eaf)
 
 ---
 
