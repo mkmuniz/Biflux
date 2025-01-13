@@ -1,19 +1,14 @@
 import TanstackProvider from '@/providers/TanStackProvider';
 import NextAuthSessionProvider from '@/providers/sessionProvider';
 import CookieConsent from '@/components/PopUps/CookieConsent';
-
+import { roboto, outfit } from './fonts';
 import type { Metadata } from 'next';
-
-import { Roboto } from 'next/font/google';
-
-import './globals.css'
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Biflux',
   description: 'Seu painel pessoal de boletos',
 }
-
-const roboto = Roboto({ weight: '700', subsets: ['latin']});
 
 export default function RootLayout({
   children,
@@ -21,12 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="pt-BR" className={`${roboto.variable} ${outfit.variable}`}>
       <body className={roboto.className}>
         <NextAuthSessionProvider>
           <TanstackProvider>

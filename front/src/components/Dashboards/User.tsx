@@ -5,6 +5,7 @@ import UserDashboardSkeleton from "../Skeletons/UserDashboard";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { fetchUserProfile } from '../../requests/user.requests';
+import Image from "next/image";
 
 const COLORS = ['#8B5CF6', '#00A3FF', '#FF3D71', '#FFD76E'];
 
@@ -81,7 +82,14 @@ export default function UserDashboard() {
                     {userProfile?.profilePicture ? (
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-full blur-lg opacity-20"></div>
-                            <img src={userProfile.profilePicture} alt="Profile" className="w-20 h-20 rounded-full relative z-10 border-2 border-[#8B5CF6]/30" />
+                            <Image 
+                                src={userProfile.profilePicture}
+                                width={80}
+                                height={80}
+                                alt="Profile"
+                                priority
+                                className="w-20 h-20 rounded-full relative z-10 border-2 border-[#8B5CF6]/30"
+                            />
                         </div>
                     ) : (
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] flex items-center justify-center text-3xl text-white font-bold">
