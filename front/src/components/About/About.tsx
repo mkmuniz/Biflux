@@ -71,15 +71,15 @@ export default function About() {
                     >
                         <div className={`mt-10 lg:mt-0 m-6 transition-all duration-700 ${isVisibleTextDiv ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"}`}>
                             <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
-                                Sobre o Biflux
+                                Sobre o BrightFlow
                             </h2>
                             <p className="mb-5 text-lg text-white leading-relaxed">
-                                O Biflux é uma plataforma inovadora desenvolvida para simplificar a gestão de boletos de energia elétrica. 
+                                O BrightFlow é uma plataforma inovadora desenvolvida para simplificar a gestão de boletos de energia elétrica. 
                                 Com nossa solução, você tem acesso a um dashboard intuitivo que transforma dados complexos em informações claras e acionáveis.
                             </p>
                             <p className="mb-8 text-lg text-white leading-relaxed">
                                 Nossa plataforma oferece análises detalhadas do seu consumo de energia, permitindo um controle mais eficiente dos seus gastos. 
-                                Com o Biflux, você pode monitorar tendências, identificar padrões de consumo e tomar decisões mais inteligentes para otimizar 
+                                Com o BrightFlow, você pode monitorar tendências, identificar padrões de consumo e tomar decisões mais inteligentes para otimizar 
                                 sua eficiência energética.
                             </p>
                             <button 

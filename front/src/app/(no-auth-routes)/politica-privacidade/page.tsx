@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
                     <section className="space-y-4">
                         <h2 className="text-2xl font-semibold text-white">1. Introdução</h2>
                         <p>
-                            A Biflux está comprometida em proteger sua privacidade e seus dados pessoais. Esta Política de Privacidade 
+                            A BrightFlow está comprometida em proteger sua privacidade e seus dados pessoais. Esta Política de Privacidade 
                             explica como coletamos, usamos, armazenamos e protegemos suas informações ao utilizar nossa plataforma.
                         </p>
                     </section>
@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
                         <h2 className="text-2xl font-semibold text-white">7. Contato</h2>
                         <p>
                             Para exercer seus direitos ou esclarecer dúvidas sobre esta política de privacidade, 
-                            entre em contato conosco através do e-mail: privacy@biflux.com.br
+                            entre em contato conosco através do e-mail: privacy@brightflow.com.br
                         </p>
                     </section>
 

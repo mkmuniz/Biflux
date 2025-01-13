@@ -1,4 +1,4 @@
-![image](https://github.com/mkmuniz/Biflux/assets/65512888/734ea2ad-1918-4572-bd8e-508d473dd1ab)
+![image](https://github.com/mkmuniz/Bright/assets/65512888/734ea2ad-1918-4572-bd8e-508d473dd1ab)
 
 ---
 # Table of Contents
