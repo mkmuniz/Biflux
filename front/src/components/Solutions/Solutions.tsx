@@ -1,8 +1,10 @@
 "use client"
 
 import React, { useRef } from "react";
+
 import { useIsVisible } from "@/hooks/useIsVisible";
 import { ArrowUpOnSquareIcon, ChartBarSquareIcon, CircleStackIcon } from "@heroicons/react/24/outline";
+
 import Section from "../Section/Section";
 import Container from "../Container/Container";
 
