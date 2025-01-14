@@ -1,4 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+
 import Section from '../Section/Section';
 import Container from '../Container/Container';
 

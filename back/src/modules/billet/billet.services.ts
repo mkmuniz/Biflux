@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { db } from '../../db';
 import { PdfDataExtractor } from '../../utils/pdfExtractor';
@@ -88,5 +88,33 @@ export class BilletServices {
         });
 
         return getSignedUrl(s3, command, { expiresIn: 3600 });
+    }
+
+    static async deleteBillet(id: string) {
+        const billet = await db.billet.findUnique({
+            where: { id },
+        });
+
+        if (!billet) throw new Error('Billet not found');
+
+        const s3 = new S3Client({
+            region,
+            credentials: {
+                accessKeyId,
+                secretAccessKey,
+            },
+        });
+
+        const deleteParams = {
+            Bucket,
+            Key: billet.filePath.split('/').pop(),
+        };
+
+        const deleteCommand = new DeleteObjectCommand(deleteParams);
+        await s3.send(deleteCommand);
+
+        await db.billet.delete({
+            where: { id },
+        });
     }
 }

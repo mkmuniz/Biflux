@@ -54,4 +54,22 @@ export class BilletController {
             return res.status(500).json({ message: 'Failed to generate download URL' });
         }
     }
+
+    static async deleteBillet(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+
+            if (!id) return res.status(400).json({ message: 'Client number is required' });
+
+            await BilletServices.deleteBillet(id);
+
+            return res.status(204).send();
+        } catch (err: any) {
+            const errorMessage = err.message;
+            console.error(err);
+
+            if (errorMessage === 'Billet not found') return res.status(404).json({ message: errorMessage });
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }

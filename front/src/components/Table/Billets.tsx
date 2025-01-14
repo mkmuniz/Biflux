@@ -1,13 +1,16 @@
 "use client"
 
-import { ChangeEvent, useState } from "react";
-import { PlusIcon, MagnifyingGlassIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import ModalUpload from "../Modal/Upload";
+import { ChangeEvent, useState, Fragment } from "react";
+import { PlusIcon, MagnifyingGlassIcon, ArrowDownTrayIcon, TrashIcon } from "@heroicons/react/24/outline";
+
 import { useSession } from "next-auth/react";
-import BilletsTableSkeleton from "../Skeletons/BilletsTable";
-import Section from "../Section/Section";
-import Container from "../Container/Container";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import Section from "../Section/Section";
+import ModalUpload from "../Modal/Upload";
+import Container from "../Container/Container";
+import ModalConfirmDelete from '../Modal/ConfirmDelete';
+import BilletsTableSkeleton from "../Skeletons/BilletsTable";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
 
@@ -18,6 +21,9 @@ export function BilletsTable() {
     const [search, setSearch] = useState<string>('');
     const { data: session } = useSession();
     const queryClient = useQueryClient();
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [selectedBilletId, setSelectedBilletId] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data: billets = [], isLoading, error } = useQuery({
         queryKey: ['billets', session?.user?.id],
@@ -31,6 +37,7 @@ export function BilletsTable() {
             const data = await response.json();
             
             return Array.isArray(data) ? data.map(item => ({
+                id: item.id || '',
                 clientNumber: item.clientNumber || '',
                 month: item.month || '',
                 filePath: item.filePath || ''
@@ -65,17 +72,57 @@ export function BilletsTable() {
         handleOpen();
     };
 
+    const openModal = (id: string) => {
+        setSelectedBilletId(id);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedBilletId(null);
+        setIsModalOpen(false);
+    };
+
+    const confirmDelete = async () => {
+        if (!selectedBilletId) return;
+        setIsDeleting(true);
+        try {
+            const response = await fetch(`${baseUrl}billet/${selectedBilletId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao excluir o boleto');
+            }
+
+            queryClient.invalidateQueries({ queryKey: ['billets', session?.user?.id] });
+            closeModal();
+        } catch (err) {
+            console.error('Failed to delete billet', err);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     if (isLoading) {
         return <BilletsTableSkeleton />;
     }
 
     return (
-        <Section styles="bg-black min-h-screen w-full mobile:p-4">
+        <Section styles="bg-black min-h-screen w-full">
             <Container styles="max-w-6xl mx-auto">
                 <ModalUpload 
                     open={open} 
                     handleOpen={handleOpen}
                     onUploadSuccess={handleUploadSuccess}
+                />
+                <ModalConfirmDelete
+                    open={isModalOpen}
+                    handleOpen={closeModal}
+                    onConfirm={confirmDelete}
+                    isDeleting={isDeleting}
                 />
                 <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <h2 className="text-2xl font-bold text-white">Boletos</h2>
@@ -85,7 +132,7 @@ export function BilletsTable() {
                                 type="text"
                                 placeholder="Buscar boletos..."
                                 onChange={handleSearch}
-                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-black focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
+                                className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
                             />
                             <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         </div>
@@ -138,6 +185,15 @@ export function BilletsTable() {
                                                 >
                                                     <ArrowDownTrayIcon className="h-5 w-5" />
                                                     <span>Download</span>
+                                                </button>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <button
+                                                    onClick={() => openModal(billet.id)}
+                                                    className="flex items-center gap-2 text-sm text-red-500 hover:text-red-700 transition-colors duration-200"
+                                                >
+                                                    <TrashIcon className="h-5 w-5" />
+                                                    <span>Excluir</span>
                                                 </button>
                                             </td>
                                         </tr>
