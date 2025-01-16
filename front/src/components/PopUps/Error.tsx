@@ -16,21 +16,45 @@ const PopUpError: React.FC<PopUpErrorProps> = ({ message, onClose }) => {
     }, [onClose]);
 
     return (
-        <div className="fixed top-20 right-0 p-4 z-[9999]">
-            <div className="animate-slide-down bg-zinc-900/90 backdrop-blur-sm border border-red-500/20 text-white p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 max-w-md">
-                <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-2 flex-shrink-0">
-                    <XMarkIcon className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-gray-300 text-sm">{message}</span>
-                <button
-                    onClick={onClose}
-                    className="ml-auto flex-shrink-0 text-gray-400 hover:text-white transition-colors"
-                >
-                    <XMarkIcon className="w-5 h-5" />
-                </button>
-            </div>
-        </div>
+        <PopUpContainer>
+            <PopUpContent>
+                <ErrorIcon />
+                <MessageText message={message} />
+                <CloseButton onClose={onClose} />
+            </PopUpContent>
+        </PopUpContainer>
     );
 };
+
+const PopUpContainer = ({ children }: { children: React.ReactNode }) => (
+    <div className="fixed top-20 right-0 p-4 z-[9999]">
+        {children}
+    </div>
+);
+
+const PopUpContent = ({ children }: { children: React.ReactNode }) => (
+    <div className="animate-slide-down bg-zinc-900/90 backdrop-blur-sm border border-red-500/20 text-white p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 max-w-md">
+        {children}
+    </div>
+);
+
+const ErrorIcon = () => (
+    <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-2 flex-shrink-0">
+        <XMarkIcon className="w-5 h-5 text-white" />
+    </div>
+);
+
+const MessageText = ({ message }: { message: string }) => (
+    <span className="text-gray-300 text-sm">{message}</span>
+);
+
+const CloseButton = ({ onClose }: { onClose: () => void }) => (
+    <button
+        onClick={onClose}
+        className="ml-auto flex-shrink-0 text-gray-400 hover:text-white transition-colors"
+    >
+        <XMarkIcon className="w-5 h-5" />
+    </button>
+);
 
 export default PopUpError;
