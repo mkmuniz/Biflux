@@ -73,7 +73,7 @@ export class PdfDataExtractor {
             const prompt = `Você é um assistente especializado em extrair dados de boletos de energia elétrica.
 Extraia as seguintes informações deste boleto e retorne APENAS o JSON, sem nenhum texto adicional ou formatação markdown:
 
-1. Número da instalação (10 dígitos)
+1. Número do Cliente (10 dígitos)
 2. Mês de referência (formato: MÊS/ANO)
 3. Consumos (use exatamente estes nomes):
    - Energia Elétrica: quantidade em kWh e valor em R$
