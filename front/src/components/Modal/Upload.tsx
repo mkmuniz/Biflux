@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+"use client"
+
+import React, { useState, useRef, DragEvent } from 'react';
 import { handleUpload } from '@/lib/upload';
 import { Dialog, DialogBody } from '@material-tailwind/react';
 import { useSession } from "next-auth/react";
@@ -13,13 +15,52 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
     const { data: session } = useSession();
     const [formState, setFormState] = useState({ status: 'idle', message: '' });
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
+    const handleFileChange = (files: FileList | null) => {
         if (files) {
             const fileArray = Array.from(files);
             setUploadedFiles(fileArray);
         }
+    };
+
+    const handleDragEnter = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    };
+
+    const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+
+        const files = e.dataTransfer.files;
+        const file = files[0];
+
+        if (!file) return;
+
+        if (file.type !== 'application/pdf') {
+            setFormState({ 
+                status: 'error', 
+                message: 'Apenas arquivos PDF são permitidos' 
+            });
+            return;
+        }
+
+        handleFileChange(files);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,9 +110,15 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
                 <StatusNotification formState={formState} />
                 <UploadForm 
                     handleSubmit={handleSubmit}
-                    handleFileChange={handleFileChange}
                     uploadedFiles={uploadedFiles}
                     formState={formState}
+                    isDragging={isDragging}
+                    handleDragEnter={handleDragEnter}
+                    handleDragLeave={handleDragLeave}
+                    handleDragOver={handleDragOver}
+                    handleDrop={handleDrop}
+                    handleFileChange={handleFileChange}
+                    fileInputRef={fileInputRef}
                 />
             </DialogBody>
         </Dialog>
@@ -128,34 +175,80 @@ const StatusIcon = ({ status }: { status: string }) => (
 
 const UploadForm = ({ 
     handleSubmit, 
-    handleFileChange, 
     uploadedFiles, 
-    formState 
+    formState,
+    isDragging,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleFileChange,
+    fileInputRef
 }: { 
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>,
-    handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     uploadedFiles: File[],
-    formState: { status: string, message: string }
+    formState: { status: string, message: string },
+    isDragging: boolean,
+    handleDragEnter: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDragLeave: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDragOver: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDrop: (e: DragEvent<HTMLLabelElement>) => void,
+    handleFileChange: (files: FileList | null) => void,
+    fileInputRef: React.RefObject<HTMLInputElement>
 }) => (
     <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center w-full h-full mt-6">
-        <FileUploadArea handleFileChange={handleFileChange} />
+        <FileUploadArea 
+            isDragging={isDragging}
+            handleDragEnter={handleDragEnter}
+            handleDragLeave={handleDragLeave}
+            handleDragOver={handleDragOver}
+            handleDrop={handleDrop}
+            handleFileChange={handleFileChange}
+            fileInputRef={fileInputRef}
+        />
         <FileList uploadedFiles={uploadedFiles} />
         <SubmitButton formState={formState} />
     </form>
 );
 
-const FileUploadArea = ({ handleFileChange }: { handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) => (
-    <label htmlFor="file"
-        className="bg-white text-gray-500 font-semibold text-base rounded w-full h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]">
+const FileUploadArea = ({ 
+    isDragging,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleFileChange,
+    fileInputRef
+}: { 
+    isDragging: boolean,
+    handleDragEnter: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDragLeave: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDragOver: (e: DragEvent<HTMLLabelElement>) => void,
+    handleDrop: (e: DragEvent<HTMLLabelElement>) => void,
+    handleFileChange: (files: FileList | null) => void,
+    fileInputRef: React.RefObject<HTMLInputElement>
+}) => (
+    <label 
+        htmlFor="file"
+        className={`bg-white text-gray-500 font-semibold text-base rounded w-full h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-dashed mx-auto font-[sans-serif] transition-colors
+            ${isDragging ? 'border-[#8B5CF6] bg-[#8B5CF6]/5' : 'border-gray-300'}`}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+    >
         <UploadIcon />
-        Enviar PDF
+        <span className="mt-2">
+            {isDragging ? 'Solte o arquivo aqui' : 'Arraste e solte o PDF aqui ou clique para selecionar'}
+        </span>
         <input
+            ref={fileInputRef}
             type="file"
             id="file"
             name="file"
             className="hidden"
             accept="application/pdf"
-            onChange={handleFileChange}
+            onChange={(e) => handleFileChange(e.target.files)}
         />
         <p className="text-xs font-medium text-gray-400 mt-2">Apenas arquivos PDF são permitidos</p>
     </label>
