@@ -9,6 +9,7 @@ import BilletsTable from '@/../public/assets/icons/table.svg';
 import ProfileIcon from '@/../public/assets/icons/profile.svg';
 import HamburgerIcon from '@/../public/assets/icons/hamburger.svg';
 import CloseIcon from '@/../public/assets/icons/close.svg';
+
 import LogoutButton from '@/app/(auth-routes)/logout/page';
 
 const sideBarLinks = [
@@ -43,8 +44,8 @@ const SideBar = () => {
         <>
             <Backdrop isOpen={isOpen} />
             <TopBar isOpen={isOpen} setIsOpen={setIsOpen} />
-            <MainSideBar isOpen={isOpen} />
-            <MiniSideBar />
+            <ExpandedSideBar isOpen={isOpen} />
+            <CollapsedSideBar />
         </>
     );
 };
@@ -94,47 +95,59 @@ const ToggleIcon = ({ isOpen }: { isOpen: boolean }) => (
     </div>
 );
 
-const MainSideBar = ({ isOpen }: { isOpen: boolean }) => (
+const ExpandedSideBar = ({ isOpen }: { isOpen: boolean }) => (
     <div className={`flex flex-col justify-between fixed top-0 left-0 bottom-0 min-h-screen mt-12 h-full z-[60] bg-black transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'}`}>
-        <SideBarLinks />
-    </div>
-);
-
-const MiniSideBar = () => (
-    <div
-        id="sidebar-mini"
-        className="flex flex-col justify-between hs-overlay transition-all duration-300 transform fixed top-0 left-0 bottom-0 z-[60] mt-12 bg-black w-20"
-    >
-        <SideBarLinks />
-        <LogoutButtonContainer />
-    </div>
-);
-
-const SideBarLinks = () => (
-    <div className="flex flex-col justify-center items-center gap-y-2 py-4">
-        <div className="flex flex-col justify-center items-center gap-y-2">
+        <div className="flex flex-col justify-center items-center gap-y-2 py-4">
             {sideBarLinks.map((link) => (
-                <SideBarLink key={link.path} {...link} />
+                <ExpandedLink key={link.path} {...link} />
             ))}
+        </div>
+        <div className="flex flex-col justify-center items-center mb-6">
+            <LogoutButton />
         </div>
     </div>
 );
 
-const SideBarLink = ({ path, description, icon, alt }: any) => (
-    <div className="hs-tooltip inline-block">
+const CollapsedSideBar = () => (
+    <div
+        id="sidebar-mini"
+        className="flex flex-col justify-between hs-overlay transition-all duration-300 transform fixed top-0 left-0 bottom-0 z-[60] mt-12 bg-black w-20"
+    >
+        <div className="flex flex-col justify-center items-center gap-y-2 py-4">
+            {sideBarLinks.map((link) => (
+                <CollapsedLink key={link.path} {...link} />
+            ))}
+        </div>
+        <div className="flex flex-col justify-center items-center mb-6">
+            <LogoutButton />
+        </div>
+    </div>
+);
+
+const ExpandedLink = ({ path, description, icon, alt }: any) => (
+    <div className="w-full px-4">
         <a
             href={path}
-            className="hs-tooltip-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-white transition-transform duration-300 transform hover:scale-110"
+            className="h-[2.375rem] flex items-center gap-x-6 py-2 px-3 text-sm font-semibold text-white hover:text-[#8B5CF6] transition-colors rounded-lg hover:bg-zinc-800/50"
         >
-            {icon && <Image src={icon} alt={alt} className="w-6 h-6" />}
-            {description}
+            <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
+                <Image src={icon} alt={alt} className="w-full h-full" />
+            </div>
+            <span className="truncate ml-2 flex items-center">{description}</span>
         </a>
     </div>
 );
 
-const LogoutButtonContainer = () => (
-    <div className="flex flex-col justify-center items-center mb-6">
-        <LogoutButton />
+const CollapsedLink = ({ path, icon, alt }: any) => (
+    <div className="hs-tooltip inline-block">
+        <a
+            href={path}
+            className="hs-tooltip-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center rounded-lg border border-transparent text-white transition-all duration-300 hover:bg-zinc-800/50"
+        >
+            <div className="w-6 h-6">
+                <Image src={icon} alt={alt} className="w-full h-full" />
+            </div>
+        </a>
     </div>
 );
 
