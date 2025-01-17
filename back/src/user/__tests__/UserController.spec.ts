@@ -4,6 +4,30 @@ import { UserServices } from "../../modules/user/user.services";
 import { jest, expect } from "@jest/globals";
 import { describe, test, beforeEach } from "@jest/globals";
 
+const generateRandomPassword = (length: number = 12): string => {
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const symbols = '@#$%&*!';
+    
+    const allChars = uppercase + lowercase + numbers + symbols;
+    let password = '';
+    
+    // Garantir pelo menos um de cada tipo
+    password += uppercase[Math.floor(Math.random() * uppercase.length)];
+    password += lowercase[Math.floor(Math.random() * lowercase.length)];
+    password += numbers[Math.floor(Math.random() * numbers.length)];
+    password += symbols[Math.floor(Math.random() * symbols.length)];
+    
+    // Preencher o resto da senha
+    for (let i = password.length; i < length; i++) {
+        password += allChars[Math.floor(Math.random() * allChars.length)];
+    }
+    
+    // Embaralhar a senha
+    return password.split('').sort(() => Math.random() - 0.5).join('');
+};
+
 describe("Test User Controller", () => {
     let userController: UserController;
     let mockUserService: jest.Mocked<UserServices>;
@@ -25,7 +49,7 @@ describe("Test User Controller", () => {
         const requestBody = {
             name: "Rafael Moreira",
             email: "rafael.moreira@gmail.com",
-            password: "Lk@323456",
+            password: generateRandomPassword(),
         };
 
         const request = {
@@ -41,7 +65,7 @@ describe("Test User Controller", () => {
             id: "1",
             name: "Rafael Moreira",
             email: "rafael.moreira@gmail.com",
-            password: "Lk@323456",
+            password: requestBody.password,
             profilePicture: null,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -141,7 +165,7 @@ describe("Test User Controller", () => {
                     name: 'Pedro Alves',
                     email: 'pedro.alves@gmail.com',
                     profilePicture: null,
-                    password: "mKSidl239Lc23DK",
+                    password: generateRandomPassword(),
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 },
@@ -150,7 +174,7 @@ describe("Test User Controller", () => {
                     name: 'Maria Silva',
                     email: 'maria.silva@outlook.com',
                     profilePicture: null,
-                    password: "m2kSL11mkD3",
+                    password: generateRandomPassword(),
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 }
