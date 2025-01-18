@@ -123,7 +123,7 @@ describe("Test User Controller", () => {
         const request = mockRequestWithBody({
             name: "Isabela Santos",
             email: "isabela.santos@outlook.com",
-            password: "Lk@323456",
+            password: generateRandomPassword(),
         });
         const response = mockResponse();
 
@@ -143,7 +143,7 @@ describe("Test User Controller", () => {
         const request = mockRequestWithBody({
             name: "Bruno Carvalho",
             email: "bruno.carvalho@gmail.com",
-            password: "Lk@323456",
+            password: generateRandomPassword(),
         });
         const response = mockResponse();
 
@@ -211,7 +211,7 @@ describe("Test User Controller", () => {
                 name: 'Lucas Santos',
                 email: 'lucas.santos@hotmail.com',
                 profilePicture: null,
-                password: "m2kSL11mkD3",
+                password: generateRandomPassword(),
                 createdAt: new Date(),
                 updatedAt: new Date(),
             };
@@ -264,7 +264,7 @@ describe("Test User Controller", () => {
             const updatedUser = {
                 id: '1',
                 ...updateData,
-                password: "m2kSL11mkD3",
+                password: generateRandomPassword(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
