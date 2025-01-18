@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { db } from '../../db';
 import { PdfDataExtractor } from '../../utils/pdfExtractor';
+import { db } from '../../db';
 
 const accessKeyId = String(process.env.AWS_ACCESS_KEY_ID);
 const secretAccessKey = String(process.env.AWS_SECRET_ACCESS_KEY);
@@ -9,7 +9,7 @@ const region = String(process.env.S3_REGION);
 const Bucket = String(process.env.S3_BUCKET);
 
 export class BilletServices {
-    static async getAllBilletsByUserId(userId: string) {
+    async getAllBilletsByUserId(userId: string) {
         const existingUser = await db.user.findUnique({
             where: { id: userId },
         });
@@ -23,7 +23,7 @@ export class BilletServices {
         });
     }
 
-    static async uploadBillet(file: Express.Multer.File, userId: string) {
+    async uploadBillet(file: Express.Multer.File, userId: string) {
         const existingUser = await db.user.findUnique({
             where: { id: userId },
         });
@@ -73,7 +73,7 @@ export class BilletServices {
         });
     }
 
-    static async getSignedDownloadUrl(fileName: string) {
+    async getSignedDownloadUrl(fileName: string) {
         const s3 = new S3Client({
             region,
             credentials: {
@@ -90,7 +90,7 @@ export class BilletServices {
         return getSignedUrl(s3, command, { expiresIn: 3600 });
     }
 
-    static async deleteBillet(id: string) {
+    async deleteBillet(id: string) {
         const billet = await db.billet.findUnique({
             where: { id },
         });
