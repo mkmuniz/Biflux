@@ -14,7 +14,7 @@ export class BilletServices {
             where: { id: userId },
         });
 
-        if (!existingUser) throw new Error('User not found.');
+        if (!existingUser) throw new Error('User not found');
 
         return db.billet.findMany({
             where: { userId },
