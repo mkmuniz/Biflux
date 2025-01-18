@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { UserController } from "../../modules/user/user.controller";
-import { UserServices } from "../../modules/user/user.services";
+import { UserController } from "../../../src/modules/user/user.controller";
+import { UserServices } from "../../../src/modules/user/user.services";
 import { jest, expect } from "@jest/globals";
 import { describe, test, beforeEach } from "@jest/globals";
 
@@ -13,19 +13,42 @@ const generateRandomPassword = (length: number = 12): string => {
     const allChars = uppercase + lowercase + numbers + symbols;
     let password = '';
     
-    // Garantir pelo menos um de cada tipo
     password += uppercase[Math.floor(Math.random() * uppercase.length)];
     password += lowercase[Math.floor(Math.random() * lowercase.length)];
     password += numbers[Math.floor(Math.random() * numbers.length)];
     password += symbols[Math.floor(Math.random() * symbols.length)];
     
-    // Preencher o resto da senha
     for (let i = password.length; i < length; i++) {
         password += allChars[Math.floor(Math.random() * allChars.length)];
     }
     
-    // Embaralhar a senha
     return password.split('').sort(() => Math.random() - 0.5).join('');
+};
+
+const mockResponse = () => {
+    return {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockReturnThis(),
+    } as unknown as Response;
+};
+
+const mockRequestWithBody = (body: any) => {
+    return {
+        body
+    } as Request;
+};
+
+const mockRequestWithParams = (params: any) => {
+    return {
+        params
+    } as unknown as Request;
+};
+
+const mockRequestWithParamsAndBody = (params: any, body: any) => {
+    return {
+        params,
+        body
+    } as unknown as Request;
 };
 
 describe("Test User Controller", () => {
@@ -52,14 +75,8 @@ describe("Test User Controller", () => {
             password: generateRandomPassword(),
         };
 
-        const request = {
-            body: requestBody,
-        } as Request;
-
-        const response = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
-        } as unknown as Response;
+        const request = mockRequestWithBody(requestBody);
+        const response = mockResponse();
 
         const expectedUser = {
             id: "1",
@@ -89,14 +106,8 @@ describe("Test User Controller", () => {
     });
 
     test("Should handle error when user data is invalid", async () => {
-        const request = {
-            body: null
-        } as Request;
-
-        const response = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
-        } as unknown as Response;
+        const request = mockRequestWithBody(null);
+        const response = mockResponse();
 
         const error = new Error("User fields are required");
 
@@ -109,18 +120,12 @@ describe("Test User Controller", () => {
     });
 
     test("Should handle error when user already exists", async () => {
-        const request = {
-            body: {
-                name: "Isabela Santos",
-                email: "isabela.santos@outlook.com",
-                password: "Lk@323456",
-            },
-        } as Request;
-
-        const response = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
-        } as unknown as Response;
+        const request = mockRequestWithBody({
+            name: "Isabela Santos",
+            email: "isabela.santos@outlook.com",
+            password: generateRandomPassword(),
+        });
+        const response = mockResponse();
 
         const error = new Error("User already exists");
         mockUserService.createUser.mockRejectedValueOnce(error);
@@ -135,18 +140,12 @@ describe("Test User Controller", () => {
     });
 
     test("Should handle error when creating user", async () => {
-        const request = {
-            body: {
-                name: "Bruno Carvalho",
-                email: "bruno.carvalho@gmail.com",
-                password: "Lk@323456",
-            },
-        } as Request;
-
-        const response = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
-        } as unknown as Response;
+        const request = mockRequestWithBody({
+            name: "Bruno Carvalho",
+            email: "bruno.carvalho@gmail.com",
+            password: generateRandomPassword(),
+        });
+        const response = mockResponse();
 
         const error = new Error("Database error");
         mockUserService.createUser.mockRejectedValueOnce(error);
@@ -181,9 +180,7 @@ describe("Test User Controller", () => {
             ];
 
             const request = {} as Request;
-            const response = {
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const response = mockResponse();
 
             mockUserService.getAllUsers.mockResolvedValueOnce(users);
 
@@ -195,10 +192,7 @@ describe("Test User Controller", () => {
 
         test('Should handle error when getting all users', async () => {
             const request = {} as Request;
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const response = mockResponse();
 
             const error = new Error('Database error');
             mockUserService.getAllUsers.mockRejectedValueOnce(error);
@@ -217,18 +211,13 @@ describe("Test User Controller", () => {
                 name: 'Lucas Santos',
                 email: 'lucas.santos@hotmail.com',
                 profilePicture: null,
-                password: "m2kSL11mkD3",
+                password: generateRandomPassword(),
                 createdAt: new Date(),
                 updatedAt: new Date(),
             };
 
-            const request = {
-                params: { id: '1' }
-            } as unknown as Request;
-
-            const response = {
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParams({ id: '1' });
+            const response = mockResponse();
 
             mockUserService.getUserById.mockResolvedValueOnce(user);
 
@@ -239,14 +228,8 @@ describe("Test User Controller", () => {
         });
 
         test('Should handle missing user ID', async () => {
-            const request = {
-                params: {}
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParams({});
+            const response = mockResponse();
 
             await userController.getUserById(request, response);
 
@@ -255,14 +238,8 @@ describe("Test User Controller", () => {
         });
 
         test('Should handle user not found', async () => {
-            const request = {
-                params: { id: '999' }
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParams({ id: '999' });
+            const response = mockResponse();
 
             mockUserService.getUserById.mockResolvedValueOnce(null);
 
@@ -281,20 +258,13 @@ describe("Test User Controller", () => {
                 profilePicture: 'ana-profile.jpg'
             };
 
-            const request = {
-                params: { id: '1' },
-                body: updateData
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParamsAndBody({ id: '1' }, updateData);
+            const response = mockResponse();
 
             const updatedUser = {
                 id: '1',
                 ...updateData,
-                password: "m2kSL11mkD3",
+                password: generateRandomPassword(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
@@ -313,15 +283,8 @@ describe("Test User Controller", () => {
         });
 
         test('Should handle missing user ID in update', async () => {
-            const request = {
-                params: {},
-                body: { name: 'João Paulo Mendes' }
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParamsAndBody({}, { name: 'João Paulo Mendes' });
+            const response = mockResponse();
 
             await userController.updateUserProfile(request, response);
 
@@ -330,15 +293,8 @@ describe("Test User Controller", () => {
         });
 
         test('Should handle empty update data', async () => {
-            const request = {
-                params: { id: '1' },
-                body: {}
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParamsAndBody({ id: '1' }, {});
+            const response = mockResponse();
 
             await userController.updateUserProfile(request, response);
 
@@ -349,15 +305,8 @@ describe("Test User Controller", () => {
         });
 
         test('Should handle user profile not found during update', async () => {
-            const request = {
-                params: { id: '999' },
-                body: { name: 'Gabriela Costa' }
-            } as unknown as Request;
-
-            const response = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
-            } as unknown as Response;
+            const request = mockRequestWithParamsAndBody({ id: '999' }, { name: 'Gabriela Costa' });
+            const response = mockResponse();
 
             mockUserService.updateUserProfile.mockRejectedValueOnce(
                 new Error('User profile not found')
