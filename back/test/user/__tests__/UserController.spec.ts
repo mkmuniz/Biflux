@@ -57,7 +57,6 @@ describe("Test User Controller", () => {
 
     beforeEach(() => {
         mockUserService = {
-            getAllUsers: jest.fn(),
             getUserById: jest.fn(),
             createUser: jest.fn(),
             updateUser: jest.fn(),
@@ -154,54 +153,6 @@ describe("Test User Controller", () => {
 
         expect(response.status).toHaveBeenCalledWith(500);
         expect(response.json).toHaveBeenCalledWith({ message: "Internal server error" });
-    });
-
-    describe('getAllUsers', () => {
-        test('Should return all users successfully', async () => {
-            const users = [
-                {
-                    id: '1',
-                    name: 'Pedro Alves',
-                    email: 'pedro.alves@gmail.com',
-                    profilePicture: null,
-                    password: generateRandomPassword(),
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                },
-                {
-                    id: '2',
-                    name: 'Maria Silva',
-                    email: 'maria.silva@outlook.com',
-                    profilePicture: null,
-                    password: generateRandomPassword(),
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                }
-            ];
-
-            const request = {} as Request;
-            const response = mockResponse();
-
-            mockUserService.getAllUsers.mockResolvedValueOnce(users);
-
-            await userController.getAllUsers(request, response);
-
-            expect(mockUserService.getAllUsers).toHaveBeenCalled();
-            expect(response.json).toHaveBeenCalledWith(users);
-        });
-
-        test('Should handle error when getting all users', async () => {
-            const request = {} as Request;
-            const response = mockResponse();
-
-            const error = new Error('Database error');
-            mockUserService.getAllUsers.mockRejectedValueOnce(error);
-
-            await userController.getAllUsers(request, response);
-
-            expect(response.status).toHaveBeenCalledWith(500);
-            expect(response.json).toHaveBeenCalledWith({ message: 'Internal server error' });
-        });
     });
 
     describe('getUserById', () => {
