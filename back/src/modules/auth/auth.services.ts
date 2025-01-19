@@ -1,7 +1,8 @@
 import { db } from "../../db";
-import { PasswordUtils } from "../../utils/passwordUtils";
+
 import { TokenService } from "../../utils/jwt";
 import { TokenUtils } from "../../utils/tokenUtils";
+import { PasswordUtils } from "../../utils/passwordUtils";
 
 export class AuthServices {
     static async login(email: string, password: string) {
@@ -12,18 +13,16 @@ export class AuthServices {
         if (!user) throw new Error('User not found');
 
         const isValidPassword = await PasswordUtils.comparePassword(password, user.password);
-
         if (!isValidPassword) throw new Error('Invalid password');
 
         const existingToken = await db.refreshToken.findUnique({
             where: { userId: user.id }
         });
 
-        if (existingToken) {
+        if (existingToken)
             await db.refreshToken.delete({
                 where: { id: existingToken.id }
             });
-        }
 
         const { accessToken, refreshToken } = TokenService.generateTokens({
             id: user.id,
