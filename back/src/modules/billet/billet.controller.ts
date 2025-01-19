@@ -11,12 +11,10 @@ export class BilletController {
     async getAllBilletsByUserId(req: Request, res: Response) {
         try {
             const userId = req.query.userId as string;
-            
             if (!userId) return res.status(400).json({ message: 'User ID is required' });
 
-            const data = await this.billetServices.getAllBilletsByUserId(userId);
-            
-            return res.status(200).json(data);
+            const billets = await this.billetServices.getAllBilletsByUserId(userId);
+            return res.status(200).json(billets);
         } catch (err: any) {
             const errorMessage = err.message;
             console.error(err);
@@ -30,12 +28,10 @@ export class BilletController {
         try {
             const userId = String(req.body.userId);
             const file = req.file;
-            
             if (!file || !userId) return res.status(400).json({ message: 'Missing required fields' });
 
-            const data = await this.billetServices.uploadBillet(file, userId);
-
-            return res.json(data);
+            const billet = await this.billetServices.uploadBillet(file, userId);
+            return res.status(200).json(billet);
         } catch (err: any) {
             const errorMessage = err.message;
             console.error(err);
@@ -48,11 +44,9 @@ export class BilletController {
     async getDownloadUrl(req: Request, res: Response) {
         try {
             const { fileName } = req.params;
-
             if (!fileName) return res.status(400).json({ message: 'Filename is required' });
 
             const signedUrl = await this.billetServices.getSignedDownloadUrl(fileName);
-
             return res.json({ downloadUrl: signedUrl });
         } catch (err: any) {
             return res.status(500).json({ message: 'Failed to generate download URL' });
@@ -62,12 +56,10 @@ export class BilletController {
     async deleteBillet(req: Request, res: Response) {
         try {
             const { id } = req.params;
-
             if (!id) return res.status(400).json({ message: 'Client number is required' });
 
             await this.billetServices.deleteBillet(id);
-
-            return res.status(204).send();
+            return res.status(204).send({ message: 'Billet deleted successfully'});
         } catch (err: any) {
             const errorMessage = err.message;
             console.error(err);
