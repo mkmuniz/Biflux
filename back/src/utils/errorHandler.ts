@@ -13,8 +13,7 @@ export class ErrorHandler {
         return res.status(409).json({ message });
     }
 
-    static handleError(res: Response, err: any) {
-        console.error(err);
+    static handleError(res: Response) {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
