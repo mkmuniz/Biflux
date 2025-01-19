@@ -1,47 +1,67 @@
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
+const requestHeaders = {
+    'Content-Type': 'application/json'
+};
 
 export async function get(url: string) {
-    const resp = await fetch(baseUrl + url,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    const data = await resp.json();
+    try {
+        const res = await fetch(baseUrl + url,
+            {
+                method: 'GET',
+                headers: requestHeaders,
+            })
 
-    return data;
+        return res.json();
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 export async function post(url: string, body: any) {
     try {
-        const resp = await fetch(baseUrl + url, {
+        const res = await fetch(baseUrl + url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: requestHeaders,
             body: JSON.stringify(body)
         })
-        const data = await resp.json();
-    
-        return { data, status: resp.status };
+
+        return {
+            data: res.json(),
+            status: res.status
+        };
     } catch (err) {
         console.error(err);
-    };
+    }
+};
+
+export async function upload(url: string, body: any) {
+    try {
+        const res = await fetch(baseUrl + url, {
+            method: 'POST',
+            body
+        });
+
+        return {
+            data: res.json(),
+            status: res.status
+        }
+    } catch (err: any) {
+        console.error(err.message);
+    }
 };
 
 export async function patch(url: string, body: any) {
     try {
-        const resp = await fetch(baseUrl + url, {
+        const res = await fetch(baseUrl + url, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: requestHeaders,
             body: JSON.stringify(body)
         })
-        const data = await resp.json();
-    
-        return { data, status: resp.status };
+
+        return {
+            data: res.json(),
+            status: res.status
+        };
     } catch (err) {
         console.error(err);
     };
