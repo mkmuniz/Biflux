@@ -14,8 +14,7 @@ export class UserServices {
     }
 
     async getUserById(id: string) {
-        const user = await this.userRepository.findById(id);
-        return user;
+        return this.userRepository.findById(id);;
     }
 
     async createUser(userData: UserDTO) {

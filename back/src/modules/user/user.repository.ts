@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { UserDTO, UserEntity } from "../../types/user.types";
+import { UserEntity } from "../../types/user.types";
 
 export interface IUserRepository {
     getAll(): Promise<User[]>;
