@@ -1,12 +1,13 @@
-import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { PdfDataExtractor } from '../../utils/pdfExtractor';
 import { db } from '../../db';
+import { PdfDataExtractor } from '../../utils/pdfExtractor';
 
-const accessKeyId = String(process.env.AWS_ACCESS_KEY_ID);
-const secretAccessKey = String(process.env.AWS_SECRET_ACCESS_KEY);
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+
 const region = String(process.env.S3_REGION);
 const Bucket = String(process.env.S3_BUCKET);
+const accessKeyId = String(process.env.AWS_ACCESS_KEY_ID);
+const secretAccessKey = String(process.env.AWS_SECRET_ACCESS_KEY);
 
 export class BilletServices {
     async getAllBilletsByUserId(userId: string) {
