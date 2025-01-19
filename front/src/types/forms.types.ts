@@ -1,6 +1,6 @@
 export type LoginData = {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
 };
 
 export type SignUpData = {
@@ -13,7 +13,7 @@ export type SignUpData = {
 };
 
 export type ProfileData = {
-    id: string;
+    id?: string;
     name?: string;
     email?: string;
     profilePicture?: string;
