@@ -9,7 +9,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Section from "../Section/Section";
 import ModalUpload from "../Modal/Upload";
 import Container from "../Container/Container";
-import ModalConfirmDelete from '../Modal/ConfirmDelete';
+import ModalConfirmDelete from '../Modal/Upload/ConfirmDelete';
 import BilletsTableSkeleton from "../Skeletons/BilletsTable";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;

@@ -1,43 +1,22 @@
+import { LoginData, SignUpData, ProfileData } from "@/types/forms.types";
 import { get, patch, post } from "./request.config";
 
-export async function login(body: any) {
-    const data = await post('login', body);
-
-    return data;
+export async function login(body: LoginData) {
+    return post('login', body);
 };
 
-export async function signUp(body: any) {
-    const data: any = await post('user', body);
-
-    return { ...data };
+export async function signUp(body: SignUpData) {
+    return post('user', body);
 };
 
-export async function getUserById(id: string) {
-    const data = await get(`user/${id}`);
-
-    return data;
-};
-
-export async function getUserByEmail(email: string) {
-    const data = await post('user', { email })
-
-    return data;
-};
-
-export async function updateUserProfile(id: string, body: any) {
-    const data = await patch(`user/profile/${id}`, body);
-
-    return data;
+export async function updateUserProfile(id: string, body: ProfileData) {
+    return patch(`user/profile/${id}`, body);
 };
 
 export async function getRefreshToken(body: any) {
-    const data = await post('refreshtoken', body);
-
-    return data;
+    return post('refreshtoken', body);
 };
 
 export async function fetchUserProfile(id: string) {
-    const data = await get(`user/profile/${id}`);
-
-    return data;
+    return get(`user/profile/${id}`);;
 };
