@@ -1,34 +1,35 @@
 import { Request, Response } from "express";
 import { AuthServices } from "./auth.services";
+import { ErrorHandler } from "../../utils/errorHandler";
 
 export class AuthController {
     static async login(req: Request, res: Response) {
         const { email, password } = req.body;
-        if (!email || !password) return res.status(400).json({ message: "Email and Password are requireds" });
+        if (!email || !password) return ErrorHandler.badRequest(res, 'Invalid refresh token');
 
         try {
             const user = await AuthServices.login(email, password);
             return res.json(user);
         } catch (err: any) {
-            if (err.message === 'User not found') return res.status(404).json({ message: "This user dont exists" });
-            if (err.message === 'Invalid password') return res.status(401).json({ message: "Invalid credentials, try again" });
+            if (err.message === 'User not found') return ErrorHandler.notFound(res, 'This user dont exists');
+            if (err.message === 'Invalid password') return ErrorHandler.unAuthorized(res, 'Invalid credentials, try again');
 
             console.error('Login error:', err.message);
-            return res.status(500).json({ message: "Internal server error" });
+            return ErrorHandler.internalError(res);
         }
     }
 
     static async refreshToken(req: Request, res: Response) {
         const { refreshToken } = req.body;
-        if (!refreshToken) return res.status(400).json({ message: "Refresh token is required" });
+        if (!refreshToken) return ErrorHandler.badRequest(res, 'Refresh token is required');
 
         try {
             const newTokens = await AuthServices.getRefreshTokenByUserId(refreshToken);
-            if (!newTokens) return res.status(401).json({ message: "Invalid refresh token" });
+            if (!newTokens) return ErrorHandler.badRequest(res, 'Invalid refresh token');
 
             return res.json(newTokens);
         } catch (error) {
-            return res.status(500).json({ message: "Internal Server Error" });
+            return ErrorHandler.internalError(res);
         }
     }
 }

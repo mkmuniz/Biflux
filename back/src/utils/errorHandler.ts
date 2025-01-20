@@ -9,11 +9,15 @@ export class ErrorHandler {
         return res.status(404).json({ message });
     }
 
+    static unAuthorized(res: Response, message: string) {
+        return res.status(401).json({ message });
+    }
+
     static conflict(res: Response, message: string) {
         return res.status(409).json({ message });
     }
 
-    static handleError(res: Response) {
+    static internalError(res: Response) {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
