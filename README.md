@@ -10,69 +10,69 @@
 ![Prisma](https://img.shields.io/badge/Prisma-3.x-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-## Índice
-- [Pré-Requisitos](#Pre-requisites)
-- [Introdução](#📜-Introduction)
-- [Uso](#💻-Usage)
-- [Rotas](#🛣️-Rotas)
-- [Instalação](#🛠️-Instalação)
-- [Variáveis de Ambiente](#🔐-Variáveis-de-Ambiente)
+## Table of Contents
+- [Pre-requisites](#Pre-requisites)
+- [Introduction](#Introduction)
+- [Usage](#Usage)
+- [Routes](#Routes)
+- [Installation](#Installation)
+- [Environment Variables](#Environment-Variables)
 
-## Pré-Requisitos
+## Pre-requisites
 
 - **NodeJS**: >= 18.x
 - **NPM**: >= 6.x
 - **PostgreSQL**: >= 14.x
-- **AWS Account**: Para armazenamento S3
+- **AWS Account**: For S3 storage
 
-## 📜 Introdução
+## Introduction
 
-BrightFlow, sua solução completa para gerenciar contas de energia com facilidade. BrightFlow é uma plataforma open-source projetada para simplificar o processo de gerenciamento de contas de luz, oferecendo aos usuários uma experiência perfeita desde o armazenamento de contas até a visualização de dados analíticos.
+BrightFlow, your complete solution for managing energy bills with ease. BrightFlow is an open-source platform designed to simplify the process of managing electricity bills, offering users a seamless experience from bill storage to data visualization.
 
-## 💻 Funcionalidades
+## Features
 
-- **Autenticação de Usuário**: Sistema seguro de registro e login
-- **Upload de PDF**: Upload e armazenamento seguro de contas de energia no AWS S3
-- **Extração Automática de Dados**: Extrai informações importantes dos PDFs automaticamente
-- **Visualização de Dados**: 
-  - Dashboard interativo com tendências de consumo
-  - Gráficos de pizza de distribuição de custos
-  - Análise histórica de consumo
-- **Gerenciamento de Contas**: 
-  - Upload e download fácil de contas
-  - Funcionalidade de busca e filtro
-  - Sistema organizado de armazenamento
+- **User Authentication**: Secure registration and login system
+- **PDF Upload**: Secure upload and storage of energy bills on AWS S3
+- **Automatic Data Extraction**: Automatically extracts important information from PDFs
+- **Data Visualization**: 
+  - Interactive dashboard with consumption trends
+  - Cost distribution pie charts
+  - Historical consumption analysis
+- **Bill Management**: 
+  - Easy upload and download of bills
+  - Search and filter functionality
+  - Organized storage system
 
-## 💻 Uso
+## Usage
 
-Você pode acessar em produção através deste [link](https://brightflow.vercel.app/). É necessário se cadastrar e fazer login para acessar a página de contas e fazer upload de todas as suas contas para processar os dados e exibi-los em um painel analítico.
+You can access the production version through this [link](https://brightflow.vercel.app/). Registration and login are required to access the bills page and upload all your bills to process the data and display it on an analytical dashboard.
 
-## 🛣️ Rotas
+## Routes
 
-### Autenticação
-- `POST /auth/login` - Login do usuário
-- `POST /auth/register` - Registro de novo usuário
-- `POST /auth/refresh` - Atualização do token de acesso
+### Authentication
+- `POST /auth/login` - User login
+- `POST /auth/register` - New user registration
+- `POST /auth/refresh` - Access token refresh
 
-### Contas
-- `GET /billets` - Lista todas as contas
-- `POST /billets` - Upload de nova conta
-- `GET /billets/:id` - Obtém detalhes de uma conta específica
+### Bills
+- `GET /billets` - List all bills
+- `POST /billets` - Upload a new bill
+- `GET /billets/:id` - Get details of a specific bill
 
-### Usuário
-- `GET /user/:id` - Busca um usuário pelo o seu ID
-- `GET /user/profile/:id` - Obtém perfil do usuário
-- `POST /user` - Cria um novo usuário
-- `PATCH /user/profile/:id` - Atualiza dados do perfil
+### User
+- `GET /user/:id` - Fetch a user by their ID
+- `GET /user/profile/:id` - Get user profile
+- `POST /user` - Create a new user
+- `PATCH /user/profile/:id` - Update profile data
 
-## 🛠️ Instalação
+## Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 ```bash
 git clone https://github.com/mkmuniz/BrightFlow.git
 ```
 
-2. Instale as dependências:
+2. Install dependencies:
 ```bash
 # Frontend
 cd front
@@ -83,13 +83,13 @@ cd back
 npm install
 ```
 
-3. Configure o banco de dados:
+3. Set up the database:
 ```bash
 cd back
 npx prisma migrate dev
 ```
 
-4. Inicie os servidores de desenvolvimento:
+4. Start the development servers:
 ```bash
 # Frontend
 cd front
@@ -100,7 +100,7 @@ cd back
 npm run dev
 ```
 
-## 🔐 Variáveis de Ambiente
+## Environment Variables
 
 ### Backend (.env)
 ```env
@@ -114,7 +114,7 @@ S3_BUCKET="your-s3-bucket-name"
 S3_REGION="your-s3-region"
 
 CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
-CLOUDINARY_API_KEY="your-cloudinary-api-jey"
+CLOUDINARY_API_KEY="your-cloudinary-api-key"
 CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
 
 GEMINI_AI_API_KEY="your-gemini-api-key"
