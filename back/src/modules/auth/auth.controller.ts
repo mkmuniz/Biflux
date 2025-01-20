@@ -5,9 +5,10 @@ export class AuthController {
     static async login(req: Request, res: Response) {
         const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ message: "Email and Password are requireds" });
-        
+
         try {
-            return res.json(AuthServices.login(email, password));
+            const user = await AuthServices.login(email, password);
+            return res.json(user);
         } catch (err: any) {
             if (err.message === 'User not found') return res.status(404).json({ message: "This user dont exists" });
             if (err.message === 'Invalid password') return res.status(401).json({ message: "Invalid credentials, try again" });
