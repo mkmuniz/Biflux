@@ -98,7 +98,7 @@ const UserProfile = (props: any) => {
                     </div>
                 )}
                 <span className="mt-4 text-xl font-medium text-white">
-                    Bem-vindo, <span className="text-[#8B5CF6]">{props.name}</span>!
+                    Welcome, <span className="text-[#8B5CF6]">{props.name}</span>!
                 </span>
             </div>
         </div>
@@ -111,7 +111,7 @@ const BilletCard = (props: any) => {
             {props.billets.length || 0}
         </span>
         <div className="text-lg text-gray-300">
-            Boletos Carregados
+            Loaded Bills
         </div>
     </div>
 }
@@ -134,7 +134,7 @@ const EnergyConsumptionChart = ({ billets }: { billets: any }) => {
             <svg className="w-5 h-5 text-[#8B5CF6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
             </svg>
-            Consumo de Energia (kWh)
+            Energy Consumption (kWh)
         </h2>
         <div className="h-[350px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -164,7 +164,7 @@ const EnergyConsumptionChart = ({ billets }: { billets: any }) => {
                     <Line
                         type="monotone"
                         dataKey="energy"
-                        name="Energia Elétrica"
+                        name="Electric Energy"
                         stroke="#8B5CF6"
                         strokeWidth={3}
                         dot={{ fill: '#8B5CF6', strokeWidth: 2 }}
@@ -173,7 +173,7 @@ const EnergyConsumptionChart = ({ billets }: { billets: any }) => {
                     <Line
                         type="monotone"
                         dataKey="compensated"
-                        name="Energia Compensada"
+                        name="Compensated Energy"
                         stroke="#00A3FF"
                         strokeWidth={3}
                         dot={{ fill: '#00A3FF', strokeWidth: 2 }}
@@ -194,7 +194,7 @@ const EnergyConsumptionPieChart = ({ pieData }: { pieData: any[] }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
             </svg>
-            Distribuição de Custos (R$)
+            Cost Distribution (R$)
         </h2>
         <div className="h-[350px] relative">
             <ResponsiveContainer width="100%" height="80%">

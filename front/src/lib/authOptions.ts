@@ -22,6 +22,8 @@ export const nextAuthOptions: NextAuthOptions = {
                     switch (status) {
                         case 200:
                             return data
+                        case 400:
+                            return { error: 'Invalid credentials, try again!' }
                         case 401:
                             return { error: 'Invalid credentials, try again!' }
                         case 404:

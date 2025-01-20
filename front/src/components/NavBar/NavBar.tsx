@@ -102,7 +102,7 @@ const DesktopAuthButtons = () => (
         <NavLink 
             href="/sign-up" 
             styles="py-2 px-4 text-gray-300 hover:text-white transition-colors mr-4" 
-            description="Cadastro" 
+            description="Sign Up" 
         />
         <NavLink 
             href="/login" 

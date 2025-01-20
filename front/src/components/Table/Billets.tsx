@@ -14,7 +14,7 @@ import BilletsTableSkeleton from "../Skeletons/BilletsTable";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL_API;
 
-const TABLE_HEAD = ["Número do Cliente", "Mês", "Ações"];
+const TABLE_HEAD = ["Client Number", "Month", "Actions"];
 
 export function BilletsTable() {
     const [open, setOpen] = useState<boolean>(false);
@@ -94,7 +94,7 @@ export function BilletsTable() {
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao excluir o boleto');
+                throw new Error('Error deleting the bank slip');
             }
 
             queryClient.invalidateQueries({ queryKey: ['billets', session?.user?.id] });
@@ -125,12 +125,12 @@ export function BilletsTable() {
                     isDeleting={isDeleting}
                 />
                 <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                    <h2 className="text-2xl font-bold text-white">Boletos</h2>
+                    <h2 className="text-2xl font-bold text-white">Bank Slips</h2>
                     <div className="flex items-center gap-4 w-full md:w-auto">
                         <div className="relative flex-1 md:flex-none">
                             <input
                                 type="text"
-                                placeholder="Buscar boletos..."
+                                placeholder="Search bank slips..."
                                 onChange={handleSearch}
                                 className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]"
                             />
@@ -193,7 +193,7 @@ export function BilletsTable() {
                                                     className="flex items-center gap-2 text-sm text-red-500 hover:text-red-700 transition-colors duration-200"
                                                 >
                                                     <TrashIcon className="h-5 w-5" />
-                                                    <span>Excluir</span>
+                                                    <span>Delete</span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -206,7 +206,7 @@ export function BilletsTable() {
 
                 {!isLoading && filteredData.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-400">Nenhum boleto encontrado</p>
+                        <p className="text-gray-400">No bank slips found</p>
                     </div>
                 )}
 
