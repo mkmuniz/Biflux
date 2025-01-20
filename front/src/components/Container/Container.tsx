@@ -1,7 +1,4 @@
-interface ContainerProps {
-    children: React.ReactNode,
-    styles?: string,
-};
+import { ContainerProps } from "@/types/components.types";
 
 export default function Container({ children, styles }: ContainerProps) {
     return <>

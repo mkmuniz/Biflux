@@ -1,8 +1,5 @@
 import React from "react"
-
-type CloseButtonProps = {
-    handleOpen: VoidFunction
-}
+import { CloseButtonProps } from "@/types/forms.types"
 
 export function CloseButton({ handleOpen }: CloseButtonProps) {
     return <>
