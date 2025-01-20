@@ -62,7 +62,7 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
         if (file.type !== 'application/pdf') {
             setFormState({
                 status: 'error',
-                message: 'Apenas arquivos PDF são permitidos'
+                message: 'Only PDF files are allowed'
             });
             return;
         }
@@ -74,12 +74,12 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
         e.preventDefault();
 
         if (!session?.user.id) {
-            setFormState({ status: 'error', message: 'Usuário não autenticado' });
+            setFormState({ status: 'error', message: 'User not authenticated' });
             return;
         }
 
         if (uploadedFiles.length === 0) {
-            setFormState({ status: 'error', message: 'Selecione um arquivo' });
+            setFormState({ status: 'error', message: 'Please select a file' });
             return;
         }
 
@@ -88,15 +88,15 @@ export default function ModalUpload({ open, handleOpen, onUploadSuccess }: Modal
         formData.append('userId', session.user.id);
 
         try {
-            setFormState({ status: 'loading', message: 'Subindo o arquivo...' });
+            setFormState({ status: 'loading', message: 'Uploading file...' });
             const res = await handleUpload(formData);
 
             if (res?.status !== 200) {
-                setFormState({ status: 'error', message: 'Erro ao transferir o boleto' });
+                setFormState({ status: 'error', message: 'Error uploading the bill' });
                 return;
             }
 
-            setFormState({ status: 'success', message: 'Boleto transferido com sucesso' });
+            setFormState({ status: 'success', message: 'Bill uploaded successfully' });
             setUploadedFiles([]);
             onUploadSuccess();
 

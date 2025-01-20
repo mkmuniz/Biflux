@@ -22,12 +22,12 @@ const menuItems: MenuItem[] = [
         description: "Home"
     },
     {
-        href: "/#solutions",
-        description: "Nossas Soluções"
+        href: "/#solutions", 
+        description: "Our Solutions"
     },
     {
         href: "/#about",
-        description: "Sobre Nós"
+        description: "About Us"
     },
 ];
 

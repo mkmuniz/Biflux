@@ -30,6 +30,7 @@ export type FormFieldProps = {
     register: any;
     errors: any;
     required?: boolean;
+    placeholder: string;
 }
 
 export type ProfilePictureProps = {
@@ -47,4 +48,11 @@ export type SubmitButtonProps = {
 
 export type CloseButtonProps = {
     handleOpen: VoidFunction
+}
+
+export type PasswordFieldProps = {
+    register: any,
+    errors: any,
+    showPassword: boolean,
+    togglePasswordVisibility: (e: React.MouseEvent<HTMLButtonElement>) => void
 }

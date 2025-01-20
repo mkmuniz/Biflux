@@ -28,8 +28,7 @@ export function UploadForm({
             fileInputRef={fileInputRef}
         />
         <FileList uploadedFiles={uploadedFiles} />
-        <ButtonSubmit styles={`w-full px-3 py-3 m-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] ${formState.status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
-            }`} method='submit' disabled={formState.status === 'loading'} >
+        <ButtonSubmit isPending={formState.status === 'loading'} isDisabled={formState.status === 'loading'} >
             {formState.status === 'loading' ? 'UPLOADING...' : 'UPLOAD'}
         </ButtonSubmit>
     </form>

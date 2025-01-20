@@ -52,7 +52,7 @@ const FooterNavigation = () => (
                 href="/#solutions" 
                 className="block py-2 px-3 text-gray-400 hover:text-white transition-colors"
             >
-                Nossas Soluções
+                Our Solutions
             </Link>
         </li>
         <li>
@@ -60,7 +60,7 @@ const FooterNavigation = () => (
                 href="/#about" 
                 className="block py-2 px-3 text-gray-400 hover:text-white transition-colors"
             >
-                Sobre Nós
+                About Us
             </Link>
         </li>
     </ul>
@@ -69,7 +69,7 @@ const FooterNavigation = () => (
 const DeveloperInfo = () => (
     <div className="flex flex-col items-center md:items-start">
         <p className="text-gray-400">
-            Desenvolvido por{" "}
+            Developed by{" "}
             <Link 
                 href="https://mkmuniz.dev" 
                 target="_blank" 
@@ -98,7 +98,7 @@ const DeveloperInfo = () => (
                 target="_blank" 
                 className="text-gray-400 hover:text-white transition-colors"
             >
-                Meu Site
+                My Website
             </Link>
         </div>
     </div>
@@ -106,6 +106,6 @@ const DeveloperInfo = () => (
 
 const Copyright = () => (
     <span className="text-sm text-gray-400">
-        © 2024 BrightFlow. Todos os direitos reservados.
+        © 2024 BrightFlow. All rights reserved.
     </span>
 );

@@ -21,7 +21,7 @@ export function FileUploadArea({isDragging,
         >
             <UploadIcon />
             <span className="mt-2">
-                {isDragging ? 'Solte o arquivo aqui' : 'Arraste e solte o PDF aqui ou clique para selecionar'}
+                {isDragging ? 'Drop file here' : 'Drag and drop PDF here or click to select'}
             </span>
             <input
                 ref={fileInputRef}
@@ -32,7 +32,7 @@ export function FileUploadArea({isDragging,
                 accept="application/pdf"
                 onChange={(e) => handleFileChange(e.target.files)}
             />
-            <p className="text-xs font-medium text-gray-400 mt-2">Apenas arquivos PDF são permitidos</p>
+            <p className="text-xs font-medium text-gray-400 mt-2">Only PDF files are allowed</p>
         </label>
     </>
 };

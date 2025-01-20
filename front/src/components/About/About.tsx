@@ -52,7 +52,7 @@ const AboutImage = ({ refImagesDiv, isVisibleImagesDiv }: { refImagesDiv: RefObj
                     <div className="py-3 sm:py-4">
                         <ImageCard
                             src="https://i.ibb.co/gFb3ns6/image-1.jpg"
-                            alt="Sobre nós 1"
+                            alt="About us 1"
                             aspectRatio="aspect-[4/3]"
                             hoverColor="rgba(139,92,246,0.2)"
                         />
@@ -60,7 +60,7 @@ const AboutImage = ({ refImagesDiv, isVisibleImagesDiv }: { refImagesDiv: RefObj
                     <div className="py-3 sm:py-4">
                         <ImageCard
                             src="https://i.ibb.co/rfHFq15/image-2.jpg"
-                            alt="Sobre nós 2"
+                            alt="About us 2"
                             aspectRatio="aspect-[4/3]"
                             hoverColor="rgba(0,163,255,0.2)"
                         />
@@ -70,7 +70,7 @@ const AboutImage = ({ refImagesDiv, isVisibleImagesDiv }: { refImagesDiv: RefObj
                     <div className="relative z-10 my-4">
                         <ImageCard
                             src="https://i.ibb.co/9y7nYCD/image-3.jpg"
-                            alt="Sobre nós 3"
+                            alt="About us 3"
                             aspectRatio="aspect-[3/4]"
                             hoverColor="rgba(139,92,246,0.2)"
                         />
@@ -114,22 +114,22 @@ const AboutDescription = ({
     >
         <div className={`mt-10 lg:mt-0 m-6 transition-all duration-700 ${isVisibleTextDiv ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"}`}>
             <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
-                Sobre o BrightFlow
+                About BrightFlow
             </h2>
             <p className="mb-5 text-lg text-white leading-relaxed">
-                O BrightFlow é uma plataforma inovadora desenvolvida para simplificar a gestão de boletos de energia elétrica.
-                Com nossa solução, você tem acesso a um dashboard intuitivo que transforma dados complexos em informações claras e acionáveis.
+                BrightFlow is an innovative platform developed to simplify the management of electricity bills.
+                With our solution, you have access to an intuitive dashboard that transforms complex data into clear and actionable information.
             </p>
             <p className="mb-8 text-lg text-white leading-relaxed">
-                Nossa plataforma oferece análises detalhadas do seu consumo de energia, permitindo um controle mais eficiente dos seus gastos.
-                Com o BrightFlow, você pode monitorar tendências, identificar padrões de consumo e tomar decisões mais inteligentes para otimizar
-                sua eficiência energética.
+                Our platform offers detailed analysis of your energy consumption, allowing for more efficient control of your expenses.
+                With BrightFlow, you can monitor trends, identify consumption patterns, and make smarter decisions to optimize
+                your energy efficiency.
             </p>
             <button
                 onClick={() => router.push('/sign-up')}
                 className="px-8 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
             >
-                Saiba Mais
+                Learn More
             </button>
         </div>
     </div>

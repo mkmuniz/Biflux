@@ -1,15 +1,15 @@
-import { LoginData, SignUpData, ProfileData } from "@/types/forms.types";
+import { LoginDataForm, SignUpDataForm, ProfileDataForm } from "@/types/forms.types";
 import { get, patch, post } from "./request.config";
 
-export async function login(body: LoginData) {
+export async function login(body: LoginDataForm) {
     return post('login', body);
 };
 
-export async function signUp(body: SignUpData) {
+export async function signUp(body: SignUpDataForm) {
     return post('user', body);
 };
 
-export async function updateUserProfile(id: string, body: ProfileData) {
+export async function updateUserProfile(id: string, body: ProfileDataForm) {
     return patch(`user/profile/${id}`, body);
 };
 
@@ -18,5 +18,5 @@ export async function getRefreshToken(body: any) {
 };
 
 export async function fetchUserProfile(id: string) {
-    return get(`user/profile/${id}`);;
+    return get(`user/profile/${id}`);
 };

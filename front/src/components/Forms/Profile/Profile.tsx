@@ -118,6 +118,7 @@ export default function ProfileForm() {
                 name="name"
                 register={register}
                 errors={errors}
+                placeholder="Your Name"
             />
             
             <FormField 
@@ -125,6 +126,7 @@ export default function ProfileForm() {
                 name="email"
                 register={register}
                 errors={errors}
+                placeholder="your@email.com"
             />
             
             <ButtonSubmit

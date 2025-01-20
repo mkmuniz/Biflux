@@ -34,10 +34,10 @@ const CookieConsent = () => {
         
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative">
           <div className="text-gray-300 text-sm md:text-base font-outfit">
-            Nós utilizamos cookies para melhorar sua experiência em nosso site. 
-            Ao continuar navegando, você concorda com nossa{' '}
-            <a href="/politica-privacidade" className="bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent hover:underline">
-              Política de Privacidade
+            We use cookies to improve your experience on our website.
+            By continuing to browse, you agree to our{' '}
+            <a href="/privacy-policy" className="bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent hover:underline">
+              Privacy Policy
             </a>
             .
           </div>
@@ -46,13 +46,13 @@ const CookieConsent = () => {
               onClick={() => handleCookieChoice('declined')}
               className="px-4 py-2 text-sm font-medium text-gray-300 border border-gray-700 rounded-xl hover:bg-gray-800 transition-all duration-300"
             >
-              Recusar
+              Decline
             </button>
             <button
               onClick={() => handleCookieChoice('accepted')}
               className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
             >
-              Aceitar
+              Accept
             </button>
           </div>
         </div>
@@ -61,4 +61,4 @@ const CookieConsent = () => {
   );
 };
 
-export default CookieConsent; 
+export default CookieConsent;

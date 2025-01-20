@@ -140,8 +140,8 @@ const Description = ({
         className={`text-xl text-gray-400 max-w-lg mx-auto leading-relaxed transition-all duration-700 
         ${isVisibleHeaderSubtext ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
     >
-        Transforme a gestão dos seus boletos em uma experiência moderna e eficiente.
-        Monitore seu consumo de energia de forma inteligente.
+        Transform your bill management into a modern and efficient experience.
+        Monitor your energy consumption intelligently.
     </p>
 );
 
@@ -157,7 +157,7 @@ const CallToAction = ({
             onClick={() => router.push('/sign-up')}
             className="px-8 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] text-white font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
         >
-            Comece Agora
+            Start Now
         </button>
     </div>
 );

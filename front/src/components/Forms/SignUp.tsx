@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useState, useEffect, useRef } from 'react';
 
 import { useRouter } from 'next/navigation';
@@ -15,38 +14,31 @@ import { EyeIcon, EyeSlashIcon, CameraIcon, ChevronDownIcon } from '@heroicons/r
 
 import PopUpError from '../PopUps/Error';
 import PopUpSuccess from '../PopUps/Success';
-import LoadingSpinner from '../Loading/LoadingSpinner';
 
 import ReCAPTCHA from 'react-google-recaptcha';
+import { handleImageChange } from '@/utils/image.utils';
 
-interface SignUpData {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    profilePicture: string;
-    termsAccepted: boolean;
-}
-
-interface PasswordStrength {
-    score: number;
-    feedback: string;
-}
+import { SignUpDataForm, PasswordStrength } from '@/types/forms.types';
+import SubmitButton from '../Buttons/Submit';
 
 export default function SignUpForm() {
-    const [showPassword, setStatusPassword] = useState(true);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(true);
     const [errorSignUp, setError] = useState<string>('');
     const [successSignUp, setSuccess] = useState<string>('');
-    const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({ score: 0, feedback: '' });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [preview, setPreview] = useState("/assets/icons/profile-default-placeholder.png");
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [selectedFile, setSelectedFile] = useState<string | null>(null);
-    const [isTermsOpen, setIsTermsOpen] = useState(false);
-    const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpData>();
+    const [showPassword, setStatusPassword] = useState(true);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+    const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({ score: 0, feedback: '' });
+
+    const [selectedFile, setSelectedFile] = useState<string | null>(null);
+    const [preview, setPreview] = useState("/assets/icons/profile-default-placeholder.png");
+
+    const [isTermsOpen, setIsTermsOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpDataForm>();
     const router = useRouter();
 
     const password = watch('password');
@@ -58,25 +50,8 @@ export default function SignUpForm() {
         }
     }, [password]);
 
-    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-
-        if (file) {
-            if (file.size > 5000 * 1024) {
-                setError('Image size should not exceed 5mb');
-                return;
-            }
-
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                const base64String = reader.result as string;
-                setSelectedFile(base64String);
-                setPreview(base64String);
-            };
-
-            reader.readAsDataURL(file);
-        }
+    const handleImageChangeWrapper = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleImageChange(e, setError, setSelectedFile, setPreview);
     };
 
     const evaluatePasswordStrength = (password: string): PasswordStrength => {
@@ -151,14 +126,10 @@ export default function SignUpForm() {
 
     const togglePasswordVisibility = (field: 'password' | 'confirm') => (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (field === 'password') {
-            setStatusPassword(prev => !prev);
-        } else {
-            setShowConfirmPassword(prev => !prev);
-        }
+        field === 'password' ? setStatusPassword(prev => !prev) : setShowConfirmPassword(prev => !prev);
     };
 
-    const handleSignUp: SubmitHandler<SignUpData> = async (data) => {
+    const handleSignUp: SubmitHandler<SignUpDataForm> = async (data) => {
         if (passwordStrength.score < 3) {
             setError('Password needs to be stronger');
             return;
@@ -170,18 +141,17 @@ export default function SignUpForm() {
         }
 
         if (!data.termsAccepted) {
-            setError('Você precisa aceitar os termos para criar uma conta');
+            setError('You need to accept the terms to create an account');
             return;
         }
 
         try {
             setIsSubmitting(true);
 
-            // Executa o reCAPTCHA
             const recaptchaToken = await recaptchaRef.current?.executeAsync();
             recaptchaRef.current?.reset();
             if (!recaptchaToken) {
-                setError('Falha na verificação de segurança. Por favor, tente novamente.');
+                setError('Security verification failed. Please try again.');
                 return;
             }
 
@@ -194,7 +164,7 @@ export default function SignUpForm() {
                 });
             }
         } catch (error) {
-            setError('Falha ao criar conta. Por favor, tente novamente.');
+            setError('Failed to create account. Please try again.');
             setIsSubmitting(false);
         }
     };
@@ -208,7 +178,7 @@ export default function SignUpForm() {
                 <div className="bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-zinc-800 p-8 space-y-6">
                     <div className="text-center space-y-2">
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent">
-                            Criar Conta
+                            Create Account
                         </h1>
                     </div>
 
@@ -230,12 +200,12 @@ export default function SignUpForm() {
                                     <CameraIcon className="w-8 h-8 text-white" />
                                 </div>
                             </div>
-                            <span className="text-gray-400 text-sm">Envie uma foto</span>
+                            <span className="text-gray-400 text-sm">Upload a photo</span>
                             <input
                                 type="file"
                                 accept="image/*"
                                 {...register("profilePicture")}
-                                onChange={handleImageChange}
+                                onChange={handleImageChangeWrapper}
                                 ref={fileInputRef}
                                 className="hidden"
                             />
@@ -243,12 +213,12 @@ export default function SignUpForm() {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Nome Completo
+                                Full Name
                             </label>
                             <input
-                                {...register("name", { required: 'Nome é obrigatório' })}
+                                {...register("name", { required: 'Name is required' })}
                                 className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
-                                placeholder="Seu nome completo"
+                                placeholder="Your full name"
                             />
                             {errors.name && (
                                 <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
@@ -261,14 +231,14 @@ export default function SignUpForm() {
                             </label>
                             <input
                                 {...register("email", {
-                                    required: 'Email é obrigatório',
+                                    required: 'Email is required',
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Email inválido"
+                                        message: "Invalid email"
                                     }
                                 })}
                                 className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
-                                placeholder="seu@email.com"
+                                placeholder="your@email.com"
                             />
                             {errors.email && (
                                 <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
@@ -277,11 +247,11 @@ export default function SignUpForm() {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Senha
+                                Password
                             </label>
                             <div className="relative">
                                 <input
-                                    {...register("password", { required: 'Senha é obrigatória' })}
+                                    {...register("password", { required: 'Password is required' })}
                                     type={showPassword ? "password" : "text"}
                                     className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
                                     placeholder="••••••••"
@@ -312,13 +282,13 @@ export default function SignUpForm() {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Confirmar Senha
+                                Confirm Password
                             </label>
                             <div className="relative">
                                 <input
                                     {...register("confirmPassword", {
-                                        required: 'Por favor, confirme sua senha',
-                                        validate: value => value === password || "As senhas não coincidem"
+                                        required: 'Please confirm your password',
+                                        validate: value => value === password || "Passwords do not match"
                                     })}
                                     type={showConfirmPassword ? "password" : "text"}
                                     className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700 text-black placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors"
@@ -343,7 +313,7 @@ export default function SignUpForm() {
                                 className="flex items-center justify-between cursor-pointer group"
                             >
                                 <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
-                                    Ao criar uma conta, você concorda com a coleta e processamento dos seguintes dados:
+                                    By creating an account, you agree to the collection and processing of the following data:
                                 </p>
                                 <ChevronDownIcon 
                                     className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isTermsOpen ? 'rotate-180' : ''}`}
@@ -352,15 +322,15 @@ export default function SignUpForm() {
                             
                             <div className={`overflow-hidden transition-all duration-200 ease-in-out ${isTermsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                                 <ul className="text-sm text-gray-400 list-disc pl-5 space-y-2 pt-4">
-                                    <li>Dados de cadastro: nome completo, e-mail e foto de perfil</li>
-                                    <li>Dados extraídos dos boletos de energia:
+                                    <li>Registration data: full name, email, and profile picture</li>
+                                    <li>Data extracted from energy bills:
                                         <ul className="list-disc pl-5 mt-1 space-y-1">
-                                            <li>Número da instalação</li>
-                                            <li>Mês de referência</li>
-                                            <li>Consumo de energia elétrica (kWh e valores)</li>
-                                            <li>Energia SCEE sem ICMS (kWh e valores)</li>
-                                            <li>Energia Compensada GD I (kWh e valores)</li>
-                                            <li>Contribuição de Iluminação Pública Municipal</li>
+                                            <li>Installation number</li>
+                                            <li>Reference month</li>
+                                            <li>Electricity consumption (kWh and values)</li>
+                                            <li>SCEE Energy without ICMS (kWh and values)</li>
+                                            <li>GD I Compensated Energy (kWh and values)</li>
+                                            <li>Municipal Public Lighting Contribution</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -371,14 +341,14 @@ export default function SignUpForm() {
                                     type="checkbox"
                                     id="termsAccepted"
                                     {...register("termsAccepted", { 
-                                        required: 'Você precisa aceitar os termos para criar uma conta' 
+                                        required: 'You need to accept the terms to create an account' 
                                     })}
                                     className="mt-1"
                                 />
                                 <label htmlFor="termsAccepted" className="text-sm text-gray-300">
-                                    Concordo com a coleta e processamento dos dados acima para fins de análise e gestão do consumo de energia, conforme detalhado em nossa{' '}
-                                    <Link href="/politica-privacidade" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors">
-                                        Política de Privacidade
+                                    I agree to the collection and processing of the above data for energy consumption analysis and management purposes, as detailed in our{' '}
+                                    <Link href="/privacy-policy" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors">
+                                        Privacy Policy
                                     </Link>
                                 </label>
                             </div>
@@ -394,27 +364,15 @@ export default function SignUpForm() {
                                 sitekey={String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY)}
                                 className="invisible"
                             />
-                            <button
-                                type="submit"
-                                disabled={isSubmitting || passwordStrength.score < 3}
-                                className={`w-full py-3 px-4 rounded-xl text-white font-medium bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF]
-                                    ${isSubmitting || passwordStrength.score < 3 ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-[1.02]'} 
-                                    transition-all duration-200 flex items-center justify-center`}
-                            >
-                                {isSubmitting ? (
-                                    <>
-                                        <LoadingSpinner />
-                                    </>
-                                ) : (
-                                    'Criar Conta'
-                                )}
-                            </button>
+                            <SubmitButton isDisabled={isSubmitting || passwordStrength.score < 3} isPending={isSubmitting}>
+                                Create Account
+                            </SubmitButton>
                         </div>
 
                         <p className="text-center text-sm text-gray-400">
-                            Já tem uma conta?{' '}
+                            Already have an account?{' '}
                             <Link href="/login" className="text-[#8B5CF6] hover:text-[#00A3FF] transition-colors font-medium">
-                                Entrar
+                                Log In
                             </Link>
                         </p>
                     </form>
