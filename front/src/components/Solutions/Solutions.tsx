@@ -21,7 +21,7 @@ export default function Solutions() {
                 <div id="solutions" className="min-h-screen flex items-center">
                     <div className="w-full">
                         <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-[#8B5CF6] to-[#00A3FF] bg-clip-text text-transparent text-center">
-                            Nossas Soluções
+                            Our Solutions
                         </h2>
                         
                         <div ref={refSolutions} className="grid sm:grid-cols-3 gap-8">
@@ -34,7 +34,7 @@ export default function Solutions() {
                                     Upload
                                 </h3>
                                 <p className="text-gray-400 leading-relaxed">
-                                    Armazene seus boletos de forma segura e organizada em nossa plataforma.
+                                    Store your bank slips securely and organized in our platform.
                                 </p>
                             </div>
 
@@ -44,10 +44,10 @@ export default function Solutions() {
                                     <CircleStackIcon className="w-12 h-12 text-white" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-4">
-                                    Extração
+                                    Extraction
                                 </h3>
                                 <p className="text-gray-400 leading-relaxed">
-                                    Extraímos automaticamente todas as informações importantes dos seus boletos.
+                                    We automatically extract all important information from your bank slips.
                                 </p>
                             </div>
 
@@ -60,7 +60,7 @@ export default function Solutions() {
                                     Dashboard
                                 </h3>
                                 <p className="text-gray-400 leading-relaxed">
-                                    Visualize seus dados em um dashboard personalizado e intuitivo.
+                                    View your data in a personalized and intuitive dashboard.
                                 </p>
                             </div>
                         </div>
