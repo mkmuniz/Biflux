@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ModalConfirmDeleteProps } from '../../../types/modal.types';
 import { ModalContent } from '../ModalContent';
 import { ModalActions } from '../ModalActions';
@@ -40,13 +41,13 @@ const Backdrop = ({ handleOpen }: { handleOpen: () => void }) => (
 
 const ModalHeader = () => (
     <h2 className="text-lg font-semibold text-gray-900">
-        Confirmação de Exclusão
+        Delete Confirmation
     </h2>
 );
 
 const ModalDescription = () => (
     <p className="mt-2 text-sm text-gray-600">
-        Tem certeza que deseja excluir o boleto?
+        Are you sure you want to delete this bill?
     </p>
 );
 
@@ -63,7 +64,7 @@ const DeleteButton = ({
         onClick={onConfirm}
         disabled={isDeleting}
     >
-        {isDeleting ? 'Excluindo...' : 'Excluir'}
+        {isDeleting ? 'Deleting...' : 'Delete'}
     </button>
 );
 
@@ -73,6 +74,6 @@ const CancelButton = ({ handleOpen }: { handleOpen: () => void }) => (
         className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none"
         onClick={handleOpen}
     >
-        Cancelar
+        Cancel
     </button>
-); 
+);
