@@ -51,13 +51,13 @@ You can access the production version through this [link](https://brightflow.ver
 
 ### Authentication
 - `POST /auth/login` - User login
-- `POST /auth/register` - New user registration
 - `POST /auth/refresh` - Access token refresh
 
 ### Bills
-- `GET /billets` - List all bills
-- `POST /billets` - Upload a new bill
-- `GET /billets/:id` - Get details of a specific bill
+- `GET /billet` - List all bills
+- `GET /billet/download/:filename` - Get details of a specific bill
+- `POST /billet` - Upload a new bill
+- `DELETE /billet/:id` - Delete a specific bill
 
 ### User
 - `GET /user/:id` - Fetch a user by their ID
@@ -126,6 +126,7 @@ PORT=4000
 ```env
 NEXT_PUBLIC_API_URL="http://localhost:4000"
 NEXTAUTH_SECRET="your-nextauth-secret"
+
 NEXTAUTH_URL="http://localhost:3000"
 NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY="your-google-recaptcha-site-key"
 ```
